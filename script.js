@@ -71,11 +71,13 @@ document.addEventListener('visibilitychange',
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["frontend development", "backend development", "web designing", "android development", "Full Stack Web Development"],
+    strings: ["Video Editor", "Photographer", "Web Developer"],
     loop: true,
-    typeSpeed: 60,
-    backSpeed: 30,
-    backDelay: 500,
+    typeSpeed: 120,      // much slower typing speed
+    backSpeed: 60,       // much slower backspacing
+    backDelay: 3000,     // wait longer before erasing
+    startDelay: 1000,    // longer delay before starting
+    smartBackspace: true // smooth backspacing
 });
 // <!-- typed js effect ends -->
 
@@ -249,3 +251,6 @@ srtop.reveal('.experience .timeline .container', { interval: 400 });
 /* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
+
+// Typing animation for hero section
+// Removed duplicate Typed.js initialization for smooth effect
