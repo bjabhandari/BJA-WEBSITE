@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>silver plate Palace Events - Your Premier Venue</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll on small screens */
+        }
+
+        /* Custom styles for hero section background */
+        .hero-background {
+            background-image: url('https://placehold.co/1920x1080/4A232A/FCE2C2?text=Elegant+Party+Palace');
+            /* Placeholder image of a palace/event venue */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Dark overlay for hero section */
+        .hero-overlay {
+            background-color: rgba(5, 111, 62, 0.7);
+        }
+
+        /* Gradient for buttons - Orange branding */
+        .btn-primary {
+            background: linear-gradient(to right, #F97316, #EA580C);
+            /* Orange-600 to Orange-700 */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            /* Slightly brighter on hover */
+        }
+
+        /* Card hover effect */
+        .service-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Portfolio card specific styles */
+        .portfolio-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            /* rounded-xl */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .portfolio-card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            /* Changed to column for better vertical alignment */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            text-align: center;
+            /* Center text within overlay */
+            padding: 1rem;
+            /* Added padding */
+        }
+
+        .portfolio-card:hover .overlay {
+            opacity: 1;
+        }
+
+        .portfolio-card img {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md p-4 fixed w-full z-50 rounded-b-lg">
+        <nav class="container mx-auto flex items-center justify-between flex-wrap">
+            <!-- Logo -->
+            <div class="flex items-center flex-shrink-0 text-gray-800 mr-6">
+                <!-- Added logo image and adjusted text size -->
+                <img src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/417924723_122105581418170519_2710099208365173393_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=LofPlajzUMgQ7kNvwEFEPSD&_nc_oc=Adl3V415Vl8nUDGb7T1ASqtzVDqZIn6Li_LpP7A8YuPH5oXZXFe-VxNrxonKFRI8TkI&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=rw1xlEYicCxPVBIfoEjRiA&oh=00_AfPAqoz1tzwJ7JVacmkkDHMHHqSCMet0k7rUDrmEI3icCQ&oe=685ADC94"
+                    alt="Silver Plate Pvt. Ltd. Logo" class="h-16 mr-2">
+
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle"
+                    class="flex items-center px-3 py-2 border rounded text-gray-600 border-gray-400 hover:text-gray-800 hover:border-gray-800">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <title>Menu</title>
+                        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <div id="nav-content"
+                class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0">
+                <div class="text-sm lg:flex-grow lg:flex lg:justify-end">
+                    <a href="#home"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Home
+                    </a>
+                    <a href="#about"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        About Us
+                    </a>
+                    <a href="#services"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Our Offerings
+                    </a>
+                    <a href="#portfolio"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Event Gallery
+                    </a>
+                    <a href="#contact"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home"
+        class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="container mx-auto text-center relative z-10 px-4">
+            <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-down">
+                Celebrate Your Special Moments
+            </h1>
+            <p class="text-lg lg:text-xl mb-8 opacity-90 animate-fade-in-up">
+                Your premier destination for weddings, corporate events, and unforgettable celebrations.
+            </p>
+            <a href="#services"
+                class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block animate-zoom-in">
+                Explore Our Venues
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
+        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="lg:order-2">
+                <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/473127738_1015771223693046_618767132828061455_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=MJYCR0eoh_sQ7kNvwFXg1kp&_nc_oc=AdlccVcv4hFf1HSCguJjwnZLTYF0SxnRtIIUu2ql8RU4YTBoNhkTm6gazewyMLI2CTI&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=OF9mXNxY8o19dRRirBmeJw&oh=00_AfeRgWtW5ndDF2-x1H7JCsZh67eryyWN64fmOfWKNOK7zA&oe=68F56CCD"
+                    alt="Grand Ballroom" class="rounded-lg shadow-xl w-full h-auto">
+            </div>
+            <div class="lg:order-1">
+                <h2
+                    class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
+                    About Our Palace
+                </h2>
+                <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                    Grand Palace Events is dedicated to providing an exquisite setting for every occasion. With
+                    luxurious halls, state-of-the-art facilities, and a team of seasoned event professionals, we ensure
+                    every detail of your event is handled with precision and care.
+                </p>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    From intimate gatherings to grand galas, our versatile spaces can be customized to bring your vision
+                    to life. We pride ourselves on creating seamless, memorable experiences for all our guests.
+                </p>
+                <ul class="mt-6 space-y-3 text-gray-700">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Luxurious & Spacious Venues
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Dedicated Event Planners
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Customizable Event Packages
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 lg:py-24 bg-gray-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-12 border-b-4 border-orange-500 pb-2 inline-block">
+                Our Offerings
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1: Venue Rental -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-building text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Venue Rental</h3>
+                    <p class="text-gray-600">
+                        Choose from our array of elegant halls and outdoor spaces, perfect for events of any size and
+                        style.
+                    </p>
+                </div>
+                <!-- Service Card 2: Event Planning -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-calendar-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Event Planning</h3>
+                    <p class="text-gray-600">
+                        Our expert planners assist with every detail, from theme conceptualization to decor and
+                        logistics.
+                    </p>
+                </div>
+                <!-- Service Card 3: Catering Services -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-utensils text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Catering Services</h3>
+                    <p class="text-gray-600">
+                        Savor exquisite culinary experiences with our customizable menus, crafted by top chefs.
+                    </p>
+                </div>
+                <!-- Service Card 4: Entertainment Packages -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-microphone-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Entertainment Packages</h3>
+                    <p class="text-gray-600">
+                        Elevate your event with our curated entertainment options, including DJs, live bands, and
+                        performers.
+                    </p>
+                </div>
+                <!-- Service Card 5: Photography & Videography -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-camera text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Photography & Videography</h3>
+                    <p class="text-gray-600">
+                        Capture every precious moment with our professional photo and video services.
+                    </p>
+                </div>
+                <!-- Service Card 6: Valet & Security -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-shield-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Valet & Security</h3>
+                    <p class="text-gray-600">
+                        Ensure a smooth and safe experience for your guests with our dedicated valet and security teams.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
+        <div class="container mx-auto px-4 text-center">
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-12 border-b-4 border-orange-500 pb-2 inline-block">
+                Our Event Gallery
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://shaadiwish.com/blog/wp-content/uploads/2021/06/reception-decor-ideas-29.jpg"
+                        alt="Wedding Reception" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Elegant Wedding Reception</h3>
+                        <p class="text-sm">Weddings, Grand Ballroom</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://www.dadshop.com.au/blog/wp-content/uploads/2023/03/why-we-celebrate-birthdays.jpg"
+                        alt="Birthday Party" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Vibrant Birthday Celebration</h3>
+                        <p class="text-sm">Birthday Parties, Custom Themes</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://s45498.pcdn.co/wp-content/uploads/2024/01/OBL14_0322.jpg" alt="Corporate Gala"
+                        class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Sophisticated Corporate Gala</h3>
+                        <p class="text-sm">Corporate Events, Conference Hall</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://stpetersburgfoodies.com/wp-content/uploads/2018/01/romantic-dinner.jpg"
+                        alt="Anniversary" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Romantic Anniversary Dinner</h3>
+                        <p class="text-sm">Anniversaries, Private Dining</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://img.freepik.com/free-photo/realistic-people-celebrating-gudi-padwa_23-2151248530.jpg"
+                        alt="Cultural Event" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Grand Cultural Celebration</h3>
+                        <p class="text-sm">Cultural Events, Open Air Venue</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://cdn.prod.website-files.com/64ad227a3e66387fc5d89320/661f6111486dd7b78954b200_product-launch-events-management-service.png"
+                        alt="Product Launch" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Successful Product Launch</h3>
+                        <p class="text-sm">Business Events, Expo Hall</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-orange-700 text-white py-16 lg:py-20 rounded-t-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Plan Your Next Event?</h2>
+            <p class="text-lg opacity-90 mb-8">
+                Let us help you create an unforgettable experience tailored to your dreams.
+            </p>
+            <a href="#contact"
+                class="bg-white text-orange-700 font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block">
+                Request a Booking
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="py-16 lg:py-24 bg-gray-100 rounded-t-lg">
+        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <h2
+                    class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
+                    Contact Us
+                </h2>
+                <p class="text-gray-700 text-lg mb-6">
+                    Have a question or want to book our venue? Reach out to us directly.
+                </p>
+                <ul class="space-y-4 text-gray-700 text-lg">
+                    <li class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-orange-500 mr-4 text-xl"></i>
+                        Grand Event Palace, 456 Celebration Ave, Party City, State, Country
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-phone-alt text-orange-500 mr-4 text-xl"></i>
+                        +977 98XXXXXXXX (Nepal)
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-envelope text-orange-500 mr-4 text-xl"></i>
+                        events@grandpalace.com
+                    </li>
+                </ul>
+                <div class="mt-8">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Follow Us</h3>
+                    <div class="flex space-x-6">
+                        <a href="https://www.facebook.com/silverplatepartypalace"
+                            class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-facebook-f text-3xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-twitter text-3xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-linkedin-in text-3xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-instagram text-3xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <form>
+                    <div class="mb-6">
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                        <input type="text" id="name" name="name"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="Your Name">
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" id="email" name="email"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="your@example.com">
+                    </div>
+                    <div class="mb-6">
+                        <label for="event_type" class="block text-gray-700 text-sm font-bold mb-2">Type of Event</label>
+                        <input type="text" id="event_type" name="event_type"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="e.g., Wedding, Birthday, Corporate">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message"
+                            class="block text-gray-700 text-sm font-bold mb-2">Message/Requirements</label>
+                        <textarea id="message" name="message" rows="6"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="Tell us about your event"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 w-full">
+                        Submit Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 rounded-t-lg shadow-inner">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4">&copy; 2025 Bijaya bhandari. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a>
+            </div>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-facebook-f text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-twitter text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-linkedin-in text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.getElementById('nav-toggle').onclick = function () {
+            document.getElementById('nav-content').classList.toggle('hidden');
+        }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu after clicking a link
+                if (window.innerWidth < 1024) { // Only for smaller screens
+                    document.getElementById('nav-content').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
