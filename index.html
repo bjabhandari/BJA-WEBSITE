@@ -3,300 +3,575 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords"
-        content="Bijaya Bhandari, portfolio, full stack developer, personal portfolio, video editor, photographer">
-    <meta name="description"
-        content="Welcome to the portfolio of Bijaya Bhandari, a skilled Video Editor, Photographer, and Web Developer based in Lekhnath, Nepal.">
+    <title>Bijaya Bhandari - Your Premier Editor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "WmiOu2pgdWsAGhtEQ",
+            });
+        })();
+    </script>
+    <script src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll on small screens */
+        }
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="styles.css">
+        /* Custom styles for hero section background */
+        .hero-background {
+            background-image: url('https://t4.ftcdn.net/jpg/04/65/59/17/360_F_465591784_hHuNuZbaxDmE9yiAxvalifOnxXAz2GXO.jpg');
+            /* Placeholder image of a palace/event venue */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Favicon -->
-    <link id='favicon' rel="shortcut icon" href="https://placehold.co/32x32/333333/FFFFFF?text=BB" type="image/x-icon">
 
-    <title>Portfolio | Bijaya Bhandari</title>
+
+        /* Gradient for buttons - Orange branding */
+        .btn-primary {
+            background: linear-gradient(to right, #ff3c00, #EA580C);
+            /* Orange-600 to Orange-700 */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            /* Slightly brighter on hover */
+        }
+
+        /* Card hover effect */
+        .service-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+        }
+
+        /* Portfolio card specific styles */
+        .portfolio-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            /* rounded-xl */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.25);
+        }
+
+        .portfolio-card .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            /* Changed to column for better vertical alignment */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            text-align: center;
+            /* Center text within overlay */
+            padding: 1rem;
+            /* Added padding */
+        }
+
+        .portfolio-card:hover .overlay {
+            opacity: 1;
+        }
+
+        .portfolio-card img {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-gray-100 text-gray-800">
 
     <!-- Header Section -->
-    <header>
-        <a href="/" class="logo"><i class="fa-solid fa-code"></i> Bijaya Bhandari</a>
-        <div id="menu-btn" class="fas fa-bars"></div>
-        <nav class="navbar">
-            <ul>
-                <li><a class="active" href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#experience">Experience</a></li>
-            </ul>
+    <header class="bg-white shadow-md p-4 fixed w-full z-50 rounded-b-lg">
+        <nav class="container mx-auto flex items-center justify-between flex-wrap">
+            <!-- Logo -->
+            <div class="flex items-center flex-shrink-0 text-gray-800 mr-6">
+                <!-- Added logo image and adjusted text size -->
+                <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/566192831_122134563092953303_3248015248058248586_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2Efr0RK0jccQ7kNvwHtbv-r&_nc_oc=AdkZcGs7FHHliraYcT-dpvkqUy4sfm70jDKG_98TPgXXchoSBiFJwaFKfddLJNY8EbE&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=KCUHQLpdvYirHbrcfrkAQQ&oh=00_AfcRIUZTP6gsvzXNXUe5CUHKhm_ebBp23Qws9HdRFTyXxg&oe=68F5B78A"
+                    alt="bijaya-bhandari" class="h-16 mr-2">
+
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle"
+                    class="flex items-center px-3 py-2 border rounded text-gray-600 border-gray-400 hover:text-gray-800 hover:border-gray-800">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <title>Menu</title>
+                        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <div id="nav-content"
+                class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0">
+                <div class="text-sm lg:flex-grow lg:flex lg:justify-end">
+                    <a href="#home"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Home
+                    </a>
+                    <a href="#about"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        About Us
+                    </a>
+                    <a href="#services"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Our Offerings
+                    </a>
+                    <a href="#portfolio"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Event Gallery
+                    </a>
+                    <a href="#contact"
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 py-2 px-3 rounded-md hover:bg-gray-100">
+                        Contact
+                    </a>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="home" id="home">
-            <div id="particles-js"></div>
-            <div class="content">
-                <h2>Hi There,<br /> I'm <span>Bijaya Bhandari</span></h2>
-                <p>I am <span class="typing-text"></span></p>
-                <a href="#about" class="btn">About Me <i class="fas fa-arrow-circle-down"></i></a>
-                <div class="socials">
-                    <ul class="social-icons">
-                        <li><a class="facebook" aria-label="Facebook"
-                                href="https://www.facebook.com/bijaya.bhandari.9404" target="_blank"><i
-                                    class="fab fa-facebook"></i></a></li>
-                        <li><a class="instagram" aria-label="Instagram"
-                                href="https://www.instagram.com/bijaya.bhandari.9404/" target="_blank"><i
-                                    class="fab fa-instagram"></i></a></li>
-                        <li><a class="linkedin" aria-label="LinkedIn" href="https://www.linkedin.com/in/bijaya-bhandari"
-                                target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a class="twitter" aria-label="Twitter" href="https://x.com/BijayaBhan93593"
-                                target="_blank"><i class="fab fa-twitter"></i></a></li>
-                        <li><a class="github" aria-label="GitHub" href="https://github.com/bjabhandari"
-                                target="_blank"><i class="fab fa-github"></i></a></li>
-                        <li><a class="youtube" aria-label="YouTube" href="https://www.youtube.com/@bja_gaming-yt"
-                                target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="image">
-                <img draggable="false" class="tilt"
-                    src="https://scontent.fktm21-2.fna.fbcdn.net/v/t39.30808-6/472798899_1014523920484443_8701053559124082790_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeE1E8z1nwy6lcVI5WzaJEM7O-Hye6sniBE74fJ7qyeIEah-ZnPdmwTHU0-KAPne7maZliK88vO-qbBg-ucZ3UrA&_nc_ohc=yq4VE9zyaEIQ7kNvwH7Cf9i&_nc_oc=AdmQUSSjDLV0w8zMgNv64SO1wY8jCxYXrp2Qne55y-AoCPVN_A7y_QmzSKiV6dug1nLdnQQ0BmUiZhqOwaaQdvvI&_nc_zt=23&_nc_ht=scontent.fktm21-2.fna&_nc_gid=1GWXxIWE3XDmJBJK9bUNig&oh=00_Aff3E2o4sXqsuG9NO465FVOoo89UaXbOZ95k6mOvXda-hQ&oe=68EBD54C"
-                    alt="Bijaya Bhandari">
-            </div>
-        </section>
+    <!-- Hero Section -->
+    <section id="home"
+        class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="container mx-auto text-center relative z-10 px-4">
+            <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-down">
+                Bring Your Ideas to Life Beautifully Edited
+            </h1>
+            <p class="text-lg lg:text-xl mb-8 opacity-90 animate-fade-in-up">
+                Your premier destination for weddings, corporate events, and unforgettable celebrations.
+            </p>
+            <a href="#services"
+                class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block animate-zoom-in">
+                Explore Services Priceing
+            </a>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section class="about" id="about">
-            <h2 class="heading"><i class="fas fa-user-alt"></i> About <span>Me</span></h2>
-            <div class="row">
-                <div class="image">
-                    <img draggable="false" class="tilt"
-                        src="https://miro.medium.com/v2/resize:fit:1400/0*qKaI6a9c0mZi5P1P.jpeg" alt="About Me Image">
-                </div>
-                <div class="content">
-                    <h3>I'm Bijaya Bhandari</h3>
-                    <!-- <span class="tag">Video Editor | Photographer | Web Developer</span> -->
-                    <p>A passionate and skilled professional with 1 year of experience in video editing for ads and
-                        news. Proficient in CapCut, Premiere Pro, and Figma. Currently enhancing visual stories at
-                        Silver Plate Party Palace and White House Party Palace in Pokhara.</p>
-                    <div class="box-container">
-                        <div class="box">
-                            <p><span>Age:</span> 21</p>
-                            <p><span>Phone:</span> +977 9824168577</p>
-                        </div>
-                        <div class="box">
-                            <p><span>Email:</span> bijayabhandaari515@gmail.com</p>
-                            <p><span>Location:</span> Pokhara-17, Birauta, Nepal</p>
-                        </div>
-                    </div>
-                    <div class="resumebtn">
-                        <a href="#" target="_blank" class="btn">Resume <i class="fas fa-chevron-right"></i></a>
-                    </div>
-                </div>
+    <!-- About Us Section -->
+    <section id="about" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
+        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="lg:order-2">
+                <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/510234479_2837585796424748_5963792719615171358_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=94e2a3&_nc_ohc=8XRLqWl5rEcQ7kNvwGw83V7&_nc_oc=AdkPPv2aPjsBcqMZE1J5ErjHQizWC2oUC-neTAc5_1-W3UmP4GfEDRHRBjMLtfl-xTQ&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=FMs7cbr6e4kPp98Uys32Nw&oh=00_Affrw-YjG8sZ1eyA8RhLraad60IPY-sKBaLKtJUFHBgSCg&oe=68F5871A"
+                    alt="Grand Ballroom" class="rounded-lg shadow-xl w-full h-auto">
             </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section class="skills" id="skills">
-            <h2 class="heading"><i class="fas fa-laptop-code"></i> Skills & <span>Abilities</span></h2>
-            <div class="container">
-                <div class="row" id="skillsContainer">
-                    <!-- Skill items will be dynamically loaded or can be hardcoded here -->
-                    <div class="bar">
-                        <div class="info"><img src="https://placehold.co/50x50/E36001/FFFFFF?text=CP"
-                                alt="Capcut"><span>davinci resolve</span></div>
-                    </div>
-                    <div class="bar">
-                        <div class="info"><img src="https://placehold.co/50x50/F09601/FFFFFF?text=AM"
-                                alt="Alight Motion"><span>Alight Motion</span></div>
-                    </div>
-                    <div class="bar">
-                        <div class="info"><img src="https://placehold.co/50x50/A259FF/FFFFFF?text=FG"
-                                alt="Figma"><span>Figma</span></div>
-                    </div>
-                    <div class="bar">
-                        <div class="info"><img src="https://placehold.co/50x50/E44D26/FFFFFF?text=H5"
-                                alt="HTML5"><span>Coding</span></div>
-                    </div>
-                    <div class="bar">
-                        <div class="info"><img src="https://placehold.co/50x50/1572B6/FFFFFF?text=C3"
-                                alt="CSS3"><span>Marketing</div>
-                    </div>
-                    <div class="bar">
-                        <div class="info"><img src="https://placehold.co/50x50/F0DB4F/FFFFFF?text=JS"
-                                alt="JavaScript"><span>Photography</span></div>
-                    </div>
-                    <div class="bar">
-                        <div class="info"><img src="https://placehold.co/50x50/777BB4/FFFFFF?text=PHP"
-                                alt="PHP"><span>Searching Jobs</span></div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section class="education" id="education">
-            <h1 class="heading"><i class="fas fa-graduation-cap"></i> My <span>Education</span></h1>
-            <p class="quote">Education is not the learning of facts, but the training of the mind to think.</p>
-            <div class="box-container">
-                <div class="box">
-                    <div class="image"><img draggable="false" src="https://placehold.co/300x200/333/FFF?text=College"
-                            alt="K.N.P.G. College"></div>
-                    <div class="content">
-                        <h3>B.Com. | M.Com.</h3>
-                        <p>K.N. Gov. P.G. College, Gyanpur</p>
-                        <h4>2018 - 2023 | Completed</h4>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="image"><img draggable="false" src="https://placehold.co/300x200/333/FFF?text=School"
-                            alt="National Inter College"></div>
-                    <div class="content">
-                        <h3>Intermediate</h3>
-                        <p>Shri Indra Bahadur Singh National Inter College</p>
-                        <h4>2016 - 2018 | Completed</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Work Project Section -->
-        <section class="work" id="work">
-            <h2 class="heading"><i class="fas fa-laptop-code"></i> Projects <span>Made</span></h2>
-            <div class="box-container">
-                <div class="box tilt">
-                    <img draggable="false" src="https://placehold.co/400x300/555/FFF?text=Project+1"
-                        alt="Portfolio Project">
-                    <div class="content">
-                        <div class="tag">
-                            <h3>Portfolio Website</h3>
-                        </div>
-                        <div class="desc">
-                            <p>My personal portfolio to showcase my skills and projects. You're looking at it!</p>
-                            <div class="btns">
-                                <a href="#" class="btn"><i class="fas fa-eye"></i> View</a>
-                                <a href="https://github.com/bjabhandari" class="btn" target="_blank">Code <i
-                                        class="fas fa-code"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more project boxes here -->
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section class="experience" id="experience">
-            <h2 class="heading"><i class="fas fa-briefcase"></i> Work <span>Timeline</span></h2>
-            <div class="timeline">
-                <div class="container left">
-                    <div class="content">
-                        <div class="tag">
-                            <h2>Video Editing</h2>
-                        </div>
-                        <p>Professional editing for social media, ads, and news using CapCut and Premiere Pro to create
-                            engaging content.</p>
-                    </div>
-                </div>
-                <div class="container right">
-                    <div class="content">
-                        <div class="tag">
-                            <h2>Photography</h2>
-                        </div>
-                        <p>Capturing moments and telling stories through the lens, with a keen eye for lighting and
-                            composition.</p>
-                    </div>
-                </div>
-                <div class="container left">
-                    <div class="content">
-                        <div class="tag">
-                            <h2>Web Development</h2>
-                        </div>
-                        <p>Building responsive and dynamic websites using modern technologies like HTML, CSS,
-                            JavaScript, and React.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Responsive Image Gallery Grid Section -->
-        <section class="gallery-section" id="gallery">
-            <h2 class="heading"><i class="fas fa-images"></i> Photo <span>Gallery</span></h2>
-            <div class="gallery-grid single-center">
-                <div class="gallery-item"><img
-                        src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/471207971_1002661915003977_1076567906604760665_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=Z7Q695J4h04Q7kNvwGaiqs1&_nc_oc=Adk27X1LczE2ZGvHo5MfNJpQL8GozF3uUEpjwfsybOvaGC5qaipl9Yf6UKJYHqXqyiGKd2E5iEbBq6KCFtSB8rkJ&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=vMpbwqCvfn7_2QvAUTklwg&oh=00_AfMvtbSnXrLp9EsabKGeDrDcMjjc7Wuygvjm0RMOVNh80Q&oe=68691B35"
-                        alt="Gallery"></div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="box-container">
-            <div class="box">
-                <h3>Bijaya's Portfolio</h3>
-                <p>Thank you for visiting. Let's connect and create something amazing together! <br /> Keep Rising 🚀.
+            <div class="lg:order-1">
+                <h2
+                    class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
+                    About Me
+                </h2>
+                <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                    A passionate and skilled professional with 2 year of experience in video editing for ads and news.
+                    Proficient in Davinci Resolve, Premiere Pro, Photoshopand, After Effects and Figma. Currently
+                    enhancing visual stories
+                    at Silver
+                    Plate
+                    Party Palace and White House Party Palace in Pokhara.
                 </p>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    From intimate gatherings to grand galas, our versatile spaces can be customized to bring your vision
+                    to life. We pride ourselves on creating seamless, memorable experiences for all our guests.
+                </p>
+                <ul class="mt-6 space-y-3 text-gray-700">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Video Editor
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Graphics Designer
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Photographer
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Graphics Designer
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-orange-500 mr-3"></i>Social Media Booster
+                </ul>
             </div>
-            <div class="box">
-                <h3>Quick Links</h3>
-                <a href="#home"><i class="fas fa-chevron-circle-right"></i> Home</a>
-                <a href="#about"><i class="fas fa-chevron-circle-right"></i> About</a>
-                <a href="#skills"><i class="fas fa-chevron-circle-right"></i> Skills</a>
-                <a href="#education"><i class="fas fa-chevron-circle-right"></i> Education</a>
-                <a href="#work"><i class="fas fa-chevron-circle-right"></i> Work</a>
-                <a href="#experience"><i class="fas fa-chevron-circle-right"></i> Experience</a>
-            </div>
-            <div class="box">
-                <h3>Contact Info</h3>
-                <p><i class="fas fa-phone"></i> +977 9824168577</p>
-                <p><i class="fas fa-envelope"></i> bijayabhandaari515@gmail.com</p>
-                <p><i class="fas fa-map-marked-alt"></i> Pokhara-17, Birauta, Nepal</p>
-                <div class="share">
-                    <a class="facebook" aria-label="Facebook" href="https://www.facebook.com/bijaya.bhandari.9404"
-                        target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a class="instagram" aria-label="Instagram" href="https://www.instagram.com/bijaya.bhandari.9404/"
-                        target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a class="linkedin" aria-label="LinkedIn" href="https://www.linkedin.com/in/bijaya-bhandari"
-                        target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a class="twitter" aria-label="Twitter" href="https://x.com/BijayaBhan93593" target="_blank"><i
-                            class="fab fa-twitter"></i></a>
-                    <a class="github" aria-label="GitHub" href="https://github.com/bjabhandari" target="_blank"><i
-                            class="fab fa-github"></i></a>
-                    <a class="youtube" aria-label="YouTube" href="https://www.youtube.com/@bja_gaming-yt"
-                        target="_blank"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 lg:py-24 bg-gray-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-12 border-b-4 border-orange-500 pb-2 inline-block">
+                Our Services & Pricing
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1: Venue Rental -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-building text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Video Editing</h3>
+                    <p class="text-gray-600">
+                        Basic Edit (cut, trim, music) — NPR 1,500 – 3,000
+
+                        Standard Edit (text, color, transitions) — NPR 4,000 – 8,000
+
+                        Advanced Edit (motion graphics, cinematic style) — NPR 10,000 – 20,000+
+
+                        Premium Edit (4K, drone mix, voiceover) — NPR 25,000+
+                    </p>
+                </div>
+                <!-- Service Card 2: Event Planning -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-calendar-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Photography & Videography
+                    </h3>
+                    <p class="text-gray-600">
+                        Event Shoot (birthday, party, etc.) — NPR 8,000 – 25,000+
+
+                        Wedding Shoot (full-day coverage) — NPR 25,000 – 80,000+
+
+                        Product / Food Shoot — NPR 5,000 – 15,000+
+
+                        Corporate / Profile Shoot — NPR 10,000 – 30,000+
+                    </p>
+                </div>
+                <!-- Service Card 3: Catering Services -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-utensils text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Graphics Design</h3>
+                    <p class="text-gray-600">
+                        Logo Design — NPR 2,000 – 6,000
+
+                        Social Media Post Design — NPR 500 – 2,000 per post
+
+                        Banner / Flyer / Brochure — NPR 1,000 – 4,000
+
+                        Branding Package (logo, card, banner, cover) — NPR 8,000 – 20,000+
+                    </p>
+                </div>
+                <!-- Service Card 4: Entertainment Packages -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-microphone-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Social Media Boosting</h3>
+                    <p class="text-gray-600">
+                        Facebook Page Boost (ads setup & management) — NPR 3,000 – 10,000+
+
+                        Instagram / TikTok Promotion — NPR 2,000 – 8,000+
+
+                        YouTube SEO & Video Boost — NPR 4,000 – 12,000+
+
+                        Monthly Social Media Growth Package — NPR 10,000 – 30,000+
+                    </p>
+                </div>
+                <!-- Service Card 5: Photography & Videography -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-camera text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Job Center</h3>
+                    <p class="text-gray-600">
+                        Job Post Design & Upload — NPR 1,000 – 3,000
+
+                        Facebook Boost + Target Audience — NPR 3,000 – 10,000+
+
+                        Monthly Job Promotion Package — NPR 10,000 – 25,000+
+
+                        Full Recruitment Campaign — NPR 20,000 – 50,000+
+                    </p>
+                </div>
+                <!-- Service Card 6: Valet & Security -->
+                <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="text-orange-500 mb-6">
+                        <i class="fas fa-shield-alt text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Ai Video Production
+                    </h3>
+                    <p class="text-gray-600">
+                        AI Voice + Script Video — NPR 3,000 – 8,000
+
+                        AI Avatar Talking Video — NPR 5,000 – 15,000+
+
+                        AI Explainer / News Video — NPR 8,000 – 25,000+
+
+                        Full AI Video Series (branding or channel) — NPR 25,000 – 60,000+
+                    </p>
                 </div>
             </div>
         </div>
-        <h1 class="credit">Designed & Developed with <i class="fa fa-heart pulse"></i> by Bijaya Bhandari</h1>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
+        <div class="container mx-auto px-4 text-center">
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-12 border-b-4 border-orange-500 pb-2 inline-block">
+                Our Services Gallery
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://miro.medium.com/v2/resize:fit:1400/0*qKaI6a9c0mZi5P1P.jpeg"
+                        alt="Wedding Reception" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Video Editing</h3>
+                        <p class="text-sm">Professional editing for social media, ads, and news using Davinci Resolveand
+                            Premiere Pro
+                            to create engaging content.</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/483890292_667564619114712_6009081883095236370_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=4UgtCrkAzZcQ7kNvwEKl6BC&_nc_oc=AdkHUVmlcaNETo9KKHIu40lxWo8zyXc8cYqCgnb8_UrFKnIFwjU_hnEaX2y2rUMPUB8&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=Og9YOXVjOLMv7x4qv43vQw&oh=00_Afcctc4coohh5fExqAuoAFXDLKoazEwagZo6nJjiV4R6OQ&oe=68F5A498"
+                        alt="Birthday Party" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Photography</h3>
+                        <p class="text-sm">Capturing moments and telling stories through the lens, with a keen eye for
+                            lighting and composition.</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://media.smallbiztrends.com/2022/02/how-much-do-graphic-designers-make.png"
+                        alt="Corporate Gala" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Graphics Design</h3>
+                        <p class="text-sm">Create visual elements such as logos, original images, and illustrations to
+                            help deliver a message. Design layouts, including selection of colors, images, and
+                            typefaces.</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://i.pinimg.com/736x/c3/3a/ff/c33affa84a2e1177ed19a9e14b99a6cd.jpg" alt="Anniversary"
+                        class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Social Media Boosting</h3>
+                        <p class="text-sm">In the context of marketing and social media, "boost" typically refers to the
+                            act of amplifying the reach and visibility of a specific post, campaign, or piece of content
+                        </p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 5 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://blog.slido.com/wp-content/uploads/2021/05/slido-hybrid-meetings-blog-header.jpg"
+                        alt="Cultural Event" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Job Center</h3>
+                        <p class="text-sm">A job centre is a place where people who are looking for work can go to get
+                            advice on finding a job, and to look at advertisements placed by people who are looking for
+                            new employees.</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+                <!-- Portfolio Item 6 -->
+                <div class="portfolio-card bg-white shadow-lg">
+                    <img src="https://smartcuts.ch/wp-content/uploads/robot-and-woman-working-on-laptop-ai-smartcuts-video-blogpost.jpg"
+                        alt="Product Launch" class="w-full h-48 object-cover">
+                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
+                        <h3 class="text-2xl font-bold mb-2">Ai Video Production</h3>
+                        <p class="text-sm">AI in Video Production. From
+                            automating editing to generating dynamic visuals, AI is making video production faster and
+                            more accessible.</p>
+                        <a href="#"
+                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            Event</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-orange-700 text-white py-16 lg:py-20 rounded-t-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Plan Your Next Event?</h2>
+            <p class="text-lg opacity-90 mb-8">
+                Let us help you create an unforgettable experience tailored to your dreams.
+            </p>
+            <a href="#contact"
+                class="bg-white text-orange-700 font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block">
+                Request a Booking
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="py-16 lg:py-24 bg-gray-100 rounded-t-lg">
+        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <h2
+                    class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
+                    Contact Us
+                </h2>
+                <p class="text-gray-700 text-lg mb-6">
+                    Have a question or want to book our Services? Reach out to us directly.
+                </p>
+                <ul class="space-y-4 text-gray-700 text-lg">
+                    <li class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-orange-500 mr-4 text-xl"></i>
+                        Nepal, Pokhara, Birauta
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-phone-alt text-orange-500 mr-4 text-xl"></i>
+                        +977 9824168577 (Nepal)
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-envelope text-orange-500 mr-4 text-xl"></i>
+                        bijayabhandari515@gmail.com
+                    </li>
+                </ul>
+                <div class="mt-8">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Follow Us</h3>
+                    <div class="flex space-x-6">
+                        <a href="https://www.facebook.com/bijaya.bhandari.9404"
+                            class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-facebook-f text-3xl"></i>
+                        </a>
+                        <a href="" class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-twitter text-3xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/bijaya-bhandari/"
+                            class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-linkedin-in text-3xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/bijaya.bhandari.9404/"
+                            class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
+                            <i class="fab fa-instagram text-3xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <form>
+                    <div class="mb-6">
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                        <input type="text" id="name" name="name"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="Your Name">
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" id="email" name="email"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="your@example.com">
+                    </div>
+                    <div class="mb-6">
+                        <label for="event_type" class="block text-gray-700 text-sm font-bold mb-2">Type of Event</label>
+                        <input type="text" id="event_type" name="event_type"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="e.g.,video Editing, Boosting, Events">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message"
+                            class="block text-gray-700 text-sm font-bold mb-2">Message/Requirements</label>
+                        <textarea id="message" name="message" rows="6"
+                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            placeholder="Tell us about your Services"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 w-full">
+                        Submit Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 rounded-t-lg shadow-inner">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4">&copy; 2025 Bijaya bhandari. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a>
+            </div>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-facebook-f text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-twitter text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-linkedin-in text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+            </div>
+        </div>
     </footer>
 
-    <!-- Scroll Top Button -->
-    <a href="#home" aria-label="ScrollTop" class="fas fa-angle-up" id="scroll-top"></a>
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.getElementById('nav-toggle').onclick = function () {
+            document.getElementById('nav-content').classList.toggle('hidden');
+        }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
 
-    <!-- JavaScript Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
 
-    <!-- Custom JS -->
-    <script src="script.js"></script>
-
+                // Close mobile menu after clicking a link
+                if (window.innerWidth < 1024) { // Only for smaller screens
+                    document.getElementById('nav-content').classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
