@@ -131,23 +131,23 @@
                 class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0">
                 <div class="text-sm lg:flex-grow lg:flex lg:justify-end">
                     <a href="#home"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
                         Home
                     </a>
                     <a href="#about"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
                         About Us
                     </a>
                     <a href="#services"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
                         Our Offerings
                     </a>
                     <a href="#portfolio"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-6 py-2 px-3 rounded-md hover:bg-gray-100">
+                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
                         Event Gallery
                     </a>
                     <a href="#contact"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 py-2 px-3 rounded-md hover:bg-gray-100">
+                        class="block mt-4 lg:inline-block lg:mt-0 text_gray-600 hover:text-orange-600 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
                         Contact
                     </a>
                 </div>
@@ -507,6 +507,48 @@
                 }
             });
         });
+    </script>
+    <script>
+        // Scrollspy: set active nav link based on the section in view
+        (function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+
+            function setActive(link) {
+                navLinks.forEach(a => {
+                    a.classList.remove('text-orange-600', 'bg-orange-50');
+                    a.classList.add('text-gray-600');
+                });
+                if (link) {
+                    link.classList.remove('text-gray-600');
+                    link.classList.add('text-orange-600', 'bg-orange-50');
+                }
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = navLinks.find(a => a.getAttribute('href') === `#${id}`);
+                        setActive(activeLink);
+                    }
+                });
+            }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+            sections.forEach(s => observer.observe(s));
+
+            // set initial active based on scroll position
+            window.addEventListener('load', () => {
+                // trigger observer by checking current viewport
+                sections.forEach(s => {
+                    const rect = s.getBoundingClientRect();
+                    if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.25) {
+                        const activeLink = navLinks.find(a => a.getAttribute('href') === `#${s.id}`);
+                        setActive(activeLink);
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 
