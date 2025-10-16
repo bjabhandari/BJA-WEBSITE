@@ -40,41 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const emailjsAvailable = typeof emailjs !== 'undefined' && typeof emailjs.send === 'function';
 
         if (!emailjsAvailable || isPlaceholder(serviceId) || isPlaceholder(templateId)) {
-            // Helpful message
-            showFeedback('Email service not configured. Opening your email client as a fallback...', 'text-yellow-600');
+            // EmailJS not available or not configured: show clear instructions instead of opening mailto
+            const to = 'bijayabhandari515@gmail.com';
+            showFeedback('Email service not configured. Please email ' + to + ' directly, or contact via social links.', 'text-yellow-600');
 
-            // Build mailto fallback safely
-            const subject = encodeURIComponent(`Website Inquiry from ${name}`);
-            const bodyLines = [
-                `Name: ${name}`,
-                `Email: ${email}`,
-                `Type of Event: ${eventType}`,
-                ``,
-                `Message:`,
-                message
-            ];
-            const body = encodeURIComponent(bodyLines.join('\n'));
-            const to = 'bijayabhandari515@gmail.com'; // change this to your email if desired
-            const mailto = `mailto:${encodeURIComponent(to)}?subject=${subject}&body=${body}`;
-
-            try {
-                // Use an anchor to open mail client which is less likely to be blocked
-                const a = document.createElement('a');
-                a.href = mailto;
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-
-                showFeedback('Email client opened. If it did not open, please check your browser settings.', 'text-yellow-600');
-            } catch (err) {
-                console.error('Mailto fallback failed:', err);
-                showFeedback('Could not open email client. Please send a message to ' + to, 'text-red-600');
-            } finally {
-                // Re-enable the button
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
-            }
+            // Re-enable the button so the user can try again later
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
 
             return;
         }
@@ -85,7 +57,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 showFeedback('Message sent — thank you! I will get back to you soon.', 'text-green-600');
                 form.reset();
             }, function (error) {
+                // Log full error for debugging
                 console.error('EmailJS error:', error);
+
+                // EmailJS returns a status and text on errors; 412 often means Gmail OAuth needs reauthorization
+                try {
+                    const status = error && error.status;
+                    const text = error && error.text;
+                    if (status === 412 || (typeof text === 'string' && text.toLowerCase().includes('invalid grant'))) {
+                        showFeedback('Email service authorization error: please reconnect your Gmail in the EmailJS dashboard.', 'text-red-600');
+                        return;
+                    }
+                } catch (e) {
+                    // ignore parsing errors
+                }
+
                 showFeedback('Sorry — something went wrong. Please try again later.', 'text-red-600');
             })
             .finally(() => {

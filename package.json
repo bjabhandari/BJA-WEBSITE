@@ -1,0 +1,26 @@
+{
+  "name": "bja-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "build:email": "esbuild src/email-init.js --bundle --outfile=dist/email-bundle.js --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjabhandari/BJA-WEBSITE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bjabhandari/BJA-WEBSITE/issues"
+  },
+  "homepage": "https://github.com/bjabhandari/BJA-WEBSITE#readme",
+  "devDependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "esbuild": "^0.25.11"
+  }
+}
