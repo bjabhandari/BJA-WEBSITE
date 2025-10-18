@@ -54,6 +54,40 @@
             box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
         }
 
+        /* Pricing card - featured state */
+        .price-card {
+            transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), box-shadow 0.35s ease, background-color 0.35s ease;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(16, 24, 40, 0.04);
+            background-color: white;
+        }
+
+        .price-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(234, 88, 12, 0.12), 0 6px 12px rgba(0, 0, 0, 0.04);
+            border-top: 4px solid #ff3c00;
+        }
+
+        .price-card.featured {
+            background: linear-gradient(180deg, #ff6a1a 0%, #ff3c00 100%);
+            color: white;
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(255, 92, 16, 0.18);
+            border: none;
+        }
+
+        .price-card.featured .text-gray-900 {
+            color: white;
+        }
+
+        .price-card.featured .text-gray-600 {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .price-card.featured .text-orange-500 {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
         /* Portfolio card specific styles */
         .portfolio-card {
             position: relative;
@@ -618,6 +652,24 @@
                         const activeLink = navLinks.find(a => a.getAttribute('href') === `#${s.id}`);
                         setActive(activeLink);
                     }
+                });
+            });
+        })();
+    </script>
+    <script>
+        // Make pricing cards selectable (one featured at a time)
+        (function () {
+            const cards = document.querySelectorAll('#services .relative');
+            cards.forEach(card => {
+                card.classList.add('price-card');
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', function (e) {
+                    // prevent clicks on internal links/buttons from toggling
+                    if (e.target.closest('a') || e.target.closest('button')) return;
+                    // remove featured from others
+                    document.querySelectorAll('#services .price-card.featured').forEach(c => c.classList.remove('featured'));
+                    // toggle this one
+                    card.classList.toggle('featured');
                 });
             });
         })();
