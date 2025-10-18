@@ -247,6 +247,19 @@
                     <li class="flex items-center">
                         <i class="fas fa-check-circle text-orange-500 mr-3"></i>Social Media Booster
                 </ul>
+
+                <!-- Video CV & Resume Actions -->
+                <div class="mt-8 flex flex-col sm:flex-row sm:space-x-4 gap-4">
+                    <button onclick="openVideoCV()"
+                        class="inline-flex items-center justify-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-3 px-6 rounded-full shadow hover:scale-[1.02] transition-transform">
+                        <i class="fas fa-video mr-3"></i> Watch Video CV
+                    </button>
+
+                    <a href="/BJA-WEBSITE/Bijaya-Bhandari-Resume.pdf" download
+                        class="inline-flex items-center justify-center border-2 border-orange-500 text-orange-600 font-semibold py-3 px-6 rounded-full shadow hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-file-download mr-3"></i> Download Resume
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -593,6 +606,21 @@
         </div>
     </footer>
 
+    <!-- Video CV Modal -->
+    <div id="video-cv-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg overflow-hidden max-w-3xl w-full mx-4">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="font-semibold text-lg">Video CV</h3>
+                <button onclick="closeVideoCV()" class="text-gray-600 hover:text-gray-900">✕</button>
+            </div>
+            <div class="p-4">
+                <div class="aspect-w-16 aspect-h-9">
+                    <iframe id="video-cv-iframe" src="" frameborder="0" allowfullscreen class="w-full h-64"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript for Mobile Navigation Toggle -->
     <script>
         document.getElementById('nav-toggle').onclick = function () {
@@ -673,6 +701,24 @@
                 });
             });
         })();
+    </script>
+    <script>
+        function openVideoCV() {
+            const modal = document.getElementById('video-cv-modal');
+            const iframe = document.getElementById('video-cv-iframe');
+            // Set your video URL here (YouTube embed or hosted video)
+            iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeVideoCV() {
+            const modal = document.getElementById('video-cv-modal');
+            const iframe = document.getElementById('video-cv-iframe');
+            iframe.src = '';
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
     </script>
 </body>
 
