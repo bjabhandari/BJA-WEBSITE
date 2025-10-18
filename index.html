@@ -250,10 +250,10 @@
 
                 <!-- Video CV & Resume Actions -->
                 <div class="mt-8 flex flex-col sm:flex-row sm:space-x-4 gap-4">
-                    <button onclick="openVideoCV()"
+                    <a href="/BJA-WEBSITE/services/video-cv.html"
                         class="inline-flex items-center justify-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-3 px-6 rounded-full shadow hover:scale-[1.02] transition-transform">
                         <i class="fas fa-video mr-3"></i> Watch Video CV
-                    </button>
+                    </a>
 
                     <a href="file:///Users/awmrit/Documents/Bijaya%20Resumi.pdf" target="_blank"
                         download="Bijaya Resumi.pdf"
@@ -607,21 +607,6 @@
         </div>
     </footer>
 
-    <!-- Video CV Modal -->
-    <div id="video-cv-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg overflow-hidden max-w-3xl w-full mx-4">
-            <div class="flex justify-between items-center p-4 border-b">
-                <h3 class="font-semibold text-lg">Video CV</h3>
-                <button onclick="closeVideoCV()" class="text-gray-600 hover:text-gray-900">✕</button>
-            </div>
-            <div class="p-4">
-                <div class="aspect-w-16 aspect-h-9">
-                    <iframe id="video-cv-iframe" src="" frameborder="0" allowfullscreen class="w-full h-64"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- JavaScript for Mobile Navigation Toggle -->
     <script>
         document.getElementById('nav-toggle').onclick = function () {
@@ -721,6 +706,7 @@
             modal.classList.remove('flex');
         }
     </script>
+
 </body>
 
 </html>
