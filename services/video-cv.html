@@ -8,60 +8,146 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Small helper for the responsive video wrapper */
+        .video-wrap {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrap iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-50 text-gray-800">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <a href="../index.html" class="flex items-center">
-                        <img src="../9igic7-removebg-preview.png" alt="Logo" class="h-12 w-auto">
-                    </a>
-                </div>
+            <div class="flex items-center h-16">
+                <a href="../index.html" class="flex items-center">
+                    <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/566192831_122134563092953303_3248015248058248586_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2Efr0RK0jccQ7kNvwHtbv-r&_nc_oc=AdkZcGs7FHHliraYcT-dpvkqUy4sfm70jDKG_98TPgXXchoSBiFJwaFKfddLJNY8EbE&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=KCUHQLpdvYirHbrcfrkAQQ&oh=00_AfcRIUZTP6gsvzXNXUe5CUHKhm_ebBp23Qws9HdRFTyXxg&oe=68F5B78A" alt="Logo" class="h-12 w-auto">
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Main Content: Sidebar + Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">Video CV</h1>
-            <p class="text-lg text-gray-600">Get to know me better through my video introduction</p>
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">Video CV</h1>
+            <p class="text-lg text-gray-600 mt-2">Get to know me better through my video introduction</p>
         </div>
 
-        <!-- Video Section -->
-        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
-            <div class="aspect-w-16 aspect-h-9">
-                <!-- Replace YOUR_VIDEO_ID with your actual YouTube video ID -->
-                <iframe class="w-full h-[500px]" src="https://www.youtube.com/embed/h5XTNI_tR7I" title="Video CV"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-            </div>
-            <div class="p-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">About Me</h2>
-                <p class="text-gray-600 mb-6">
-                    I am a professional video editor with extensive experience in creating compelling visual content.
-                    Through this video CV, I showcase my skills, experience, and passion for video editing.
-                    You'll get to see examples of my work and learn more about my approach to video production.
-                </p>
-
-                <div class="border-t pt-6">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Want to Work Together?</h3>
-                    <p class="text-gray-600 mb-6">
-                        I'm always excited to take on new projects and collaborate with creative individuals and
-                        businesses.
-                        Let's create something amazing together!
-                    </p>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar -->
+            <aside class="lg:col-span-1 bg-white rounded-lg shadow p-6">
+                <div class="flex flex-col items-center text-center">
+                    <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/510234479_2837585796424748_5963792719615171358_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=94e2a3&_nc_ohc=8XRLqWl5rEcQ7kNvwGw83V7&_nc_oc=AdkPPv2aPjsBcqMZE1J5ErjHQizWC2oUC-neTAc5_1-W3UmP4GfEDRHRBjMLtfl-xTQ&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=FMs7cbr6e4kPp98Uys32Nw&oh=00_Affrw-YjG8sZ1eyA8RhLraad60IPY-sKBaLKtJUFHBgSCg&oe=68F5871A" alt="Profile photo"
+                        class="w-36 h-36 rounded-full object-cover mb-4 shadow">
+                    <h3 class="text-xl font-semibold">Bijaya Bhandari</h3>
+                    <p class="text-sm text-gray-500 mb-4">Professional Video Editor</p>
+                    <div class="flex gap-2 items-center mb-4">
+                        <div class="text-sm text-gray-600">Rate</div>
+                        <div class="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-semibold">On Request</div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">I create storytelling-focused edits, event films, promos and commercial videos.</p>
                     <a href="../index.html#contact"
-                        class="inline-block bg-gradient-to-r from-orange-600 to-orange-700 text-white px-8 py-3 rounded-lg font-semibold hover:from-orange-700 hover:to-orange-800 transition duration-300 ease-in-out transform hover:-translate-y-1">
-                        Contact Me
+                        class="w-full inline-flex items-center justify-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-3 px-4 rounded-lg shadow hover:scale-[1.01] transition-transform">
+                        <i class="fas fa-paper-plane mr-2"></i> Hire / Contact
                     </a>
                 </div>
-            </div>
+
+                <hr class="my-6">
+
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-700 mb-3">Categories</h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>Event highlights</li>
+                        <li>Promotional videos</li>
+                        <li>Documentary edits</li>
+                        <li>Social shorts</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main video + related grid -->
+            <section class="lg:col-span-3">
+                <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-3">Watch My Video CV</h2>
+                        <p class="text-sm text-gray-600 mb-4">A short introduction to my work, approach and experience.</p>
+
+                        <div class="video-wrap rounded-md overflow-hidden shadow">
+                            <iframe src="https://www.youtube.com/embed/h5XTNI_tR7I"
+                                title="Video CV" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related videos grid (matches the screenshot style) -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold mb-4">More videos</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <!-- (first card removed as requested) -->
+
+                        <!-- Repeat cards (placeholder, replace with real IDs as needed) -->
+                        <a href="https://www.youtube.com/watch?v=h5XTNI_tR7I" target="_blank" class="block group">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md">
+                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/hqdefault.jpg" alt="Related"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-sm font-semibold text-gray-900">Event Edit — Highlights</div>
+                                <div class="mt-2 flex items-center justify-between">
+                                    <div class="text-xs text-gray-500">1:42</div>
+                                    <button
+                                        class="text-xs bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white px-3 py-1 rounded-full font-semibold hover:opacity-90">Watch</button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.youtube.com/watch?v=h5XTNI_tR7I" target="_blank" class="block group">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md">
+                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/hqdefault.jpg" alt="Related"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-sm font-semibold text-gray-900">Promo — Short</div>
+                                <div class="mt-2 flex items-center justify-between">
+                                    <div class="text-xs text-gray-500">0:48</div>
+                                    <button
+                                        class="text-xs bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white px-3 py-1 rounded-full font-semibold hover:opacity-90">Watch</button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="https://www.youtube.com/watch?v=h5XTNI_tR7I" target="_blank" class="block group">
+                            <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md">
+                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/hqdefault.jpg" alt="Related"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
+                            </div>
+                            <div class="mt-2">
+                                <div class="text-sm font-semibold text-gray-900">Social Short</div>
+                                <div class="mt-2 flex items-center justify-between">
+                                    <div class="text-xs text-gray-500">0:30</div>
+                                    <button
+                                        class="text-xs bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white px-3 py-1 rounded-full font-semibold hover:opacity-90">Watch</button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
