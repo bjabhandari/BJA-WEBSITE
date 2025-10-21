@@ -9,7 +9,101 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Small helper for the responsive video wrapper */
+        /* Video slider styles */
+        .video-slider-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            perspective: 1000px;
+            background: #000;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .video-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-item {
+            position: absolute;
+            width: 300px;
+            height: 400px;
+            left: 50%;
+            top: 50%;
+            transform-origin: 50% 50% -250px;
+            transition: all 0.5s ease-in-out;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            opacity: 0.7;
+        }
+
+        .slider-item.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) translateZ(200px);
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+        }
+
+        .slider-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .slider-content p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 20px;
+        }
+
+        .slider-controls button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-controls button:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Original video wrapper styles */
         .video-wrap {
             position: relative;
             padding-bottom: 56.25%;
@@ -25,6 +119,50 @@
             height: 100%;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.querySelector('.video-slider');
+            const items = document.querySelectorAll('.slider-item');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentIndex = 0;
+
+            // Initialize positions
+            function updateSlider() {
+                items.forEach((item, index) => {
+                    const rotation = (index - currentIndex) * (360 / items.length);
+                    item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateZ(250px)`;
+
+                    // Add/remove active class
+                    if (index === currentIndex) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+
+            // Initialize the slider
+            updateSlider();
+
+            // Event listeners for controls
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + items.length) % items.length;
+                updateSlider();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateSlider();
+            });
+
+            // Auto-rotate every 5 seconds
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % items.length;
+                updateSlider();
+            }, 5000);
+        });
+    </script>
 </head>
 
 <body class="bg-gray-50 text-gray-800">
@@ -45,6 +183,43 @@
         <div class="text-center mb-8">
             <h1 class="text-4xl font-bold text-gray-900">Video CV</h1>
             <p class="text-lg text-gray-600 mt-2">Get to know me better through my video introduction</p>
+        </div>
+
+        <div class="video-slider-container">
+            <div class="video-slider">
+                <div class="slider-item">
+                    <img src="../images/1699168942870.jpg" alt="Video CV Intro">
+                    <div class="slider-content">
+                        <h3>Introduction</h3>
+                        <p>My professional journey and skills</p>
+                    </div>
+                </div>
+                <div class="slider-item">
+                    <img src="../images/33318413974.png" alt="Projects Showcase">
+                    <div class="slider-content">
+                        <h3>Projects</h3>
+                        <p>Highlighting key achievements</p>
+                    </div>
+                </div>
+                <div class="slider-item">
+                    <img src="../images/9igic7.jpg" alt="Technical Skills">
+                    <div class="slider-content">
+                        <h3>Skills</h3>
+                        <p>Technical expertise and capabilities</p>
+                    </div>
+                </div>
+                <div class="slider-item">
+                    <img src="../images/1699168942870.jpg" alt="Work Experience">
+                    <div class="slider-content">
+                        <h3>Experience</h3>
+                        <p>Professional background</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
