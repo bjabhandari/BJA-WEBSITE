@@ -13,7 +13,7 @@
         .video-slider-container {
             position: relative;
             width: 100%;
-            height: 600px;
+            height: 800px;
             perspective: 1000px;
             background: #000;
             overflow: hidden;
@@ -30,16 +30,17 @@
 
         .slider-item {
             position: absolute;
-            width: 300px;
-            height: 400px;
+            width: 360px;
+            height: 640px;
             left: 50%;
             top: 50%;
-            transform-origin: 50% 50% -250px;
+            transform-origin: 50% 50% -300px;
             transition: all 0.5s ease-in-out;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
+            border-radius: 12px;
             opacity: 0.7;
+            background: #000;
         }
 
         .slider-item.active {
@@ -47,10 +48,23 @@
             transform: translate(-50%, -50%) translateZ(200px);
         }
 
-        .slider-item img {
+        .youtube-short {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: #000;
+            border: none;
+        }
+
+        .slider-item iframe {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        .slider-item.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) translateZ(300px);
+            z-index: 1;
         }
 
         .slider-content {
@@ -131,7 +145,10 @@
             function updateSlider() {
                 items.forEach((item, index) => {
                     const rotation = (index - currentIndex) * (360 / items.length);
-                    item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateZ(250px)`;
+                    const z = index === currentIndex ? 300 : 250;
+                    const opacity = index === currentIndex ? 1 : 0.7;
+                    item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateZ(${z}px)`;
+                    item.style.opacity = opacity;
 
                     // Add/remove active class
                     if (index === currentIndex) {
@@ -188,32 +205,54 @@
         <div class="video-slider-container">
             <div class="video-slider">
                 <div class="slider-item">
-                    <img src="../images/1699168942870.jpg" alt="Video CV Intro">
-                    <div class="slider-content">
-                        <h3>Introduction</h3>
-                        <p>My professional journey and skills</p>
-                    </div>
+                    <iframe 
+                        src="https://www.youtube.com/embed/R7cqDh6TRbQ" 
+                        title="YouTube Shorts Video 1"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="youtube-short">
+                    </iframe>
                 </div>
                 <div class="slider-item">
-                    <img src="../images/33318413974.png" alt="Projects Showcase">
-                    <div class="slider-content">
-                        <h3>Projects</h3>
-                        <p>Highlighting key achievements</p>
-                    </div>
+                    <iframe 
+                        src="https://www.youtube.com/embed/0u6tqIkBAJM" 
+                        title="YouTube Shorts Video 2"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="youtube-short">
+                    </iframe>
                 </div>
                 <div class="slider-item">
-                    <img src="../images/9igic7.jpg" alt="Technical Skills">
-                    <div class="slider-content">
-                        <h3>Skills</h3>
-                        <p>Technical expertise and capabilities</p>
-                    </div>
+                    <iframe 
+                        src="https://www.youtube.com/embed/NejAICHuivk" 
+                        title="YouTube Shorts Video 3"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="youtube-short">
+                    </iframe>
                 </div>
                 <div class="slider-item">
-                    <img src="../images/1699168942870.jpg" alt="Work Experience">
-                    <div class="slider-content">
-                        <h3>Experience</h3>
-                        <p>Professional background</p>
-                    </div>
+                    <iframe 
+                        src="https://www.youtube.com/embed/9clLIyPX0BI" 
+                        title="YouTube Shorts Video 4"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="youtube-short">
+                    </iframe>
+                </div>
+                <div class="slider-item">
+                    <iframe 
+                        src="https://www.youtube.com/embed/0yNwH9-_NBk" 
+                        title="YouTube Shorts Video 5"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="youtube-short">
+                    </iframe>
                 </div>
             </div>
             <div class="slider-controls">
