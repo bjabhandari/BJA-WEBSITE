@@ -22,11 +22,15 @@
         .video-slider-container {
             position: relative;
             width: 100%;
-            height: 600px;
-            perspective: 1000px;
+            height: 88vh;
+            /* fill most of viewport vertically */
+            perspective: 1200px;
             background: #000;
             overflow: hidden;
-            margin: 2rem 0;
+            margin: 2rem 0 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .video-slider {
@@ -34,30 +38,38 @@
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.25s ease-in-out;
             cursor: grab;
             user-select: none;
             touch-action: pan-y pinch-zoom;
         }
 
+        /* Default (side) cards are narrow vertical panels. Active card becomes large 9:16 */
         .slider-item {
             position: absolute;
-            width: 270px;
-            height: 480px;
+            height: 40vh;
+            /* small by default */
+            aspect-ratio: 9 / 16;
+            /* width will be height * 9/16 */
             left: 50%;
             top: 50%;
-            transform-origin: 50% 50% -250px;
-            transition: all 0.3s ease-in-out;
+            transform-origin: 50% 50% -260px;
+            transition: all 0.25s ease-in-out;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            opacity: 0.7;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+            border-radius: 14px;
+            opacity: 0.45;
             background: #000;
         }
 
+        /* Large centered active card: 9:16 tall and prominent */
         .slider-item.active {
+            height: 82vh;
+            /* main vertical video size - 9:16 */
+            aspect-ratio: 9 / 16;
+            transform: translate(-50%, -50%) translateZ(420px) rotateY(0deg);
             opacity: 1;
-            transform: translate(-50%, -50%) translateZ(200px);
+            z-index: 5;
         }
 
         .youtube-short {
@@ -65,18 +77,14 @@
             height: 100%;
             background: #000;
             border: none;
+            display: block;
         }
 
         .slider-item iframe {
             width: 100%;
             height: 100%;
             background: #000;
-        }
-
-        .slider-item.active {
-            opacity: 1;
-            transform: translate(-50%, -50%) translateZ(300px);
-            z-index: 1;
+            display: block;
         }
 
         .slider-content {
@@ -146,51 +154,160 @@
         }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        // Load YouTube IFrame API
+        let YT_API_READY = false;
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+
+        // Slider state
+        let players = [];
+        let currentIndex = 0;
+        const items = [];
+
+        function onYouTubeIframeAPIReady() {
+            YT_API_READY = true;
+            initPlayersAndSlider();
+        }
+
+        function initPlayersAndSlider() {
             const slider = document.querySelector('.video-slider');
-            const items = document.querySelectorAll('.slider-item');
-            const prevBtn = document.querySelector('.prev-btn');
-            const nextBtn = document.querySelector('.next-btn');
-            let currentIndex = 0;
+            const sliderItems = document.querySelectorAll('.slider-item');
+            sliderItems.forEach((el, i) => items.push(el));
 
-            // Initialize positions
-            function updateSlider() {
-                items.forEach((item, index) => {
-                    const rotation = (index - currentIndex) * (360 / items.length);
-                    const z = index === currentIndex ? 300 : 250;
-                    const opacity = index === currentIndex ? 1 : 0.7;
-                    item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateZ(${z}px)`;
-                    item.style.opacity = opacity;
+            // Create YT players and attach event listeners to pause others when one plays
+            sliderItems.forEach((el, i) => {
+                const iframe = el.querySelector('iframe');
+                const id = iframe.id;
+                players[i] = new YT.Player(id, {
+                    events: {
+                        onStateChange: function (event) {
+                            // When a player starts playing, pause all others
+                            if (event.data === YT.PlayerState.PLAYING) {
+                                players.forEach((p, idx) => {
+                                    if (p && idx !== i) {
+                                        try { p.pauseVideo(); } catch (e) { }
+                                    }
+                                });
 
-                    // Add/remove active class
-                    if (index === currentIndex) {
-                        item.classList.add('active');
-                    } else {
-                        item.classList.remove('active');
+                                // Make this slide active
+                                setActiveIndex(i);
+                            }
+                        }
                     }
                 });
+            });
+
+            // Make first visible
+            setActiveIndex(0, false);
+
+            // Cursor move control (slide on substantial horizontal move)
+            let isDown = false, startX = 0;
+            slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.clientX; slider.style.cursor = 'grabbing'; });
+            document.addEventListener('mouseup', (e) => { isDown = false; slider.style.cursor = 'grab'; });
+            document.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                const diff = e.clientX - startX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) setActiveIndex((currentIndex - 1 + items.length) % items.length);
+                    else setActiveIndex((currentIndex + 1) % items.length);
+                    startX = e.clientX;
+                }
+            });
+
+            // Touch support
+            slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
+            slider.addEventListener('touchmove', (e) => {
+                const diff = e.touches[0].clientX - startX;
+                if (Math.abs(diff) > 40) {
+                    if (diff > 0) setActiveIndex((currentIndex - 1 + items.length) % items.length);
+                    else setActiveIndex((currentIndex + 1) % items.length);
+                    startX = e.touches[0].clientX;
+                }
+            });
+
+            // Prev/next buttons
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            if (prevBtn) prevBtn.addEventListener('click', () => setActiveIndex((currentIndex - 1 + items.length) % items.length));
+            if (nextBtn) nextBtn.addEventListener('click', () => setActiveIndex((currentIndex + 1) % items.length));
+        }
+
+        function setActiveIndex(i, animate = true) {
+            currentIndex = i;
+            items.forEach((el, idx) => {
+                const rotation = (idx - currentIndex) * 18; // small angular spread
+                const z = idx === currentIndex ? 420 : 100;
+                el.style.transition = animate ? 'all 0.25s ease-in-out' : 'none';
+                if (idx === currentIndex) {
+                    el.classList.add('active');
+                    el.style.transform = `translate(-50%, -50%) rotateY(0deg) translateZ(${z}px)`;
+                } else {
+                    el.classList.remove('active');
+                    // position items left/right around center
+                    el.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${(idx - currentIndex) * 8}vw) translateZ(${z}px)`;
+                }
+            });
+        }
+
+        // Expose ready callback for YouTube
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+    </script>
+    <script>
+        // After players initialized, wire clicks to load into main player
+        function safeGetVideoIdFromSrc(src) {
+            // src like https://www.youtube.com/embed/VIDEOID?params
+            try {
+                const parts = src.split('/embed/');
+                if (parts.length < 2) return null;
+                const idPart = parts[1].split('?')[0].split('/')[0];
+                return idPart;
+            } catch (e) { return null; }
+        }
+
+        // Wait until YT API ready and players created
+        function attachSlideClickHandlers() {
+            const sliderItems = document.querySelectorAll('.slider-item');
+            const mainIframe = document.getElementById('main-player');
+            let mainPlayer = null;
+            if (typeof YT !== 'undefined' && YT && YT.Player) {
+                try { mainPlayer = new YT.Player('main-player'); } catch (e) { mainPlayer = null; }
             }
 
-            // Initialize the slider
-            updateSlider();
+            sliderItems.forEach((el, idx) => {
+                el.style.cursor = 'pointer';
+                el.addEventListener('click', () => {
+                    const iframe = el.querySelector('iframe');
+                    const vid = safeGetVideoIdFromSrc(iframe.src || iframe.getAttribute('src'));
+                    if (!vid) return;
 
-            // Event listeners for controls
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + items.length) % items.length;
-                updateSlider();
+                    // Load video into main player (replace src if player not ready)
+                    if (mainPlayer && mainPlayer.loadVideoById) {
+                        mainPlayer.loadVideoById(vid);
+                        mainPlayer.playVideo();
+                    } else if (mainIframe) {
+                        mainIframe.src = `https://www.youtube.com/embed/${vid}?enablejsapi=1&rel=0&autoplay=1`;
+                    }
+
+                    // pause all small players
+                    if (window.players && Array.isArray(window.players)) {
+                        window.players.forEach((p, i) => { if (p && i !== idx) { try { p.pauseVideo(); } catch (e) { } } });
+                    }
+
+                    // make clicked slide active visually
+                    setActiveIndex(idx);
+                });
             });
+        }
 
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % items.length;
-                updateSlider();
-            });
-
-            // Auto-rotate every 5 seconds
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % items.length;
-                updateSlider();
-            }, 5000);
-        });
+        // Poll until YT ready then attach
+        (function waitThenAttach(attempts = 0) {
+            if (window.YT && window.YT.Player && document.querySelectorAll('.slider-item').length) {
+                attachSlideClickHandlers();
+            } else if (attempts < 50) {
+                setTimeout(() => waitThenAttach(attempts + 1), 150);
+            }
+        })();
     </script>
 </head>
 
@@ -211,37 +328,37 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="video-slider-container">
             <div class="video-slider">
-                <div class="slider-item">
-                    <iframe src="https://www.youtube.com/embed/R7cqDh6TRbQ" title="YouTube Shorts Video 1"
-                        frameborder="0"
+                <div class="slider-item" data-index="0">
+                    <iframe id="yt-player-0" src="https://www.youtube.com/embed/R7cqDh6TRbQ?enablejsapi=1&rel=0"
+                        title="YouTube Shorts Video 1" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen class="youtube-short">
                     </iframe>
                 </div>
-                <div class="slider-item">
-                    <iframe src="https://www.youtube.com/embed/0u6tqIkBAJM" title="YouTube Shorts Video 2"
-                        frameborder="0"
+                <div class="slider-item" data-index="1">
+                    <iframe id="yt-player-1" src="https://www.youtube.com/embed/0u6tqIkBAJM?enablejsapi=1&rel=0"
+                        title="YouTube Shorts Video 2" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen class="youtube-short">
                     </iframe>
                 </div>
-                <div class="slider-item">
-                    <iframe src="https://www.youtube.com/embed/NejAICHuivk" title="YouTube Shorts Video 3"
-                        frameborder="0"
+                <div class="slider-item" data-index="2">
+                    <iframe id="yt-player-2" src="https://www.youtube.com/embed/NejAICHuivk?enablejsapi=1&rel=0"
+                        title="YouTube Shorts Video 3" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen class="youtube-short">
                     </iframe>
                 </div>
-                <div class="slider-item">
-                    <iframe src="https://www.youtube.com/embed/9clLIyPX0BI" title="YouTube Shorts Video 4"
-                        frameborder="0"
+                <div class="slider-item" data-index="3">
+                    <iframe id="yt-player-3" src="https://www.youtube.com/embed/9clLIyPX0BI?enablejsapi=1&rel=0"
+                        title="YouTube Shorts Video 4" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen class="youtube-short">
                     </iframe>
                 </div>
-                <div class="slider-item">
-                    <iframe src="https://www.youtube.com/embed/0yNwH9-_NBk" title="YouTube Shorts Video 5"
-                        frameborder="0"
+                <div class="slider-item" data-index="4">
+                    <iframe id="yt-player-4" src="https://www.youtube.com/embed/0yNwH9-_NBk?enablejsapi=1&rel=0"
+                        title="YouTube Shorts Video 5" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen class="youtube-short">
                     </iframe>
@@ -294,8 +411,9 @@
                         <p class="text-sm text-gray-600 mb-4">A short introduction to my work, approach and experience.
                         </p>
 
-                        <div class="video-wrap rounded-md overflow-hidden shadow">
-                            <iframe src="https://www.youtube.com/embed/h5XTNI_tR7I" title="Video CV" frameborder="0"
+                        <div class="video-wrap rounded-md overflow-hidden shadow main-player-wrap">
+                            <iframe id="main-player" src="https://www.youtube.com/embed/R7cqDh6TRbQ?enablejsapi=1&rel=0"
+                                title="Video CV" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                         </div>
