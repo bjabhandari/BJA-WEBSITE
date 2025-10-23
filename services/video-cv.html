@@ -74,25 +74,67 @@
 
         /* Responsive adjustments */
         @media (max-width: 1024px) {
-            .video-slider-container { height: 78vh; }
-            .slider-item { height: 36vh; }
-            .slider-item.active { height: 72vh; }
+            .video-slider-container {
+                height: 78vh;
+            }
+
+            .slider-item {
+                height: 36vh;
+            }
+
+            .slider-item.active {
+                height: 72vh;
+            }
         }
 
         @media (max-width: 768px) {
+
             /* Phones/tablets: simplify layout and show only the active vertical player */
-            .video-slider-container { height: 85vh; }
-            .video-slider { transform: none; }
-            .slider-item { position: relative; left: 50%; top: 50%; transform: translate(-50%, -50%) !important; height: 40vh; opacity: 0.95; }
-            .slider-item.active { height: 80vh; transform: translate(-50%, -50%) !important; z-index: 10; }
-            .slider-item:not(.active) { display: none; }
-            .slider-controls { bottom: 12px; }
-            .video-wrap iframe, .youtube-short { border-radius: 12px; }
+            .video-slider-container {
+                height: 85vh;
+            }
+
+            .video-slider {
+                transform: none;
+            }
+
+            .slider-item {
+                position: relative;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) !important;
+                height: 40vh;
+                opacity: 0.95;
+            }
+
+            .slider-item.active {
+                height: 80vh;
+                transform: translate(-50%, -50%) !important;
+                z-index: 10;
+            }
+
+            .slider-item:not(.active) {
+                display: none;
+            }
+
+            .slider-controls {
+                bottom: 12px;
+            }
+
+            .video-wrap iframe,
+            .youtube-short {
+                border-radius: 12px;
+            }
         }
 
         @media (max-width: 420px) {
-            .video-slider-container { height: 92vh; }
-            .slider-item.active { height: 88vh; }
+            .video-slider-container {
+                height: 92vh;
+            }
+
+            .slider-item.active {
+                height: 88vh;
+            }
         }
 
         .youtube-short {
@@ -349,6 +391,12 @@
 
     <!-- Main Content: Sidebar + Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-8">
+            <a href="video-cv-details.html" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold rounded-lg shadow hover:scale-[1.02] transition-transform">
+                <i class="fas fa-play-circle mr-2"></i>
+                Watch Full Video CV
+            </a>
+        </div>
         <div class="video-slider-container">
             <div class="video-slider">
                 <div class="slider-item" data-index="0">
