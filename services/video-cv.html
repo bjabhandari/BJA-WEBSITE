@@ -3,49 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scal    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const slider = document.querySelector('.video-slider');
-            const items = document.querySelectorAll('.slider-item');
-            const prevBtn = document.querySelector('.prev-btn');
-            const nextBtn = document.querySelector('.next-btn');
-            let currentIndex = 0;
-            let isDragging = false;
-            let startX, currentX;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video CV - Bijaya Bhandari</title>
-    <script src=" https://cdn.tailwindcss.com">
-    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Brand variables */
+        /* Branding variables */
         :root{
-            --bg: #0f1724; /* deep background */
-            --card: #0b1220;
-            --muted: #9ca3af;
-            --text: #e6eef8;
-            --accent: #ff3c00; /* primary orange */
-            --accent-2: #ea580c;
-            --glass: rgba(255,255,255,0.04);
-            --radius: 12px;
+            --brand-primary: #ff3c00;
+            --brand-accent: #EA580C;
+            --bg-dark: #0b0b0c;
+            --card-bg: #0f1720;
+            --muted: #94a3b8;
+            --radius: 14px;
             --max-width: 1200px;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
         }
 
-        html,body{background:var(--bg);color:var(--text);}
-        a{color:var(--accent);}
-        .brand-btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:0;color:white;padding:0.6rem 1rem;border-radius:10px;font-weight:600}
+        /* Base */
+        body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background: linear-gradient(180deg,#050507 0%, #0a0a0b 40%); color: #e6eef8; }
+        a { color: var(--brand-primary); }
 
-        /* Video slider styles */
+    
+    /* Video slider styles */
         .video-slider-container {
             position: relative;
             width: 100%;
-            height: 88vh;
-            /* fill most of viewport vertically */
+            max-width: var(--max-width);
+            height: 78vh;
+            margin: 2rem auto 3rem;
             perspective: 1200px;
-            background: transparent;
-            overflow: hidden;
-            margin: 2rem 0 3rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+            overflow: visible;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -75,9 +64,9 @@
             transition: all 0.25s ease-in-out;
             overflow: hidden;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
-            border-radius: 14px;
-            opacity: 0.45;
-            background: #000;
+            border-radius: var(--radius);
+            opacity: 0.5;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.15));
         }
 
         /* Large centered active card: 9:16 tall and prominent */
@@ -88,6 +77,9 @@
             transform: translate(-50%, -50%) translateZ(420px) rotateY(0deg);
             opacity: 1;
             z-index: 5;
+            box-shadow: 0 18px 60px rgba(0,0,0,0.6), 0 4px 18px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.03);
+            background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.2));
         }
 
         /* Responsive adjustments */
@@ -175,11 +167,10 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 14px;
-            background: linear-gradient(180deg, rgba(11,18,32,0.0), rgba(2,6,12,0.6));
-            color: var(--text);
+            padding: 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.6));
+            color: #e6eef8;
             text-align: center;
-            font-size: 0.95rem;
         }
 
         .slider-content h3 {
@@ -200,7 +191,7 @@
             transform: translateX(-50%);
             z-index: 10;
             display: flex;
-            gap: 12px;
+            gap: 20px;
         }
 
         .slider-controls button {
@@ -224,12 +215,11 @@
         /* Original video wrapper styles */
         .video-wrap {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: calc(16 / 9 * 100%);
             height: 0;
             overflow: hidden;
-            border-radius: var(--radius);
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-            box-shadow: 0 10px 40px rgba(2,6,12,0.6);
+            border-radius: 12px;
+            background: #000;
         }
 
         .video-wrap iframe {
@@ -238,12 +228,21 @@
             left: 0;
             width: 100%;
             height: 100%;
+            border: none;
         }
 
-        /* Header improvements */
-        nav.bg-white{background:transparent;box-shadow:none}
-        nav .h-16{height:72px}
-        .logo-text{font-weight:700;color:var(--text);margin-left:12px}
+        /* Hero styles */
+        .hero {
+            max-width: var(--max-width);
+            margin: 1.25rem auto;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .hero h1{ font-size: 2.25rem; color: #fff; margin-bottom: .5rem; }
+        .hero p{ color: var(--muted); margin-bottom: 1rem; }
+        .btn-cta{ background: linear-gradient(90deg,var(--brand-primary), var(--brand-accent)); color: #fff; padding: .75rem 1.25rem; border-radius: 10px; display: inline-flex; gap:.5rem; align-items:center; box-shadow: 0 8px 24px rgba(234,88,12,0.16); }
+        .brand-logo{ height:44px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.4); }
     </style>
     <script>
         // Load YouTube IFrame API
@@ -405,7 +404,7 @@
 
 <body class="bg-gray-50 text-gray-800">
     <!-- Navigation -->
-    <nav class="bg-white shadow">
+    <nav class="bg-transparent">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center h-16">
                 <a href="../index.html" class="flex items-center">
@@ -415,6 +414,16 @@
             </div>
         </div>
     </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/566192831_122134563092953303_3248015248058248586_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2Efr0RK0jccQ7kNvwHtbv-r&_nc_oc=AdkZcGs7FHHliraYcT-dpvkqUy4sfm70jDKG_98TPgXXchoSBiFJwaFKfddLJNY8EbE&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=KCUHQLpdvYirHbrcfrkAQQ&oh=00_AfcRIUZTP6gsvzXNXUe5CUHKhm_ebBp23Qws9HdRFTyXxg&oe=68F5B78A" alt="brand" class="brand-logo">
+        <h1>Watch My Video CV</h1>
+        <p class="muted">Professional highlights, project samples and a short introduction — all in short vertical videos.</p>
+        <div>
+            <a href="#" class="btn-cta"><i class="fas fa-play mr-2"></i>Watch Highlights</a>
+        </div>
+    </header>
 
     <!-- Main Content: Sidebar + Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -577,9 +586,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
+    <footer class="mt-12" style="background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.2));">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center">
+            <div class="text-center muted">
                 <p>&copy; 2025 Bijaya Bhandari. All rights reserved.</p>
             </div>
         </div>

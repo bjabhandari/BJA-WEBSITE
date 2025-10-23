@@ -10,74 +10,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root{
-            --bg: #0f1724;
-            --text: #e6eef8;
-            --muted: #9ca3af;
-            --accent: #ff3c00;
-            --accent-2: #ea580c;
-            --card: #08101a;
-            --radius: 14px;
-        }
-        html,body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial}
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 460px;
-            margin: 0 auto;
-            aspect-ratio: 9/16;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 12px 48px rgba(0,0,0,0.45);
-            border: 1px solid rgba(255,255,255,0.03);
+            --brand-primary: #ff3c00;
+            --brand-accent: #EA580C;
+            --muted: #94a3b8;
+            --card-bg: #071023;
+            --radius: 12px;
+            --max-width: 1100px;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        body{ background: linear-gradient(180deg,#020203 0%, #071023 40%); color: #e6eef8; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -33px;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 2px solid rgba(255,255,255,0.06);
-            box-shadow: 0 0 0 4px rgba(255,60,0,0.06);
-        }
+        .video-container{ position: relative; width: 100%; max-width: 420px; margin:0 auto; aspect-ratio:9/16; background: #000; border-radius: var(--radius); overflow:hidden; box-shadow: 0 12px 48px rgba(0,0,0,0.5); }
+        .video-container iframe{ position:absolute; inset:0; width:100%; height:100%; border:none; }
 
-        .timeline-item {
-            position: relative;
-            padding-bottom: 2rem;
-        }
+        .timeline-item::before{ content:''; position:absolute; left:-36px; top:0; width:12px; height:12px; border-radius:50%; background:var(--brand-primary); border:2px solid rgba(255,255,255,0.06); box-shadow:0 0 0 2px rgba(255,60,0,0.06); }
+        .timeline-item{ position:relative; padding-bottom:2rem; }
+        .timeline-item:not(:last-child)::after{ content:''; position:absolute; left:-30px; top:12px; width:1px; height:calc(100% - 12px); background: linear-gradient(180deg,var(--brand-primary), var(--brand-accent)); opacity:0.9; }
 
-        .timeline-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: -27px;
-            top: 12px;
-            width: 1px;
-            height: calc(100% - 12px);
-            background: linear-gradient(180deg, rgba(255,60,0,0.56), rgba(255,80,12,0.2));
-        }
-        .bg-white{background:transparent}
-        .rounded-xl{border-radius:var(--radius)}
-        .shadow-lg{box-shadow:0 10px 40px rgba(2,6,12,0.6)}
+        .card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2)); border-radius:12px; padding:1rem; }
+        .muted{ color:var(--muted); }
     </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800">
     <!-- Navigation -->
-    <nav class="bg-white shadow">
+    <nav class="bg-transparent">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="../index.html" class="flex items-center">
@@ -94,8 +51,8 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">My Video CV Journey</h1>
-            <p class="text-xl text-gray-600">A visual story of my professional experience and skills</p>
+            <h1 class="text-4xl font-bold mb-4">My Video CV Journey</h1>
+            <p class="text-xl muted">A visual story of my professional experience and skills</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
