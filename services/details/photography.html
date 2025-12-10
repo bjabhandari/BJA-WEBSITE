@@ -46,7 +46,10 @@
                         alt="BJA Logo" class="h-12 mr-2">
                     <span class="text-2xl font-bold text-orange-600">BJA</span>
                 </a>
-                <div class="hidden md:flex space-x-8">
+                <button id="nav-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <div id="nav-menu" class="hidden md:flex space-x-8">
                     <a href="../../index.html" class="text-gray-700 hover:text-orange-600">Home</a>
                     <a href="../../index.html#services" class="text-gray-700 hover:text-orange-600">Services</a>
                     <a href="../../index.html#portfolio" class="text-gray-700 hover:text-orange-600">Portfolio</a>
@@ -54,6 +57,13 @@
                 </div>
             </div>
         </div>
+        <script>
+            (function(){
+                const btn = document.getElementById('nav-toggle');
+                const menu = document.getElementById('nav-menu');
+                if(btn && menu) btn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
+            })();
+        </script>
     </nav>
 
     <!-- Hero Section -->
