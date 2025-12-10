@@ -138,11 +138,12 @@
 
 <body class="bg-gray-100 text-gray-800">
 
-    <!-- Popup Ad (shows on page load for 3 seconds with Skip) -->
-    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+    <!-- Popup Ad (shows on page load; Skip hides it and prevents future automatic shows) -->
+    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" style="display:none;">
         <div class="relative max-w-3xl w-full mx-4">
-            <a id="popup-ad-link" href="https://www.facebook.com/photo?fbid=122144577620953303&set=pb.61578599100828.-2207520000" target="_blank" rel="noopener noreferrer">
-                <img id="popup-ad-img" src="https://www.facebook.com/photo?fbid=122144577620953303&set=pb.61578599100828.-2207520000" alt="Ad" class="w-full h-auto rounded-lg shadow-2xl block">
+            <!-- Use the provided share URL as the link. The src uses the same URL but many Facebook pages won't hotlink images — we add an onerror fallback to a local image. -->
+            <a id="popup-ad-link" href="https://www.facebook.com/share/p/1AEC6vJQme/" target="_blank" rel="noopener noreferrer">
+                <img id="popup-ad-img" src="https://www.facebook.com/share/p/1AEC6vJQme/" onerror="this.onerror=null;this.src='images/bja logo.png'" alt="Ad" class="w-full h-auto rounded-lg shadow-2xl block">
             </a>
             <button id="ad-skip" aria-label="Skip ad" class="absolute -top-3 -right-3 bg-white text-gray-800 font-medium px-3 py-1 rounded-full shadow">Skip</button>
         </div>
@@ -218,37 +219,56 @@
     </section>
 
     <script>
-        // Popup ad logic: show on load, auto-close after 3s, allow Skip
+        // Popup ad logic: show on load unless user has skipped before (stored in localStorage).
+        // Auto-closes after 3s but only "Skip" will persist the dismissal so it won't show again.
         (function(){
             const popup = document.getElementById('popup-ad');
             const skip = document.getElementById('ad-skip');
+            const link = document.getElementById('popup-ad-link');
             let timer = null;
 
-            function closePopup(){
+            if(!popup) return;
+
+            // If user previously skipped, don't show again
+            try {
+                if (localStorage.getItem('popupAdDismissed') === '1') {
+                    return;
+                }
+            } catch (err) {
+                // localStorage may be unavailable in some privacy modes; ignore and continue showing
+                console.warn('localStorage unavailable for popup ad persistence', err);
+            }
+
+            function closePopup(persist) {
                 if(!popup) return;
                 popup.style.display = 'none';
                 if(timer) { clearTimeout(timer); timer = null; }
+                if (persist) {
+                    try { localStorage.setItem('popupAdDismissed', '1'); } catch (err) {}
+                }
             }
 
-            // Show popup immediately
-            if(popup){
-                popup.style.display = 'flex';
-                // Auto close after 3 seconds (3000 ms)
-                timer = setTimeout(closePopup, 3000);
-            }
+            // Show popup
+            popup.style.display = 'flex';
+            // Auto close after 3 seconds (3000 ms)
+            timer = setTimeout(function(){ closePopup(false); }, 3000);
 
+            // Skip button: close and persist dismissal so it won't auto-show again
             if(skip){
                 skip.addEventListener('click', function(e){
                     e.preventDefault();
-                    closePopup();
+                    closePopup(true);
                 });
             }
 
-            // Close when user clicks outside the image
-            if(popup){
-                popup.addEventListener('click', function(e){
-                    if(e.target === popup) closePopup();
-                });
+            // Close when user clicks outside the image (does not persist)
+            popup.addEventListener('click', function(e){
+                if(e.target === popup) closePopup(false);
+            });
+
+            // If the user clicks the ad link, close the popup (do not persist — they saw/clicked)
+            if(link){
+                link.addEventListener('click', function(){ closePopup(false); });
             }
         })();
     </script>
