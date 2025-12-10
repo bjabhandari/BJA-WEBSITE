@@ -138,6 +138,16 @@
 
 <body class="bg-gray-100 text-gray-800">
 
+    <!-- Popup Ad (shows on page load for 3 seconds with Skip) -->
+    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+        <div class="relative max-w-3xl w-full mx-4">
+            <a id="popup-ad-link" href="https://www.facebook.com/photo?fbid=122144577620953303&set=pb.61578599100828.-2207520000" target="_blank" rel="noopener noreferrer">
+                <img id="popup-ad-img" src="https://www.facebook.com/photo?fbid=122144577620953303&set=pb.61578599100828.-2207520000" alt="Ad" class="w-full h-auto rounded-lg shadow-2xl block">
+            </a>
+            <button id="ad-skip" aria-label="Skip ad" class="absolute -top-3 -right-3 bg-white text-gray-800 font-medium px-3 py-1 rounded-full shadow">Skip</button>
+        </div>
+    </div>
+
     <!-- Header Section -->
     <header class="bg-white shadow-md p-4 fixed w-full z-50 rounded-b-lg">
         <nav class="container mx-auto flex items-center justify-between flex-wrap">
@@ -206,6 +216,42 @@
             </a>
         </div>
     </section>
+
+    <script>
+        // Popup ad logic: show on load, auto-close after 3s, allow Skip
+        (function(){
+            const popup = document.getElementById('popup-ad');
+            const skip = document.getElementById('ad-skip');
+            let timer = null;
+
+            function closePopup(){
+                if(!popup) return;
+                popup.style.display = 'none';
+                if(timer) { clearTimeout(timer); timer = null; }
+            }
+
+            // Show popup immediately
+            if(popup){
+                popup.style.display = 'flex';
+                // Auto close after 3 seconds (3000 ms)
+                timer = setTimeout(closePopup, 3000);
+            }
+
+            if(skip){
+                skip.addEventListener('click', function(e){
+                    e.preventDefault();
+                    closePopup();
+                });
+            }
+
+            // Close when user clicks outside the image
+            if(popup){
+                popup.addEventListener('click', function(e){
+                    if(e.target === popup) closePopup();
+                });
+            }
+        })();
+    </script>
 
     <!-- About Me Section -->
     <section id="about" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
