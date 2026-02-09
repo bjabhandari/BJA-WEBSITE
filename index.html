@@ -16,7 +16,7 @@
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            /* Prevent horizontal scroll on small screens */
+            /* Prevent horizontal scroll on small screen */
         }
 
         /* Custom styles for hero section background */
@@ -139,32 +139,32 @@
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Popup Ad (shows on page load; Skip hides it and prevents future automatic shows) -->
-    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" style="display:none;">
-        <div class="relative max-w-3xl w-full mx-4">
+    <div id="popup-ad" class="z-50 fixed inset-0 flex justify-center items-center bg-black bg-opacity-60" style="display:none;">
+        <div class="relative mx-4 w-full max-w-3xl">
             <!-- Use the provided share URL as the link. The src uses the same URL but many Facebook pages won't hotlink images — we add an onerror fallback to a local image. -->
             <a id="popup-ad-link" href="https://www.facebook.com/share/p/1AEC6vJQme/" target="_blank" rel="noopener noreferrer">
-                <img id="popup-ad-img" src="https://www.facebook.com/share/p/1AEC6vJQme/" onerror="this.onerror=null;this.src='images/bja logo.png'" alt="Ad" class="w-full h-auto rounded-lg shadow-2xl block">
+                <img id="popup-ad-img" src="https://www.facebook.com/share/p/1AEC6vJQme/" onerror="this.onerror=null;this.src='images/bja logo.png'" alt="Ad" class="block shadow-2xl rounded-lg w-full h-auto">
             </a>
-            <button id="ad-skip" aria-label="Skip ad" class="absolute -top-3 -right-3 bg-white text-gray-800 font-medium px-3 py-1 rounded-full shadow">Skip</button>
+            <button id="ad-skip" aria-label="Skip ad" class="-top-3 -right-3 absolute bg-white shadow px-3 py-1 rounded-full font-medium text-gray-800">Skip</button>
         </div>
     </div>
 
     <!-- Header Section -->
-    <header class="bg-white shadow-md p-4 fixed w-full z-50 rounded-b-lg">
-        <nav class="container mx-auto flex items-center justify-between flex-wrap">
+    <header class="z-50 fixed bg-white shadow-md p-4 rounded-b-lg w-full">
+        <nav class="flex flex-wrap justify-between items-center mx-auto container">
             <!-- Logo -->
-            <div class="flex items-center flex-shrink-0 text-gray-800 mr-6">
+            <div class="flex flex-shrink-0 items-center mr-6 text-gray-800">
                 <!-- Added logo image and adjusted text size -->
-                <img src="images/bja logo.png" alt="bijaya-bhandari" class="h-16 mr-2" style="cursor:pointer"
+                <img src="images/bja logo.png" alt="bijaya-bhandari" class="mr-2 h-16" style="cursor:pointer"
                     onclick="location.reload();">
 
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="block lg:hidden">
+            <div class="lg:hidden block">
                 <button id="nav-toggle"
-                    class="flex items-center px-3 py-2 border rounded text-gray-600 border-gray-400 hover:text-gray-800 hover:border-gray-800">
-                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    class="flex items-center px-3 py-2 border border-gray-400 hover:border-gray-800 rounded text-gray-600 hover:text-gray-800">
+                    <svg class="fill-current w-3 h-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <title>Menu</title>
                         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-6z" />
                     </svg>
@@ -173,26 +173,26 @@
 
             <!-- Navigation Links -->
             <div id="nav-content"
-                class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0">
-                <div class="text-sm lg:flex-grow lg:flex lg:justify-end">
+                class="hidden lg:block lg:flex flex-grow lg:items-center mt-2 lg:mt-0 w-full lg:w-auto">
+                <div class="lg:flex lg:flex-grow lg:justify-end text-sm">
                     <a href="#home"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
+                        class="block lg:inline-block hover:bg-orange-50 mt-4 lg:mt-0 mr-6 px-3 py-2 rounded-md text-gray-600 hover:text-orange-600 transition-colors duration-200">
                         Home
                     </a>
                     <a href="#about"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
+                        class="block lg:inline-block hover:bg-orange-50 mt-4 lg:mt-0 mr-6 px-3 py-2 rounded-md text-gray-600 hover:text-orange-600 transition-colors duration-200">
                         About Me
                     </a>
                     <a href="#services"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
+                        class="block lg:inline-block hover:bg-orange-50 mt-4 lg:mt-0 mr-6 px-3 py-2 rounded-md text-gray-600 hover:text-orange-600 transition-colors duration-200">
                         My Offerings
                     </a>
                     <a href="#portfolio"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 mr-6 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
+                        class="block lg:inline-block hover:bg-orange-50 mt-4 lg:mt-0 mr-6 px-3 py-2 rounded-md text-gray-600 hover:text-orange-600 transition-colors duration-200">
                         Event Gallery
                     </a>
                     <a href="#contact"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-orange-600 py-2 px-3 rounded-md hover:bg-orange-50 transition-colors duration-200">
+                        class="block lg:inline-block hover:bg-orange-50 mt-4 lg:mt-0 px-3 py-2 rounded-md text-gray-600 hover:text-orange-600 transition-colors duration-200">
                         Contact
                     </a>
                 </div>
@@ -202,17 +202,17 @@
 
     <!-- Hero Section -->
     <section id="home"
-        class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen">
-        <div class="hero-overlay absolute inset-0"></div>
-        <div class="container mx-auto text-center relative z-10 px-4">
-            <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-down">
+        class="relative flex justify-center items-center py-20 lg:py-48 min-h-screen text-white hero-background">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="z-10 relative mx-auto px-4 text-center container">
+            <h1 class="mb-6 font-bold text-4xl lg:text-6xl leading-tight animate-fade-in-down">
                 Bring Your Ideas to Life Beautifully Edited
             </h1>
-            <p class="text-lg lg:text-xl mb-8 opacity-90 animate-fade-in-up">
+            <p class="opacity-90 mb-8 text-lg lg:text-xl animate-fade-in-up">
                 Your premier destination for weddings, corporate events, and unforgettable celebrations.
             </p>
             <a href="#services"
-                class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block animate-zoom-in">
+                class="inline-block shadow-lg hover:shadow-xl px-8 py-3 rounded-full font-semibold text-white transition-all animate-zoom-in duration-300 btn-primary">
                 Explore Services Priceing
             </a>
         </div>
@@ -274,18 +274,18 @@
     </script>
 
     <!-- About Me Section -->
-    <section id="about" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
-        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section id="about" class="bg-white shadow-inner py-16 lg:py-24 rounded-t-lg">
+        <div class="items-center gap-12 grid grid-cols-1 lg:grid-cols-2 mx-auto px-4 container">
             <div class="lg:order-2">
                 <img src="https://www.facebook.com/photo/?fbid=2724268144423181&set=p.2724268144423181"
-                    alt="Grand Ballroom" class="rounded-lg shadow-xl w-full h-auto">
+                    alt="Grand Ballroom" class="shadow-xl rounded-lg w-full h-auto">
             </div>
             <div class="lg:order-1">
                 <h2
-                    class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
+                    class="inline-block mb-6 pb-2 border-orange-500 border-b-4 font-bold text-gray-900 text-3xl lg:text-4xl">
                     About Me
                 </h2>
-                <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                <p class="mb-4 text-gray-700 text-lg leading-relaxed">
                     A passionate and skilled professional with 2 year of experience in video editing for ads and news.
                     Proficient in Davinci Resolve, Premiere Pro, Photoshopand, After Effects and Figma. Currently
                     enhancing visual stories
@@ -297,32 +297,32 @@
                     From intimate gatherings to grand galas, my versatile spaces can be customized to bring your vision
                     to life. I pride myself on creating seamless, memorable experiences for all my guests.
                 </p>
-                <ul class="mt-6 space-y-3 text-gray-700">
+                <ul class="space-y-3 mt-6 text-gray-700">
                     <li class="flex items-center">
-                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Video Editor
+                        <i class="mr-3 text-orange-500 fas fa-check-circle"></i> Video Editor
                     </li>
                     <li class="flex items-center">
-                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Graphics Designer
+                        <i class="mr-3 text-orange-500 fas fa-check-circle"></i> Graphics Designer
                     </li>
                     <li class="flex items-center">
-                        <i class="fas fa-check-circle text-orange-500 mr-3"></i> Photographer
+                        <i class="mr-3 text-orange-500 fas fa-check-circle"></i> Photographer
                     </li>
 
                     </li>
                     <li class="flex items-center">
-                        <i class="fas fa-check-circle text-orange-500 mr-3"></i>Social Media Booster
+                        <i class="mr-3 text-orange-500 fas fa-check-circle"></i>Social Media Booster
                 </ul>
 
                 <!-- Video CV & Resume Actions -->
-                <div class="mt-8 flex flex-col sm:flex-row sm:space-x-4 gap-4">
+                <div class="flex sm:flex-row flex-col gap-4 sm:space-x-4 mt-8">
                     <a href="services/video-cv.html"
-                        class="inline-flex items-center justify-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-3 px-6 rounded-full shadow hover:scale-[1.02] transition-transform">
-                        <i class="fas fa-video mr-3"></i> Watch Video CV
+                        class="inline-flex justify-center items-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] shadow px-6 py-3 rounded-full font-semibold text-white hover:scale-[1.02] transition-transform">
+                        <i class="mr-3 fas fa-video"></i> Watch Video CV
                     </a>
 
                     <a href="Bijaya%20Resume.pdf" download="Bijaya Resume.pdf"
-                        class="inline-flex items-center justify-center border-2 border-orange-500 text-orange-600 font-semibold py-3 px-6 rounded-full shadow hover:bg-orange-50 transition-colors">
-                        <i class="fas fa-file-download mr-3"></i> Download Resume
+                        class="inline-flex justify-center items-center hover:bg-orange-50 shadow px-6 py-3 border-2 border-orange-500 rounded-full font-semibold text-orange-600 transition-colors">
+                        <i class="mr-3 fas fa-file-download"></i> Download Resume
                     </a>
                 </div>
             </div>
@@ -330,23 +330,23 @@
     </section>
 
     <!-- Services / Pricing Section -->
-    <section id="services" class="py-16 lg:py-24 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-8 text-center">
+    <section id="services" class="bg-gray-100 py-16 lg:py-24">
+        <div class="mx-auto px-4 container">
+            <h2 class="mb-8 font-bold text-gray-900 text-3xl lg:text-4xl text-center">
                 My Services & Pricing
             </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div class="items-start gap-8 grid grid-cols-1 md:grid-cols-3">
                 <!-- Basic Plan -->
-                <div class="relative bg-white rounded-xl shadow-lg p-8">
+                <div class="relative bg-white shadow-lg p-8 rounded-xl">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-4xl font-extrabold text-gray-900">Rs.6,499</p>
-                            <p class="text-sm text-gray-500">Per month</p>
+                            <p class="font-extrabold text-gray-900 text-4xl">Rs.6,499</p>
+                            <p class="text-gray-500 text-sm">Per month</p>
                         </div>
                         <div class="ml-4">
                             <span
-                                class="inline-block bg-orange-100 text-orange-600 font-semibold px-3 py-1 rounded-full">Basic
+                                class="inline-block bg-orange-100 px-3 py-1 rounded-full font-semibold text-orange-600">Basic
                                 Plan</span>
                         </div>
                     </div>
@@ -356,66 +356,66 @@
                     <hr class="my-6 border-gray-100">
 
                     <ul class="space-y-3 text-gray-700 text-sm">
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>7 Post Design
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>7 Post Design
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>2 Ad Design</li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>2 Festival posts
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>2 Ad Design</li>
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>2 Festival posts
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Content Research
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Content Research
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Caption Writing
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Caption Writing
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Hash Tag Research
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Hash Tag Research
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Social Media
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Social Media
                             Handling</li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Boost Available
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Boost Available
                             (*)</li>
                     </ul>
                 </div>
 
                 <!-- Standard Plan (Highlighted) -->
-                <div class="relative rounded-xl shadow-lg p-8 bg-orange-500 text-white">
+                <div class="relative bg-orange-500 shadow-lg p-8 rounded-xl text-white">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-4xl font-extrabold">Rs.9,499</p>
-                            <p class="text-sm opacity-90">Per month</p>
+                            <p class="font-extrabold text-4xl">Rs.9,499</p>
+                            <p class="opacity-90 text-sm">Per month</p>
                         </div>
                         <div class="ml-4">
                             <span
-                                class="inline-block bg-white/20 text-white font-semibold px-3 py-1 rounded-full">Standard</span>
+                                class="inline-block bg-white/20 px-3 py-1 rounded-full font-semibold text-white">Standard</span>
                         </div>
                     </div>
 
-                    <p class="mt-6 opacity-90">Perfect for growing businesses</p>
+                    <p class="opacity-90 mt-6">Perfect for growing businesses</p>
 
                     <hr class="my-6 border-white/20">
 
                     <ul class="space-y-3 text-sm">
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>10 Post Design</li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>3 Ad Design</li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>Customer Target</li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>Marketing Tips</li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>Caption Writing</li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>Content Research</li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>Hashtag Research</li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>Major Festival Posts
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>10 Post Design</li>
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>3 Ad Design</li>
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>Customer Target</li>
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>Marketing Tips</li>
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>Caption Writing</li>
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>Content Research</li>
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>Hashtag Research</li>
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>Major Festival Posts
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-white mr-3"></i>Social Media Handling
+                        <li class="flex items-center"><i class="mr-3 text-white fas fa-check"></i>Social Media Handling
                         </li>
                     </ul>
                 </div>
 
                 <!-- Premium Plan -->
-                <div class="relative bg-white rounded-xl shadow-lg p-8">
+                <div class="relative bg-white shadow-lg p-8 rounded-xl">
                     <div class="flex justify-between items-start">
                         <div>
-                            <p class="text-4xl font-extrabold text-gray-900">Rs.14,499</p>
-                            <p class="text-sm text-gray-500">Per month</p>
+                            <p class="font-extrabold text-gray-900 text-4xl">Rs.14,499</p>
+                            <p class="text-gray-500 text-sm">Per month</p>
                         </div>
                         <div class="ml-4">
                             <span
-                                class="inline-block bg-orange-100 text-orange-600 font-semibold px-3 py-1 rounded-full">Premium</span>
+                                class="inline-block bg-orange-100 px-3 py-1 rounded-full font-semibold text-orange-600">Premium</span>
                         </div>
                     </div>
 
@@ -424,22 +424,22 @@
                     <hr class="my-6 border-gray-100">
 
                     <ul class="space-y-3 text-gray-700 text-sm">
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>15 Post Design
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>15 Post Design
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>4 Ad Design</li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Customer Target
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>4 Ad Design</li>
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Customer Target
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>All Festival
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>All Festival
                             Posts</li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Marketing Tips
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Marketing Tips
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Caption Writing
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Caption Writing
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Content Research
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Content Research
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Hash Tag Research
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Hash Tag Research
                         </li>
-                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-3"></i>Social Media
+                        <li class="flex items-center"><i class="mr-3 text-orange-500 fas fa-check"></i>Social Media
                             Handling</li>
                     </ul>
                 </div>
@@ -447,7 +447,7 @@
 
             <div class="mt-8 text-center">
                 <a href="#portfolio"
-                    class="inline-block btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                    class="inline-block shadow-lg hover:shadow-xl px-8 py-3 rounded-full font-semibold text-white transition-all duration-300 btn-primary">
                     View More Services
                 </a>
             </div>
@@ -455,93 +455,93 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
-        <div class="container mx-auto px-4 text-center">
+    <section id="portfolio" class="bg-white shadow-inner py-16 lg:py-24 rounded-t-lg">
+        <div class="mx-auto px-4 text-center container">
             <h2
-                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-12 border-b-4 border-orange-500 pb-2 inline-block">
+                class="inline-block mb-12 pb-2 border-orange-500 border-b-4 font-bold text-gray-900 text-3xl lg:text-4xl">
                 My Services Gallery
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 <!-- Portfolio Item 1 -->
-                <div class="portfolio-card bg-white shadow-lg">
+                <div class="bg-white shadow-lg portfolio-card">
                     <img src="https://miro.medium.com/v2/resize:fit:1400/0*qKaI6a9c0mZi5P1P.jpeg"
                         alt="Wedding Reception" class="w-full h-48 object-cover">
-                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Video Editing</h3>
+                    <div class="flex flex-col justify-center items-center p-4 text-white overlay">
+                        <h3 class="mb-2 font-bold text-2xl">Video Editing</h3>
                         <p class="text-sm">Professional editing for social media, ads, and news using Davinci Resolveand
                             Premiere Pro
                             to create engaging content.</p>
                         <a href="services/details/video-editing.html"
-                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            class="bg-orange-500 hover:bg-orange-600 mt-4 px-6 py-2 rounded-full font-semibold text-white transition-colors duration-300">View
                             Details & Pricing</a>
                     </div>
                 </div>
                 <!-- Portfolio Item 2 -->
-                <div class="portfolio-card bg-white shadow-lg">
+                <div class="bg-white shadow-lg portfolio-card">
                     <img src="https://english.onlinekhabar.com/wp-content/uploads/2022/02/fotopasal-e1644463976771.jpg"
                         alt="Birthday Party" class="w-full h-48 object-cover">
-                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Photography</h3>
+                    <div class="flex flex-col justify-center items-center p-4 text-white overlay">
+                        <h3 class="mb-2 font-bold text-2xl">Photography</h3>
                         <p class="text-sm">Capturing moments and telling stories through the lens, with a keen eye for
                             lighting and composition.</p>
                         <a href="services/details/photography.html"
-                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            class="bg-orange-500 hover:bg-orange-600 mt-4 px-6 py-2 rounded-full font-semibold text-white transition-colors duration-300">View
                             Details & Pricing</a>
                     </div>
                 </div>
                 <!-- Portfolio Item 3 -->
-                <div class="portfolio-card bg-white shadow-lg">
+                <div class="bg-white shadow-lg portfolio-card">
                     <img src="https://media.smallbiztrends.com/2022/02/how-much-do-graphic-designers-make.png"
                         alt="Corporate Gala" class="w-full h-48 object-cover">
-                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Graphics Design</h3>
+                    <div class="flex flex-col justify-center items-center p-4 text-white overlay">
+                        <h3 class="mb-2 font-bold text-2xl">Graphics Design</h3>
                         <p class="text-sm">Create visual elements such as logos, original images, and illustrations to
                             help deliver a message. Design layouts, including selection of colors, images, and
                             typefaces.</p>
                         <a href="services/details/graphics-design.html"
-                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            class="bg-orange-500 hover:bg-orange-600 mt-4 px-6 py-2 rounded-full font-semibold text-white transition-colors duration-300">View
                             Details & Pricing</a>
                     </div>
                 </div>
                 <!-- Portfolio Item 4 -->
-                <div class="portfolio-card bg-white shadow-lg">
+                <div class="bg-white shadow-lg portfolio-card">
                     <img src="https://i.pinimg.com/736x/c3/3a/ff/c33affa84a2e1177ed19a9e14b99a6cd.jpg" alt="Anniversary"
                         class="w-full h-48 object-cover">
-                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Social Media Boosting</h3>
+                    <div class="flex flex-col justify-center items-center p-4 text-white overlay">
+                        <h3 class="mb-2 font-bold text-2xl">Social Media Boosting</h3>
                         <p class="text-sm">In the context of marketing and social media, "boost" typically refers to the
                             act of amplifying the reach and visibility of a specific post, campaign, or piece of content
                         </p>
                         <a href="services/details/social-media-boosting.html"
-                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            class="bg-orange-500 hover:bg-orange-600 mt-4 px-6 py-2 rounded-full font-semibold text-white transition-colors duration-300">View
                             Event</a>
                     </div>
                 </div>
                 <!-- Portfolio Item 5 -->
-                <div class="portfolio-card bg-white shadow-lg">
+                <div class="bg-white shadow-lg portfolio-card">
                     <img src="https://blog.slido.com/wp-content/uploads/2021/05/slido-hybrid-meetings-blog-header.jpg"
                         alt="Cultural Event" class="w-full h-48 object-cover">
-                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Job Center</h3>
+                    <div class="flex flex-col justify-center items-center p-4 text-white overlay">
+                        <h3 class="mb-2 font-bold text-2xl">Job Center</h3>
                         <p class="text-sm">A job centre is a place where people who are looking for work can go to get
                             advice on finding a job, and to look at advertisements placed by people who are looking for
                             new employees.</p>
                         <a href="#"
-                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            class="bg-orange-500 hover:bg-orange-600 mt-4 px-6 py-2 rounded-full font-semibold text-white transition-colors duration-300">View
                             Event</a>
                     </div>
                 </div>
                 <!-- Portfolio Item 6 -->
-                <div class="portfolio-card bg-white shadow-lg">
+                <div class="bg-white shadow-lg portfolio-card">
                     <img src="https://smartcuts.ch/wp-content/uploads/robot-and-woman-working-on-laptop-ai-smartcuts-video-blogpost.jpg"
                         alt="Product Launch" class="w-full h-48 object-cover">
-                    <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Ai Video Production</h3>
+                    <div class="flex flex-col justify-center items-center p-4 text-white overlay">
+                        <h3 class="mb-2 font-bold text-2xl">Ai Video Production</h3>
                         <p class="text-sm">AI in Video Production. From
                             automating editing to generating dynamic visuals, AI is making video production faster and
                             more accessible.</p>
                         <a href="#"
-                            class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
+                            class="bg-orange-500 hover:bg-orange-600 mt-4 px-6 py-2 rounded-full font-semibold text-white transition-colors duration-300">View
                             Event</a>
                     </div>
                 </div>
@@ -550,95 +550,95 @@
     </section>
 
     <!-- Call to Action Section -->
-    <section class="bg-orange-700 text-white py-16 lg:py-20 rounded-t-lg">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Plan Your Next Event?</h2>
-            <p class="text-lg opacity-90 mb-8">
+    <section class="bg-orange-700 py-16 lg:py-20 rounded-t-lg text-white">
+        <div class="mx-auto px-4 text-center container">
+            <h2 class="mb-6 font-bold text-3xl lg:text-4xl">Ready to Plan Your Next Event?</h2>
+            <p class="opacity-90 mb-8 text-lg">
                 Let me help you create an unforgettable experience tailored to your dreams.
             </p>
             <a href="#contact"
-                class="bg-white text-orange-700 font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block">
+                class="inline-block bg-white shadow-lg hover:shadow-xl px-8 py-3 rounded-full font-semibold text-orange-700 transition-all duration-300">
                 Request a Booking
             </a>
         </div>
     </section>
 
     <!-- Contact Me Section -->
-    <section id="contact" class="py-16 lg:py-24 bg-gray-100 rounded-t-lg">
-        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <section id="contact" class="bg-gray-100 py-16 lg:py-24 rounded-t-lg">
+        <div class="gap-12 grid grid-cols-1 lg:grid-cols-2 mx-auto px-4 container">
             <div>
                 <h2
-                    class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
+                    class="inline-block mb-6 pb-2 border-orange-500 border-b-4 font-bold text-gray-900 text-3xl lg:text-4xl">
                     Contact Me
                 </h2>
-                <p class="text-gray-700 text-lg mb-6">
+                <p class="mb-6 text-gray-700 text-lg">
                     Have a question or want to book my services? Reach out to me directly.
                 </p>
                 <ul class="space-y-4 text-gray-700 text-lg">
                     <li class="flex items-center">
-                        <i class="fas fa-map-marker-alt text-orange-500 mr-4 text-xl"></i>
+                        <i class="mr-4 text-orange-500 text-xl fas fa-map-marker-alt"></i>
                         Nepal, Pokhara, Birauta
                     </li>
                     <li class="flex items-center">
-                        <i class="fas fa-phone-alt text-orange-500 mr-4 text-xl"></i>
+                        <i class="mr-4 text-orange-500 text-xl fas fa-phone-alt"></i>
                         +977 9824168577 (Nepal)
                     </li>
                     <li class="flex items-center">
-                        <i class="fas fa-envelope text-orange-500 mr-4 text-xl"></i>
+                        <i class="mr-4 text-orange-500 text-xl fas fa-envelope"></i>
                         bijayabhandari515@gmail.com
                     </li>
                 </ul>
                 <div class="mt-8">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Follow Me</h3>
+                    <h3 class="mb-4 font-semibold text-gray-900 text-2xl">Follow Me</h3>
                     <div class="flex space-x-6">
                         <a href="https://www.facebook.com/bijaya.bhandari.9404"
                             class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
-                            <i class="fab fa-facebook-f text-3xl"></i>
+                            <i class="text-3xl fab fa-facebook-f"></i>
                         </a>
                         <a href="" class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
-                            <i class="fab fa-twitter text-3xl"></i>
+                            <i class="text-3xl fab fa-twitter"></i>
                         </a>
                         <a href="https://www.linkedin.com/in/bijaya-bhandari/"
                             class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
-                            <i class="fab fa-linkedin-in text-3xl"></i>
+                            <i class="text-3xl fab fa-linkedin-in"></i>
                         </a>
                         <a href="https://www.instagram.com/bijaya.bhandari.9404/"
                             class="text-gray-600 hover:text-orange-500 transition-colors duration-300">
-                            <i class="fab fa-instagram text-3xl"></i>
+                            <i class="text-3xl fab fa-instagram"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg">
+            <div class="bg-white shadow-lg p-8 rounded-xl">
                 <form id="contact-form" data-service-id="service_hydres4" data-template-id="template_z7wz21r">
                     <div class="mb-6">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                        <label for="name" class="block mb-2 font-bold text-gray-700 text-sm">Name</label>
                         <input type="text" id="name" name="name"
-                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            class="shadow px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-full text-gray-700 leading-tight appearance-none"
                             placeholder="Your Name">
                     </div>
                     <div class="mb-6">
-                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <label for="email" class="block mb-2 font-bold text-gray-700 text-sm">Email</label>
                         <input type="email" id="email" name="email"
-                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            class="shadow px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-full text-gray-700 leading-tight appearance-none"
                             placeholder="your@example.com">
                     </div>
                     <div class="mb-6">
-                        <label for="event_type" class="block text-gray-700 text-sm font-bold mb-2">Type of Event</label>
+                        <label for="event_type" class="block mb-2 font-bold text-gray-700 text-sm">Type of Event</label>
                         <input type="text" id="event_type" name="event_type"
-                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            class="shadow px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-full text-gray-700 leading-tight appearance-none"
                             placeholder="e.g.,video Editing, Boosting, Events">
                     </div>
                     <div class="mb-6">
                         <label for="message"
-                            class="block text-gray-700 text-sm font-bold mb-2">Message/Requirements</label>
+                            class="block mb-2 font-bold text-gray-700 text-sm">Message/Requirements</label>
                         <textarea id="message" name="message" rows="6"
-                            class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            class="shadow px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 w-full text-gray-700 leading-tight appearance-none"
                             placeholder="Tell me about your services"></textarea>
                     </div>
-                    <div id="contact-feedback" class="hidden text-center mb-4"></div>
+                    <div id="contact-feedback" class="hidden mb-4 text-center"></div>
                     <button id="contact-submit" type="submit"
-                        class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 w-full">
+                        class="shadow-lg hover:shadow-xl px-8 py-3 rounded-full w-full font-semibold text-white transition-all duration-300 btn-primary">
                         Submit Inquiry
                     </button>
                 </form>
@@ -647,8 +647,8 @@
     </section>
 
     <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-8 rounded-t-lg shadow-inner">
-        <div class="container mx-auto px-4 text-center">
+    <footer class="bg-gray-800 shadow-inner py-8 rounded-t-lg text-white">
+        <div class="mx-auto px-4 text-center container">
             <p class="mb-4">&copy; 2025 Bijaya bhandari. All rights reserved.</p>
             <div class="flex justify-center space-x-6 mb-4">
                 <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
@@ -656,30 +656,30 @@
             </div>
             <div class="flex justify-center space-x-6">
                 <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
-                    <i class="fab fa-facebook-f text-2xl"></i>
+                    <i class="text-2xl fab fa-facebook-f"></i>
                 </a>
                 <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
-                    <i class="fab fa-twitter text-2xl"></i>
+                    <i class="text-2xl fab fa-twitter"></i>
                 </a>
                 <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
-                    <i class="fab fa-linkedin-in text-2xl"></i>
+                    <i class="text-2xl fab fa-linkedin-in"></i>
                 </a>
                 <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors duration-300">
-                    <i class="fab fa-instagram text-2xl"></i>
+                    <i class="text-2xl fab fa-instagram"></i>
                 </a>
             </div>
         </div>
     </footer>
 
     <!-- Video CV Modal -->
-    <div id="video-cv-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg overflow-hidden max-w-3xl w-full mx-4">
+    <div id="video-cv-modal" class="hidden z-50 fixed inset-0 justify-center items-center bg-black bg-opacity-60">
+        <div class="bg-white mx-4 rounded-lg w-full max-w-3xl overflow-hidden">
             <div class="flex justify-between items-center p-4 border-b">
                 <h3 class="font-semibold text-lg">Video CV</h3>
                 <button onclick="closeVideoCV()" class="text-gray-600 hover:text-gray-900">✕</button>
             </div>
             <div class="p-4">
-                <div class="aspect-w-16 aspect-h-9">
+                <div class="aspect-h-9 aspect-w-16">
                     <iframe id="video-cv-iframe" src="" frameborder="0" allowfullscreen class="w-full h-64"></iframe>
                 </div>
             </div>
