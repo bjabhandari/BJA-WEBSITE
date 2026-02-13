@@ -171,6 +171,19 @@
                 </button>
             </div>
 
+            <!-- Sidebar toggle & Book Now for all viewports -->
+            <div class="flex items-center space-x-3 ml-4">
+                <button id="sidebar-toggle" aria-label="Open menu"
+                    class="hidden lg:inline-flex items-center px-3 py-2 border rounded text-gray-600 border-gray-400 hover:text-gray-800 hover:border-gray-800">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <a href="/services/video-delivery.html" id="book-now-btn"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-2 px-4 rounded-full shadow hover:scale-[1.02] transition-transform">
+                    <i class="fas fa-calendar-check mr-2"></i> Book Now
+                </a>
+            </div>
+
             <!-- Navigation Links -->
             <div id="nav-content"
                 class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0">
@@ -199,6 +212,37 @@
             </div>
         </nav>
     </header>
+
+    <!-- Sidebar (hidden by default) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-80 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 lg:static lg:shadow-none transition-transform duration-300 z-40">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-3">
+                    <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/566192831_122134563092953303_3248015248058248586_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2Efr0RK0jccQ7kNvwHtbv-r&_nc_oc=AdkZcGs7FHHliraYcT-dpvkqUy4sfm70jDKG_98TPgXXchoSBiFJwaFKfddLJNY8EbE&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=KCUHQLpdvYirHbrcfrkAQQ&oh=00_AfcRIUZTP6gsvzXNXUe5CUHKhm_ebBp23Qws9HdRFTyXxg&oe=68F5B78A" alt="logo" class="h-12 w-12 rounded-md shadow-sm">
+                    <div>
+                        <div class="font-bold text-lg text-gray-800">Bijaya Bhandari</div>
+                        <div class="text-sm text-gray-500">Video Editor & Creator</div>
+                    </div>
+                </div>
+                <button id="sidebar-close" class="lg:hidden p-2 text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <nav class="space-y-3">
+                <a href="#home" class="block px-3 py-2 rounded-md hover:bg-gray-100">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-100">About Me</a>
+                <a href="#services" class="block px-3 py-2 rounded-md hover:bg-gray-100">Services</a>
+                <a href="#portfolio" class="block px-3 py-2 rounded-md hover:bg-gray-100">Portfolio</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md hover:bg-gray-100">Contact</a>
+                <a href="/services/video-delivery.html" class="block px-3 py-2 rounded-md bg-orange-50 text-orange-600 font-semibold">Video Delivery Tracker</a>
+            </nav>
+
+            <div class="mt-6">
+                <a href="#contact" class="block text-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white py-3 rounded-md font-semibold">Book Now</a>
+            </div>
+        </div>
+    </aside>
 
     <!-- Hero Section -->
     <section id="home"
@@ -749,7 +793,8 @@
             });
         })();
     </script>
-    <script>
+    <script>    # zsh / macOS
+    python3 -m http.server 8000
         // Make pricing cards selectable (one featured at a time)
         (function () {
             const cards = document.querySelectorAll('#services .relative');

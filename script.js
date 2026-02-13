@@ -89,3 +89,32 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => feedback.classList.add('hidden'), 6000);
     }
 });
+
+// Sidebar toggle (independent of contact form logic)
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const openBtn = document.getElementById('sidebar-toggle');
+    const closeBtn = document.getElementById('sidebar-close');
+
+    if (!sidebar) return;
+
+    function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+    }
+
+    function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openSidebar);
+    if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+
+    // close sidebar when clicking outside on small screens
+    document.addEventListener('click', function (e) {
+        const target = e.target;
+        if (!sidebar.contains(target) && !((openBtn && openBtn.contains(target)))) {
+            // only close when sidebar is visible on small screens
+            if (!sidebar.classList.contains('-translate-x-full')) closeSidebar();
+        }
+    });
+});
