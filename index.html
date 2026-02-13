@@ -178,10 +178,10 @@
                     <i class="fas fa-bars"></i>
                 </button>
 
-                <a href="/services/video-delivery.html" id="book-now-btn"
+                <button id="book-now-btn" type="button"
                     class="inline-flex items-center justify-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-2 px-4 rounded-full shadow hover:scale-[1.02] transition-transform">
                     <i class="fas fa-calendar-check mr-2"></i> Book Now
-                </a>
+                </button>
             </div>
 
             <!-- Navigation Links -->
@@ -714,6 +714,69 @@
             </div>
         </div>
     </footer>
+
+    <!-- Booking / Confirmation / QR Modals -->
+
+    <!-- Booking modal -->
+    <div id="booking-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg overflow-hidden max-w-lg w-full mx-4">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="font-semibold text-lg">Book Video Service</h3>
+                <button id="booking-close" class="text-gray-600 hover:text-gray-900">✕</button>
+            </div>
+            <div class="p-4 space-y-4">
+                <label class="block text-sm">Your name</label>
+                <input id="booking-name" class="w-full border rounded-md p-2" placeholder="Full name">
+
+                <label class="block text-sm">Email or phone</label>
+                <input id="booking-contact" class="w-full border rounded-md p-2" placeholder="Email or phone">
+
+                <label class="block text-sm">Service</label>
+                <select id="booking-service" class="w-full border rounded-md p-2">
+                    <option value="video-edit">Video Editing</option>
+                    <option value="event-coverage">Event Coverage</option>
+                    <option value="shorts">Social Media Short</option>
+                </select>
+
+                <label class="block text-sm">Notes (optional)</label>
+                <textarea id="booking-notes" class="w-full border rounded-md p-2" rows="3"></textarea>
+
+                <div class="flex gap-3">
+                    <button id="booking-confirm" class="flex-1 py-2 bg-orange-500 text-white rounded-md">Confirm Booking</button>
+                    <button id="booking-cancel" class="flex-1 py-2 bg-gray-100 rounded-md">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation modal (Yes / No) -->
+    <div id="booking-confirmation" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4 text-center shadow-lg">
+            <h4 class="text-lg font-semibold mb-2">Confirm booking?</h4>
+            <p class="text-sm text-gray-600 mb-4">Do you want to confirm and proceed? We will accept seva and generate a QR for payment.</p>
+            <div class="flex gap-3">
+                <button id="confirm-yes" class="flex-1 py-2 bg-green-600 text-white rounded-md">Yes</button>
+                <button id="confirm-no" class="flex-1 py-2 bg-gray-100 rounded-md">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acceptance + QR screen -->
+    <div id="booking-accepted" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4 text-center shadow-2xl transform scale-0" id="booking-accepted-card">
+            <h3 class="text-xl font-semibold mb-2">We accept seva</h3>
+            <p class="text-sm text-gray-600 mb-4">Show this QR to complete payment or share it with the courier.</p>
+
+            <div class="mx-auto mb-4 w-48 h-48 flex items-center justify-center">
+                <img id="booking-qr" src="" alt="QR code" class="w-44 h-44 rounded-md shadow-lg transform transition-transform duration-500" />
+            </div>
+
+            <div class="flex gap-3">
+                <a id="download-qr" href="#" download="booking-qr.png" class="flex-1 py-2 bg-green-600 text-white rounded-md">Download QR</a>
+                <button id="close-accepted" class="flex-1 py-2 bg-gray-100 rounded-md">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Video CV Modal -->
     <div id="video-cv-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50">

@@ -90,6 +90,94 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// Booking -> confirmation -> QR flow for Book Now button
+document.addEventListener('DOMContentLoaded', function () {
+    const bookBtn = document.getElementById('book-now-btn');
+    const bookingModal = document.getElementById('booking-modal');
+    const bookingClose = document.getElementById('booking-close');
+    const bookingCancel = document.getElementById('booking-cancel');
+    const bookingConfirm = document.getElementById('booking-confirm');
+    const bookingConfirmation = document.getElementById('booking-confirmation');
+    const confirmYes = document.getElementById('confirm-yes');
+    const confirmNo = document.getElementById('confirm-no');
+    const bookingAccepted = document.getElementById('booking-accepted');
+    const bookingAcceptedCard = document.getElementById('booking-accepted-card');
+    const bookingQR = document.getElementById('booking-qr');
+    const downloadQR = document.getElementById('download-qr');
+    const closeAccepted = document.getElementById('close-accepted');
+
+    function openModal(el) { if (!el) return; el.classList.remove('hidden'); el.classList.add('flex'); }
+    function closeModal(el) { if (!el) return; el.classList.add('hidden'); el.classList.remove('flex'); }
+
+    if (bookBtn) bookBtn.addEventListener('click', function () { openModal(bookingModal); });
+    if (bookingClose) bookingClose.addEventListener('click', function () { closeModal(bookingModal); });
+    if (bookingCancel) bookingCancel.addEventListener('click', function () { closeModal(bookingModal); });
+
+    if (bookingConfirm) bookingConfirm.addEventListener('click', function () {
+        // basic validation
+        const name = (document.getElementById('booking-name') || {}).value || '';
+        const contact = (document.getElementById('booking-contact') || {}).value || '';
+        if (!name || !contact) {
+            alert('Please enter your name and contact');
+            return;
+        }
+        // show confirm yes/no
+        closeModal(bookingModal);
+        openModal(bookingConfirmation);
+    });
+
+    if (confirmNo) confirmNo.addEventListener('click', function () { closeModal(bookingConfirmation); });
+
+    if (confirmYes) confirmYes.addEventListener('click', function () {
+        // build booking payload
+        const name = (document.getElementById('booking-name') || {}).value || '';
+        const contact = (document.getElementById('booking-contact') || {}).value || '';
+        const service = (document.getElementById('booking-service') || {}).value || '';
+        const notes = (document.getElementById('booking-notes') || {}).value || '';
+
+        const bookingId = 'BK' + Date.now();
+        const payload = JSON.stringify({ id: bookingId, name, contact, service, notes });
+
+        // generate QR via Google Chart API (simple, no extra dependency)
+        const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
+        if (bookingQR) bookingQR.src = qrUrl;
+        if (downloadQR) downloadQR.href = qrUrl;
+
+        closeModal(bookingConfirmation);
+
+        // show acceptance modal with animation
+        if (bookingAccepted) {
+            bookingAccepted.classList.remove('hidden');
+            bookingAccepted.classList.add('flex');
+        }
+        if (bookingAcceptedCard) {
+            // start scaled down then pop in
+            bookingAcceptedCard.style.transform = 'scale(0.6)';
+            bookingAcceptedCard.style.opacity = '0';
+            setTimeout(() => {
+                bookingAcceptedCard.style.transition = 'transform 420ms cubic-bezier(.2,.8,.2,1), opacity 300ms ease';
+                bookingAcceptedCard.style.transform = 'scale(1)';
+                bookingAcceptedCard.style.opacity = '1';
+            }, 40);
+        }
+
+        // store booking locally for demo
+        try { localStorage.setItem('lastBooking', payload); } catch (e) { }
+    });
+
+    if (closeAccepted) closeAccepted.addEventListener('click', function () {
+        if (bookingAcceptedCard) {
+            bookingAcceptedCard.style.transform = 'scale(0.8)';
+            bookingAcceptedCard.style.opacity = '0';
+            setTimeout(() => {
+                if (bookingAccepted) closeModal(bookingAccepted);
+            }, 280);
+        } else {
+            if (bookingAccepted) closeModal(bookingAccepted);
+        }
+    });
+});
+
 // Sidebar toggle (independent of contact form logic)
 document.addEventListener('DOMContentLoaded', function () {
     const sidebar = document.getElementById('sidebar');

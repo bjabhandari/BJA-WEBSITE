@@ -175,13 +175,73 @@
                     </div>
 
                     <div class="mt-4 flex gap-3">
-                        <button class="flex-1 py-2 bg-gray-100 rounded-md">Send Message</button>
-                        <button class="py-2 px-3 bg-gray-100 rounded-md">Tip</button>
+                            <button id="send-msg-btn" class="flex-1 py-2 bg-gray-100 rounded-md">Send Message</button>
+                            <button id="open-tip-btn" class="py-2 px-3 bg-gray-100 rounded-md">Tip</button>
                     </div>
                 </div>
             </aside>
         </div>
     </main>
+
+        <!-- Tip modal -->
+        <div id="tip-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-end md:items-center justify-center p-4 z-50 hidden">
+            <div class="bg-white w-full md:w-96 rounded-t-xl md:rounded-xl p-6 shadow-lg">
+                <h3 class="text-lg font-semibold mb-2">Show your support with a tip</h3>
+                <p class="text-sm text-gray-500 mb-4">100% of your tip goes to your courier. Choose an amount or enter a custom tip.</p>
+
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <button class="tip-amount py-2 rounded-md border text-gray-700" data-amount="2">$2.00</button>
+                    <button class="tip-amount py-2 rounded-md border text-gray-700" data-amount="3">$3.00</button>
+                    <button class="tip-amount py-2 rounded-md border text-gray-700" data-amount="4">$4.00</button>
+                </div>
+
+                <div class="flex items-center gap-2 mb-4">
+                    <input id="custom-tip" class="border rounded-md p-2 w-full" placeholder="Custom amount ($)">
+                </div>
+
+                <div class="flex gap-3">
+                    <button id="save-tip" class="flex-1 py-2 bg-green-600 text-white rounded-md">Save</button>
+                    <button id="cancel-tip" class="flex-1 py-2 bg-gray-100 rounded-md">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating screen (full page modal) -->
+        <div id="rating-screen" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50 hidden">
+            <div class="bg-white w-full max-w-md rounded-xl p-6 text-center shadow-2xl">
+                <img src="https://i.pravatar.cc/120?img=12" alt="driver" class="h-20 w-20 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold">How was the service?</h3>
+                <p class="text-sm text-gray-500 mb-4">Give a thumbs up for good delivery.</p>
+
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <button id="thumb-up" class="p-3 bg-gray-100 rounded-full"><i class="fas fa-thumbs-up"></i></button>
+                    <button id="thumb-down" class="p-3 bg-gray-100 rounded-full"><i class="fas fa-thumbs-down"></i></button>
+                </div>
+
+                <div class="mb-4">
+                    <div id="selected-tip-display" class="text-sm text-gray-700">Tip: $0.00</div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button id="submit-rating" class="flex-1 py-2 bg-green-700 text-white rounded-md">Submit</button>
+                    <button id="skip-rating" class="flex-1 py-2 bg-gray-100 rounded-md">Skip</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completion screen -->
+        <div id="completion-screen" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50 hidden">
+            <div class="bg-white w-full max-w-sm rounded-xl p-6 text-center shadow-2xl">
+                <div class="mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 mx-auto text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Enjoy your order</h3>
+                <p class="text-sm text-gray-600 mb-4">Thanks for supporting our service. Take a minute to rate, tip, and say thanks.</p>
+                <button id="close-complete" class="w-full py-2 bg-green-600 text-white rounded-md">Close</button>
+            </div>
+        </div>
 
     <script>
         // Simple progress logic for demo purposes
@@ -242,6 +302,80 @@
 
             // initial render
             render();
+        })();
+
+        // Tip & rating flow handlers
+        (function () {
+            const tipModal = document.getElementById('tip-modal');
+            const openTipBtn = document.getElementById('open-tip-btn');
+            const cancelTip = document.getElementById('cancel-tip');
+            const saveTip = document.getElementById('save-tip');
+            const tipButtons = Array.from(document.querySelectorAll('.tip-amount'));
+            const customTip = document.getElementById('custom-tip');
+            const ratingScreen = document.getElementById('rating-screen');
+            const thumbUp = document.getElementById('thumb-up');
+            const thumbDown = document.getElementById('thumb-down');
+            const submitRating = document.getElementById('submit-rating');
+            const skipRating = document.getElementById('skip-rating');
+            const selectedTipDisplay = document.getElementById('selected-tip-display');
+            const completionScreen = document.getElementById('completion-screen');
+            const closeComplete = document.getElementById('close-complete');
+
+            let chosenTip = 0;
+            let rating = null; // 'up' or 'down'
+
+            function openTip() { if (tipModal) tipModal.classList.remove('hidden'); }
+            function closeTip() { if (tipModal) tipModal.classList.add('hidden'); }
+
+            if (openTipBtn) openTipBtn.addEventListener('click', openTip);
+            if (cancelTip) cancelTip.addEventListener('click', closeTip);
+
+            tipButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tipButtons.forEach(b => b.classList.remove('bg-green-500', 'text-white'));
+                    btn.classList.add('bg-green-500', 'text-white');
+                    const a = parseFloat(btn.dataset.amount) || 0;
+                    customTip.value = '';
+                    chosenTip = a;
+                });
+            });
+
+            if (saveTip) saveTip.addEventListener('click', () => {
+                const custom = parseFloat((customTip && customTip.value) || 0);
+                if (custom > 0) chosenTip = custom;
+                // update display in rating screen or driver card
+                if (selectedTipDisplay) selectedTipDisplay.textContent = `Tip: $${chosenTip.toFixed(2)}`;
+                closeTip();
+                // open rating screen to continue flow
+                if (ratingScreen) ratingScreen.classList.remove('hidden');
+            });
+
+            // rating handlers
+            if (thumbUp) thumbUp.addEventListener('click', () => {
+                rating = 'up';
+                thumbUp.classList.add('bg-green-100');
+                thumbDown.classList.remove('bg-red-100');
+            });
+            if (thumbDown) thumbDown.addEventListener('click', () => {
+                rating = 'down';
+                thumbDown.classList.add('bg-red-100');
+                thumbUp.classList.remove('bg-green-100');
+            });
+
+            if (submitRating) submitRating.addEventListener('click', () => {
+                // Here you would POST rating/tip to your backend. For demo, we show completion.
+                if (ratingScreen) ratingScreen.classList.add('hidden');
+                if (completionScreen) completionScreen.classList.remove('hidden');
+            });
+
+            if (skipRating) skipRating.addEventListener('click', () => {
+                if (ratingScreen) ratingScreen.classList.add('hidden');
+                if (completionScreen) completionScreen.classList.remove('hidden');
+            });
+
+            if (closeComplete) closeComplete.addEventListener('click', () => {
+                if (completionScreen) completionScreen.classList.add('hidden');
+            });
         })();
     </script>
 </body>
