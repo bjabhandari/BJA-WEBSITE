@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chatbot CSS -->
+    <link rel="stylesheet" href="chatbot.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -486,9 +488,9 @@
                 <!-- Portfolio Item 3 -->
                 <div class="portfolio-card bg-white shadow-lg">
                     <img src="https://img.freepik.com/free-photo/marketing-strategy-planning-strategy-concept_53876-42950.jpg?semt=ais_user_personalization&w=740&q=80"
-                        alt="Corporate Gala" class="w-full h-48 object-cover">
+                        alt="Graphic Design" class="w-full h-48 object-cover">
                     <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Graphics Design</h3>
+                        <h3 class="text-2xl font-bold mb-2">Graphic Design</h3>
                         <p class="text-sm">Create visual elements such as logos, original images, and illustrations to
                             help deliver a message. Design layouts, including selection of colors, images, and
                             typefaces.</p>
@@ -514,29 +516,29 @@
                 <!-- Portfolio Item 5 -->
                 <div class="portfolio-card bg-white shadow-lg">
                     <img src="https://blog.slido.com/wp-content/uploads/2021/05/slido-hybrid-meetings-blog-header.jpg"
-                        alt="Cultural Event" class="w-full h-48 object-cover">
+                        alt="Job Center" class="w-full h-48 object-cover">
                     <div class="overlay flex flex-col justify-center items-center p-4 text-white">
                         <h3 class="text-2xl font-bold mb-2">Job Center</h3>
                         <p class="text-sm">A job centre is a place where people who are looking for work can go to get
                             advice on finding a job, and to look at advertisements placed by people who are looking for
                             new employees.</p>
-                        <a href="#"
+                        <a href="services/details/job-center.html"
                             class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
-                            Event</a>
+                            Details & Pricing</a>
                     </div>
                 </div>
                 <!-- Portfolio Item 6 -->
                 <div class="portfolio-card bg-white shadow-lg">
                     <img src="https://smartcuts.ch/wp-content/uploads/robot-and-woman-working-on-laptop-ai-smartcuts-video-blogpost.jpg"
-                        alt="Product Launch" class="w-full h-48 object-cover">
+                        alt="AI Video Production" class="w-full h-48 object-cover">
                     <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Ai Video Production</h3>
+                        <h3 class="text-2xl font-bold mb-2">AI Video Production</h3>
                         <p class="text-sm">AI in Video Production. From
                             automating editing to generating dynamic visuals, AI is making video production faster and
                             more accessible.</p>
-                        <a href="#"
+                        <a href="services/details/ai-video.html"
                             class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
-                            Event</a>
+                            Details & Pricing</a>
                     </div>
                 </div>
             </div>
@@ -839,6 +841,31 @@
             modal.classList.remove('flex');
         }
     </script>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div id="chatbot-window" class="chatbot-window hidden">
+            <div class="chatbot-header">
+                <h3>BJA AI Assistant</h3>
+                <button id="close-chatbot" class="close-btn">&times;</button>
+            </div>
+            <div id="chatbot-messages" class="chatbot-messages">
+                <div class="message bot-message">
+                    <p>Hello! 👋 I'm your AI assistant. Ask me anything about Bijaya's services, pricing, or how I can help you!</p>
+                </div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Type your question..." class="chatbot-input">
+                <button id="send-btn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="chatbot-btn" class="chatbot-btn">
+            <i class="fas fa-message"></i>
+        </button>
+    </div>
+
+    <!-- Chatbot Script -->
+    <script src="chatbot.js"></script>
 </body>
 
 </html>
