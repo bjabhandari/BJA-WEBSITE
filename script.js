@@ -110,6 +110,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeModal(el) { if (!el) return; el.classList.add('hidden'); el.classList.remove('flex'); }
 
     if (bookBtn) bookBtn.addEventListener('click', function () { openModal(bookingModal); });
+    
+    // Book services button listeners (navbar and sidebar)
+    const bookServicesBtn = document.getElementById('book-services-btn');
+    const sidebarBookServicesBtn = document.getElementById('sidebar-book-services-btn');
+    if (bookServicesBtn) bookServicesBtn.addEventListener('click', function () { openModal(bookingModal); });
+    if (sidebarBookServicesBtn) sidebarBookServicesBtn.addEventListener('click', function () { openModal(bookingModal); });
+    
     if (bookingClose) bookingClose.addEventListener('click', function () { closeModal(bookingModal); });
     if (bookingCancel) bookingCancel.addEventListener('click', function () { closeModal(bookingModal); });
 
