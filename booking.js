@@ -8,6 +8,11 @@ let bookingData = {};
 document.addEventListener('DOMContentLoaded', function() {
     // Setup book now buttons
     setupBookingButtons();
+    // Bind global nav/book buttons if present
+    const globalBookBtn = document.getElementById('book-services-btn');
+    if (globalBookBtn) globalBookBtn.addEventListener('click', openGenericBookingModal);
+    const navBookBtn = document.getElementById('nav-book-btn');
+    if (navBookBtn) navBookBtn.addEventListener('click', openGenericBookingModal);
 });
 
 function setupBookingButtons() {
@@ -41,6 +46,25 @@ function openBookingModal(packageName, price, features) {
     form.reset();
     
     // Show modal
+    modal.classList.add('show');
+}
+
+// Open a generic booking modal when no package is preselected
+function openGenericBookingModal() {
+    currentPackage = 'Custom Booking';
+    currentPrice = 0;
+    const modal = document.getElementById('booking-modal');
+    const form = document.getElementById('booking-form');
+
+    if (!modal || !form) {
+        // If modal not found on this page, alert user
+        alert('Booking is available on service detail pages. Please open any service details to book.');
+        return;
+    }
+
+    document.getElementById('booking-package-title').textContent = 'Custom Booking';
+    document.querySelector('.booking-summary-item:last-child').innerHTML = `<span>Total Price:</span><span>NPR ${currentPrice.toLocaleString()}</span>`;
+    form.reset();
     modal.classList.add('show');
 }
 
@@ -92,20 +116,40 @@ function showQRModal() {
     // Create payment URL (can be customized to your payment gateway)
     const paymentDetails = `Name: ${bookingData.fullName}|Email: ${bookingData.email}|Phone: ${bookingData.phone}|Package: ${bookingData.package}|Price: NPR ${bookingData.price}|Date: ${bookingData.date}|BookingRef: ${bookingRef}`;
     
-    // Generate QR Code
-    QRCode.toCanvas(qrcodeContainer, paymentDetails, {
-        errorCorrectionLevel: 'H',
-        type: 'image/webp',
-        quality: 0.98,
-        margin: 1,
-        width: 300,
-        color: {
-            dark: '#ff3c00',
-            light: '#ffffff'
+    // Generate QR Code (supports different QR libraries)
+    try {
+        if (typeof QRCode !== 'undefined' && typeof QRCode.toCanvas === 'function') {
+            QRCode.toCanvas(qrcodeContainer, paymentDetails, {
+                errorCorrectionLevel: 'H',
+                type: 'image/webp',
+                quality: 0.98,
+                margin: 1,
+                width: 300,
+                color: {
+                    dark: '#ff3c00',
+                    light: '#ffffff'
+                }
+            }, function(error) {
+                if (error) console.error(error);
+            });
+        } else if (typeof QRCode === 'function') {
+            // qrcode.js (davidshimjs) style
+            new QRCode(qrcodeContainer, {
+                text: paymentDetails,
+                width: 300,
+                height: 300,
+                colorDark: '#ff3c00',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        } else {
+            console.error('No compatible QRCode library found.');
+            qrcodeContainer.textContent = 'QR generation not available.';
         }
-    }, function(error) {
-        if (error) console.error(error);
-    });
+    } catch (e) {
+        console.error('QR generation failed', e);
+        qrcodeContainer.textContent = 'QR generation failed.';
+    }
 
     // Update QR info
     document.getElementById('booking-ref').textContent = bookingRef;
