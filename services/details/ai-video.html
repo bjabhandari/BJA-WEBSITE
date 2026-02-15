@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../booking.css">
+    <!-- QRCode Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode.js/1.5.3/qrcode.min.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -98,7 +101,8 @@
                             </li>
                         </ul>
                         <p class="text-sm text-gray-600 mb-6">Price range: NPR 3,000 – 8,000</p>
-                        <a href="process-ai-script.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center">Get Started</a>
+                        <button class="btn-book-now" data-book-package="AI Voice + Script" data-book-price="3000" data-book-features="Natural voice, script writing, basic visuals">Book Now</button>
+                        <a href="process-ai-script.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center mt-3">Learn More</a>
                     </div>
                 </div>
 
@@ -123,7 +127,8 @@
                             </li>
                         </ul>
                         <p class="text-sm text-gray-600 mb-6">Price range: NPR 5,000 – 15,000+</p>
-                        <a href="process-ai-avatar.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center">Get Started</a>
+                        <button class="btn-book-now" data-book-package="AI Avatar Video" data-book-price="5000" data-book-features="Custom avatar, lip sync, background options">Book Now</button>
+                        <a href="process-ai-avatar.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center mt-3">Learn More</a>
                     </div>
                 </div>
 
@@ -148,7 +153,8 @@
                             </li>
                         </ul>
                         <p class="text-sm text-gray-600 mb-6">Price range: NPR 8,000 – 25,000+</p>
-                        <a href="process-ai-explainer.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center">Get Started</a>
+                        <button class="btn-book-now" data-book-package="AI Explainer/News" data-book-price="8000" data-book-features="Professional script, visual effects, custom graphics">Book Now</button>
+                        <a href="process-ai-explainer.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center mt-3">Learn More</a>
                     </div>
                 </div>
 
@@ -177,7 +183,8 @@
                             </li>
                         </ul>
                         <p class="text-sm text-gray-600 mb-6">Price range: NPR 25,000 – 60,000+</p>
-                        <a href="process-ai-series.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center">Get Started</a>
+                        <button class="btn-book-now" data-book-package="Full AI Video Series" data-book-price="25000" data-book-features="Multiple episodes, consistent branding, advanced effects, full customization">Book Now</button>
+                        <a href="process-ai-series.html" class="btn-primary text-white px-8 py-3 rounded-lg w-full inline-block text-center mt-3">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -245,6 +252,77 @@
             </div>
         </div>
     </footer>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="booking-modal">
+        <div class="booking-modal-content">
+            <button class="booking-close" onclick="closeBookingModal()">&times;</button>
+            <h2>Book <span id="booking-package-title">Service</span></h2>
+            <div class="booking-summary">
+                <div class="booking-summary-item">
+                    <span>Service Package:</span>
+                    <span id="booking-package-name">-</span>
+                </div>
+                <div class="booking-summary-item">
+                    <span>Total Price:</span>
+                    <span id="booking-total-price">-</span>
+                </div>
+            </div>
+            <form id="booking-form" onsubmit="submitBooking(); return false;">
+                <div class="booking-form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="booking-form-row">
+                    <div class="booking-form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="booking-form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="booking-form-group">
+                    <label for="projectDesc">Project Description</label>
+                    <textarea id="projectDesc" name="projectDesc" rows="4" placeholder="Tell us about your project..."></textarea>
+                </div>
+                <div class="booking-form-group">
+                    <label for="deadline">Project Deadline</label>
+                    <input type="date" id="deadline" name="deadline">
+                </div>
+                <button type="submit" class="btn-book-order">Proceed to Payment (Generate QR)</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qr-modal" class="qr-modal">
+        <div class="qr-modal-content">
+            <button class="booking-close" onclick="closeQRModal()">&times;</button>
+            <h2>Your Booking QR Code</h2>
+            <p>Scan this QR code to complete your payment</p>
+            <div class="qr-container">
+                <div id="qrcode"></div>
+            </div>
+            <div class="qr-info">
+                <h4>Booking Details</h4>
+                <p><strong>Booking Reference:</strong> <span id="booking-ref">-</span></p>
+                <p><strong>Client Name:</strong> <span id="customer-name">-</span></p>
+                <p><strong>Package:</strong> <span id="package-name">-</span></p>
+                <p><strong>Amount:</strong> <span id="booking-price">-</span></p>
+            </div>
+            <div class="qr-actions">
+                <button class="btn-download-qr" onclick="downloadQR()">
+                    <i class="fas fa-download"></i> Download QR Code
+                </button>
+                <button class="btn-close-qr" onclick="closeQRModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Script -->
+    <script src="../../booking.js"></script>
 </body>
 
 </html>

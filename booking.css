@@ -1,0 +1,449 @@
+/* Booking Modal Styles */
+.booking-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.booking-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.booking-modal-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.booking-close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.booking-close:hover {
+    color: #000;
+}
+
+.booking-form-group {
+    margin-bottom: 20px;
+}
+
+.booking-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.booking-form-group input,
+.booking-form-group select,
+.booking-form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s ease;
+}
+
+.booking-form-group input:focus,
+.booking-form-group select:focus,
+.booking-form-group textarea:focus {
+    outline: none;
+    border-color: #ff3c00;
+    box-shadow: 0 0 0 3px rgba(255, 60, 0, 0.1);
+}
+
+.booking-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .booking-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-modal-content {
+        padding: 20px;
+    }
+}
+
+.booking-summary {
+    background-color: #f9fafb;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #ff3c00;
+}
+
+.booking-summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.booking-summary-item:last-child {
+    margin-bottom: 0;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+.btn-book-order {
+    width: 100%;
+    background: linear-gradient(135deg, #ff3c00, #EA580C);
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-book-order:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 60, 0, 0.4);
+}
+
+.btn-book-order:active {
+    transform: translateY(0);
+}
+
+/* QR Code Display Modal */
+.qr-modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.qr-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-modal-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+    text-align: center;
+}
+
+.qr-container {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f9fafb;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+#qrcode {
+    display: inline-block;
+}
+
+.qr-info {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: #f0fdf4;
+    border-left: 4px solid #22c55e;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.qr-info h4 {
+    margin: 0 0 8px 0;
+    color: #15803d;
+    font-weight: 600;
+}
+
+.qr-info p {
+    margin: 4px 0;
+    color: #166534;
+    font-size: 14px;
+}
+
+.qr-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn-download-qr,
+.btn-close-qr {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-download-qr {
+    background: linear-gradient(135deg, #ff3c00, #EA580C);
+    color: white;
+}
+
+.btn-download-qr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 60, 0, 0.4);
+}
+
+.btn-close-qr {
+    background-color: #e5e7eb;
+    color: #333;
+}
+
+.btn-close-qr:hover {
+    background-color: #d1d5db;
+}
+
+/* Confirmation/Success Popup */
+.success-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);
+    animation: slideInUp 0.4s ease;
+    z-index: 2000;
+    max-width: 400px;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+}
+
+.success-popup.hide {
+    animation: slideOutDown 0.4s ease forwards;
+}
+
+.success-popup-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.success-popup-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.success-popup-text h4 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.success-popup-text p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+.success-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.success-popup-close:hover {
+    opacity: 1;
+}
+
+/* Book Now Button on Price Cards */
+.btn-book-now {
+    background: linear-gradient(135deg, #ff3c00, #EA580C);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.btn-book-now:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 60, 0, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-book-now:active {
+    transform: translateY(0);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .qr-modal-content,
+    .booking-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .success-popup {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+}
+
+/* Pricing widget for modal */
+.booking-price-details {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.booking-price-details h3 {
+    margin: 0 0 12px 0;
+    color: #92400e;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.booking-price-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.booking-price-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #78350f;
+}
+
+.booking-price-list li strong {
+    color: #92400e;
+    font-weight: 600;
+}
+
+.booking-price-total {
+    border-top: 2px solid #fbbf24;
+    padding-top: 12px;
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 700;
+    color: #92400e;
+}
+
+/* Loading state */
+.btn-book-order:disabled,
+.btn-download-qr:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #ff3c00;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
