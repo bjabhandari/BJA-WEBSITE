@@ -90,9 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// Booking -> confirmation -> QR flow for Book Now button
+// Booking -> confirmation -> QR flow for Book Services button
 document.addEventListener('DOMContentLoaded', function () {
-    const bookBtn = document.getElementById('book-now-btn');
     const bookingModal = document.getElementById('booking-modal');
     const bookingClose = document.getElementById('booking-close');
     const bookingCancel = document.getElementById('booking-cancel');
@@ -108,14 +107,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openModal(el) { if (!el) return; el.classList.remove('hidden'); el.classList.add('flex'); }
     function closeModal(el) { if (!el) return; el.classList.add('hidden'); el.classList.remove('flex'); }
-
-    if (bookBtn) bookBtn.addEventListener('click', function () { openModal(bookingModal); });
     
-    // Book services button listeners (navbar and sidebar)
+    // Book services button listener (navbar)
     const bookServicesBtn = document.getElementById('book-services-btn');
-    const sidebarBookServicesBtn = document.getElementById('sidebar-book-services-btn');
     if (bookServicesBtn) bookServicesBtn.addEventListener('click', function () { openModal(bookingModal); });
-    if (sidebarBookServicesBtn) sidebarBookServicesBtn.addEventListener('click', function () { openModal(bookingModal); });
     
     if (bookingClose) bookingClose.addEventListener('click', function () { closeModal(bookingModal); });
     if (bookingCancel) bookingCancel.addEventListener('click', function () { closeModal(bookingModal); });
@@ -185,31 +180,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Sidebar toggle (independent of contact form logic)
-document.addEventListener('DOMContentLoaded', function () {
-    const sidebar = document.getElementById('sidebar');
-    const openBtn = document.getElementById('sidebar-toggle');
-    const closeBtn = document.getElementById('sidebar-close');
-
-    if (!sidebar) return;
-
-    function openSidebar() {
-        sidebar.classList.remove('-translate-x-full');
-    }
-
-    function closeSidebar() {
-        sidebar.classList.add('-translate-x-full');
-    }
-
-    if (openBtn) openBtn.addEventListener('click', openSidebar);
-    if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-
-    // close sidebar when clicking outside on small screens
-    document.addEventListener('click', function (e) {
-        const target = e.target;
-        if (!sidebar.contains(target) && !((openBtn && openBtn.contains(target)))) {
-            // only close when sidebar is visible on small screens
-            if (!sidebar.classList.contains('-translate-x-full')) closeSidebar();
-        }
-    });
-});
