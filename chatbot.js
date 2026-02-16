@@ -343,7 +343,6 @@ function detectLanguage(text) {
     
     return 'en'; // Default to English
 }
-}
 
 // Optional: When API key is available, upgrade to real AI
 // Uncomment and replace with your actual API configuration
