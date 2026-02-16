@@ -10,7 +10,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatInput = document.getElementById('chatbot-input');
 
     // Toggle chatbot window
-    chatbotBtn.addEventListener('click', toggleChatbot);
+    chatbotBtn.addEventListener('click', function() {
+        toggleChatbot();
+        // Show welcome message on first open
+        const messagesContainer = document.getElementById('chatbot-messages');
+        if (messagesContainer.children.length === 0) {
+            setTimeout(() => {
+                addMessageToChat('👋 **Hello!** I\'m Bijaya\'s AI Assistant. How can I help you today?\n\n**You can ask me about:**\n• Services & pricing\n• How to book\n• Portfolio & samples\n• Business tips\n• Contact information\n• And more!', 'bot');
+            }, 300);
+        }
+    });
     closeChatbot.addEventListener('click', toggleChatbot);
 
     // Send message on button click
@@ -68,7 +77,12 @@ function addMessageToChat(message, sender) {
     messageDiv.className = `message ${sender}-message`;
     
     const p = document.createElement('p');
-    p.textContent = message;
+    // Support line breaks and formatting
+    p.innerHTML = message
+        .replace(/\n/g, '<br>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`(.*?)`/g, '<code>$1</code>');
     
     messageDiv.appendChild(p);
     messagesContainer.appendChild(messageDiv);
@@ -96,137 +110,239 @@ function removeTypingIndicator() {
     if (typing) typing.remove();
 }
 
-// AI Response Generator - Enhanced with Website Knowledge
+// AI Response Generator - Professional Assistant
 function generateAIResponse(userMessage) {
-    const message = userMessage.toLowerCase();
-
+    const message = userMessage.toLowerCase().trim();
+    
+    // Detect language
+    const language = detectLanguage(message);
+    
     // Service Information
     const services = {
         'video editing': {
             description: 'Professional editing for social media, ads, and news using DaVinci Resolve and Premiere Pro.',
-            details: 'Our video editing service creates engaging content optimized for various platforms.'
+            details: 'Our video editing service creates engaging content optimized for various platforms.', 
+            tips: ['Clear, high-quality footage', 'Specific editing style preferences', 'Target platform dimensions']
         },
         'photography': {
             description: 'Capturing moments and telling stories through the lens with keen eye for lighting and composition.',
-            details: 'Professional photography services for weddings, events, and commercial projects.'
+            details: 'Professional photography services for weddings, events, and commercial projects.',
+            tips: ['Lighting requirements', 'Preferred style/mood', 'Post-processing preferences']
         },
         'graphic design': {
-            description: 'Create visual elements such as logos, images, and illustrations. Design layouts with selection of colors and typefaces.',
-            details: 'We provide comprehensive graphic design solutions for branding and marketing.'
+            description: 'Create visual elements such as logos, images, and illustrations. Design layouts with colors and typefaces.',
+            details: 'We provide comprehensive graphic design solutions for branding and marketing.',
+            tips: ['Brand guidelines', 'Target audience', 'Design preferences and style']
         },
         'social media boosting': {
             description: 'Amplifying the reach and visibility of posts, campaigns, and content on social platforms.',
-            details: 'Strategies to grow your social media presence and engagement.'
+            details: 'Strategies to grow your social media presence and engagement.',
+            tips: ['Current follower count', 'Target audience demographics', 'Content type (reels, posts, stories)']
         },
         'job center': {
             description: 'A platform where job seekers get advice and access to job opportunities from employers.',
-            details: 'Connect with employment opportunities and career guidance.'
+            details: 'Connect with employment opportunities and career guidance.',
+            tips: ['Job type/industry', 'Experience level', 'Location preferences']
         },
         'ai video production': {
-            description: 'AI-powered video production automating editing and generating dynamic visuals for faster, more accessible content creation.',
-            details: 'Leveraging artificial intelligence for innovative video production solutions.'
+            description: 'AI-powered video production automating editing and generating dynamic visuals for faster content creation.',
+            details: 'Leveraging artificial intelligence for innovative video production solutions.',
+            tips: ['Video purpose/goal', 'Duration', 'Target audience']
         }
     };
 
-    // Greeting and basic questions
-    if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
-        return '👋 Hello! How can I help you today? Feel free to ask about my services, pricing, or anything else!';
+    // GREETING MESSAGES
+    if (message.match(/^(hello|hi|hey|namaste|namaskar|salam)/)) {
+        const responses = {
+            en: '👋 Hello! I\'m Bijaya\'s AI Assistant. How can I help you today? Feel free to ask about services, pricing, bookings, or anything else!',
+            ne: '👋 नमस्ते! मैं बिजया को AI सहायक हूँ। आज मैं आपको कैसे मदद कर सकता हूँ? सेवाओं, मूल्य निर्धारण, बुकिंग या कुछ और के बारे में पूछने के लिए स्वतंत्र महसूस करें!'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('how are you') || message.includes('how do you do')) {
-        return "I'm doing great! Thanks for asking! 😊 How can I assist you with any of Bijaya's services?";
+    // ABOUT / WHO IS
+    if (message.match(/^(about|who is|tell me about|कौन है|किसकी जानकारी)/)) {
+        const responses = {
+            en: '👤 Bijaya Bhandari is a premier creative professional specializing in:\n\n✅ Video Editing (DaVinci Resolve, Premiere Pro)\n✅ Professional Photography\n✅ Graphic Design & Branding\n✅ Social Media Marketing\n✅ AI-Powered Video Production\n✅ Career Counseling (Job Center)\n\nWith 2+ years of experience creating engaging content for businesses and individuals.',
+            ne: '👤 बिजया भण्डारी निम्नलिखित में विशेषज्ञ हैं:\n\n✅ भिडियो संपादन\n✅ व्यावसायिक फोटोग्राफी\n✅ ग्राफिक डिजाइन\n✅ सामाजिक मीडिया मार्केटिंग\n✅ AI-संचालित भिडियो उत्पादन\n\n2+ वर्षों का अनुभव के साथ!'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('thank') || message.includes('thanks')) {
-        return "You're welcome! 😊 Is there anything else I can help you with?";
+    // HOW ARE YOU / PLEASANTRIES
+    if (message.match(/how are you|कैसे हो|ठीक हो|मैं कैसा हूँ/)) {
+        const responses = {
+            en: "😊 I'm doing great, thanks for asking! I'm here and ready to help with any questions about Bijaya's services. What brings you here today?",
+            ne: '😊 मैं बिल्कुल ठीक हूँ! मैं आपकी बिजया की सेवाओं के बारे में मदद करने के लिए तैयार हूँ। आज आप यहाँ कैसे मदद कर सकता हूँ?'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Service enquiries
-    if (message.includes('video editing')) {
-        return `📹 ${services['video editing'].description}\n\n${services['video editing'].details}\n\nVisit our Video Editing page for pricing and samples!`;
+    // THANK YOU
+    if (message.match(/thank|thanks|धन्यवाद|ढन्यबाद/)) {
+        const responses = {
+            en: "You're welcome! 😊 Is there anything else I can help you with?",
+            ne: 'आपका स्वागत है! 😊 क्या मैं आपको और कुछ मदद कर सकता हूँ?'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('photography')) {
-        return `📸 ${services['photography'].description}\n\n${services['photography'].details}\n\nCheck our Photography page for more information!`;
+    // SERVICES OVERVIEW
+    if (message.match(/services|what do you|can you do|offerings|सेवाएं|क्या कर सकते/)) {
+        const responses = {
+            en: '🌟 Bijaya offers 6 professional services:\n\n1️⃣ **Video Editing** - Professional content creation\n2️⃣ **Photography** - Capturing beautiful moments\n3️⃣ **Graphic Design** - Visual branding solutions\n4️⃣ **Social Media Boosting** - Growth & engagement strategies\n5️⃣ **Job Center** - Career opportunities & guidance\n6️⃣ **AI Video Production** - AI-powered creative solutions\n\n💡 Ask about any service for details & pricing!',
+            ne: '🌟 बिजया 6 पेशेवर सेवाएं प्रदान करते हैं:\n\n1️⃣ **भिडियो संपादन**\n2️⃣ **फोटोग्राफी**\n3️⃣ **ग्राफिक डिजाइन**\n4️⃣ **सामाजिक मीडिया बूस्टिंग**\n5️⃣ **नौकरी केंद्र**\n6️⃣ **AI भिडियो उत्पादन**\n\n💡 किसी भी सेवा के बारे में पूछें!'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('graphic design') || message.includes('graphics')) {
-        return `🎨 ${services['graphic design'].description}\n\n${services['graphic design'].details}\n\nVisit our Graphic Design page for portfolio!`;
+    // VIDEO EDITING SPECIFIC
+    if (message.match(/video edit|भिडियो|वीडियो|साङ्ख्यिक/)) {
+        const responses = {
+            en: `📹 **VIDEO EDITING SERVICE**\n\n${services['video editing'].description}\n\n**Packages:**\n• Basic Edit: NPR 1,500\n• Standard Edit: NPR 4,000\n• Advanced Edit: NPR 10,000\n• Premium Edit: NPR 25,000\n\n**Tips for best results:**\n${services['video editing'].tips.map(tip => '✓ ' + tip).join('\n')}\n\n🎬 Ready to start? Click "Book Services"!`,
+            ne: '📹 **भिडियो संपादन सेवा**\n\nवेबसाइट पर बुकिंग अनुभाग देखें या संपर्क करें!'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('social media')) {
-        return `📱 ${services['social media boosting'].description}\n\n${services['social media boosting'].details}\n\nLearn more on our Social Media Boosting page!`;
+    // PHOTOGRAPHY SPECIFIC
+    if (message.match(/photog|तस्वीर|फोटो/)) {
+        const responses = {
+            en: `📸 **PHOTOGRAPHY SERVICE**\n\n${services['photography'].description}\n\n**Packages:**\n• Basic Session: NPR 1,500\n• Standard Session: NPR 3,000\n• Premium Session: NPR 7,000\n• Luxury Package: NPR 15,000\n\n**Perfect for:** Weddings, events, portraits, commercial shoots\n\n📅 Schedule a session today!`,
+            ne: '📸 **फोटोग्राफी सेवा**\n\nशादी, event, पोर्ट्रेट के लिए पूर्ण पेशेवर सेवा'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('job center') || message.includes('job centre')) {
-        return `💼 ${services['job center'].description}\n\n${services['job center'].details}\n\nExplore opportunities on our Job Center page!`;
+    // GRAPHIC DESIGN SPECIFIC
+    if (message.match(/graphic|design|логотип|लोगो|डिजाइन/)) {
+        const responses = {
+            en: `🎨 **GRAPHIC DESIGN SERVICE**\n\n${services['graphic design'].description}\n\n**Packages:**\n• Single Logo: NPR 1,000\n• Branding Package: NPR 5,000\n• Full Design Suite: NPR 12,000\n• Custom Design: NPR 20,000+\n\n**Specialties:** Logos, branding, social media graphics, marketing materials\n\n🎯 Elevate your brand!`,
+            ne: '🎨 **ग्राफिक डिजाइन सेवा**\n\nलोगो, ब्र्रांडिंग, सामाजिक मीडिया ग्राफिक्स'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('ai video') || message.includes('artificial intelligence')) {
-        return `🤖 ${services['ai video production'].description}\n\n${services['ai video production'].details}\n\nDiscover AI Video Production capabilities!`;
+    // SOCIAL MEDIA BOOSTING
+    if (message.match(/social media|boost|growth|रोचक|बढ़ाएं|फेसबुक/)) {
+        const responses = {
+            en: `📱 **SOCIAL MEDIA BOOSTING SERVICE**\n\n${services['social media boosting'].description}\n\n**Packages:**\n• 1 Week Campaign: NPR 2,000\n• 1 Month Campaign: NPR 5,000\n• 3 Month Campaign: NPR 12,000\n• Custom Package: Contact us\n\n**Strategies include:**\n✓ Content optimization\n✓ Engagement growth\n✓ Audience targeting\n✓ Performance tracking\n\n📊 Grow your presence!`,
+            ne: '📱 **सामाजिक मीडिया बूस्टिंग**\n\nआपके फॉलोअर्स और एनगेजमेंट बढ़ाएं!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Pricing questions
-    if (message.includes('price') || message.includes('cost') || message.includes('how much') || message.includes('pricing')) {
-        return "💰 Great question! Pricing varies based on the service and project scope. Each service page has detailed pricing information. Would you like to know about a specific service?";
+    // JOB CENTER
+    if (message.match(/job|career|employment|नौकरी|कैरियर|रोजगार/)) {
+        const responses = {
+            en: `💼 **JOB CENTER SERVICE**\n\n${services['job center'].description}\n\n**Packages:**\n• Job Posting: NPR 500\n• Featured Listing: NPR 1,500\n• Premium Package: NPR 5,000\n• Corporate Package: NPR 15,000\n\n**Benefits:**\n✓ Job seekers meet employers\n✓ Career guidance provided\n✓ Wide reach network\n✓ Professional support\n\n🚀 Find your next opportunity!`,
+            ne: '💼 **नौकरी केंद्र**\n\nरोजगार के अवसर और कैरियर मार्गदर्शन'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Contact information
-    if (message.includes('contact') || message.includes('phone') || message.includes('email')) {
-        return "📞 You can reach Bijaya at:\n📧 Email: bijayabhandari515@gmail.com\n📱 Phone: +977 9824168577\n📍 Location: Pokhara, Birauta, Nepal\n\nYou can also find contact info at the bottom of our website!";
+    // AI VIDEO PRODUCTION
+    if (message.match(/ai video|artificial|ai|avatar|script/)) {
+        const responses = {
+            en: `🤖 **AI VIDEO PRODUCTION SERVICE**\n\n${services['ai video production'].description}\n\n**Packages:**\n• Basic AI Video: NPR 3,000\n• Standard AI Video: NPR 8,000\n• Advanced AI Video: NPR 15,000\n• Enterprise Package: NPR 30,000+\n\n**Features:**\n✓ AI Avatar creation\n✓ Auto-script generation\n✓ Dynamic visuals\n✓ Fast turnaround\n\n⚡ Create faster with AI!`,
+            ne: '🤖 **AI भिडियो उत्पादन**\n\nकृत्रिम बुद्धिमत्ता के साथ तेजी से सामग्री बनाएं!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Services overview
-    if (message.includes('what do you do') || message.includes('what services') || message.includes('services')) {
-        return "🌟 Bijaya offers six main services:\n\n1️⃣ Video Editing - Professional content creation\n2️⃣ Photography - Capturing beautiful moments\n3️⃣ Graphic Design - Visual branding solutions\n4️⃣ Social Media Boosting - Content amplification\n5️⃣ Job Center - Career opportunities\n6️⃣ AI Video Production - AI-powered video creation\n\nWhich service interests you?";
+    // PRICING QUESTIONS
+    if (message.match(/price|cost|rate|much|charge|किमत|कितना|दर/)) {
+        const responses = {
+            en: '💰 **Pricing varies by service and project scope:**\n\n📊 Quick price ranges:\n• Video Editing: 1,500 - 25,000\n• Photography: 1,500 - 15,000\n• Graphic Design: 1,000 - 20,000\n• Social Media: 2,000 - 15,000\n• Job Center: 500 - 15,000\n• AI Video: 3,000 - 30,000+\n\n💡 Custom quotes available! Ask about a specific service for details.',
+            ne: '💰 मूल्य प्रत्येक सेवा के अनुसार अलग है। अधिक जानकारी के लिए सेवा के बारे में पूछें!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Help and support
-    if (message.includes('help') || message.includes('support')) {
-        return "🆘 I'm here to help! You can ask me about:\n• Services offered\n• Pricing & packages\n• How to contact Bijaya\n• Details about specific services\n• Website navigation\n\nWhat would you like to know?";
+    // BOOKING / PROJECT INQUIRY
+    if (message.match(/book|project|inquiry|hire|engage|बुक|परियोजना|काम/)) {
+        const responses = {
+            en: '📋 **How to Book a Service:**\n\n**Option 1:** Click "Book Services" button on the homepage\n**Option 2:** Email: bijayabhandari515@gmail.com\n**Option 3:** WhatsApp: +977 9824168577\n**Option 4:** Use the contact form at the bottom of website\n\n⏱️ What details to prepare:\n✓ Service type\n✓ Project scope\n✓ Timeline/deadline\n✓ Budget (optional)\n\n🚀 Let\'s start!',
+            ne: '📋 **बुकिंग कैसे करें:**\n\n"Book Services" बटन पर क्लिक करें या संपर्क करें!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Website navigation
-    if (message.includes('portfolio') || message.includes('gallery')) {
-        return "🖼️ You can view the complete portfolio in the 'My Services Gallery' section on our homepage. Each service has a dedicated page with samples and detailed information!";
+    // CONTACT INFORMATION
+    if (message.match(/contact|phone|email|पता|संपर्क|फोन/)) {
+        const responses = {
+            en: '📞 **CONTACT INFORMATION:**\n\n📧 Email: bijayabhandari515@gmail.com\n📱 WhatsApp: +977 9824168577\n☎️ Phone: +977 9824168577\n📍 Location: Pokhara, Birauta, Nepal\n🌐 Website: Available on homepage footer\n\n⏰ Response time: Usually within 24 hours\n\n💬 I\'m also here in chat to help!',
+            ne: '📞 **संपर्क जानकारी:**\n\n📧 ईमेल: bijayabhandari515@gmail.com\n📱 व्हाट्सएप: +977 9824168577'
+        };
+        return responses[language] || responses.en;
     }
 
-    if (message.includes('about') || message.includes('who is')) {
-        return "👤 Bijaya Bhandari is a premier editor and content creator specializing in video editing, photography, graphic design, and AI-powered content creation. With expertise in industry-standard tools like DaVinci Resolve and Premiere Pro, Bijaya delivers high-quality creative solutions for businesses and individuals.";
+    // PORTFOLIO / SAMPLES
+    if (message.match(/portfolio|sample|examples|gallery|work|उदाहरण/)) {
+        const responses = {
+            en: '🖼️ **VIEW PORTFOLIO:**\n\n✓ Check "My Services Gallery" section on homepage\n✓ Each service page has dedicated portfolio samples\n✓ Real client examples and testimonials\n✓ Before/after comparisons\n✓ Video samples for editing/production work\n\n💡 Visit the website to see stunning examples of Bijaya\'s work!',
+            ne: '🖼️ **होमपेज पर "My Services Gallery" देखें**\n\nहर सेवा और परियोजना के उदाहरण उपलब्ध हैं!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Problem/Issue resolution
-    if (message.includes('problem') || message.includes('issue') || message.includes('not working') || message.includes('bug')) {
-        return "⚠️ Sorry to hear you're experiencing an issue! Please describe the problem in detail, and I'll try to help. You can also contact Bijaya directly at bijayabhandari515@gmail.com for technical support.";
+    // BUSINESS/MARKETING ADVICE
+    if (message.match(/advice|tips|strategy|marketing|grow|business|सलाह|टिप्स|व्यापार/)) {
+        const responses = {
+            en: '💡 **BUSINESS & MARKETING TIPS:**\n\n**Video Content Strategy:**\n• Post consistently (2-3x weekly)\n• Keep videos under 60 seconds for social media\n• Use hooks in first 3 seconds\n• Include clear call-to-action\n\n**Social Media Growth:**\n• Engage with your audience\'s content\n• Use trending hashtags (5-10 per post)\n• Post at peak engagement times\n• Collaborate with other creators\n\n**Visual Branding:**\n• Maintain consistent color palette\n• Use same fonts across platforms\n• Quality over quantity\n• Show your brand\'s personality\n\n\n📊 Need a customized strategy? Contact Bijaya!',
+            ne: '💡 **मार्केटिंग सलाह:**\n\n• नियमित रूप से पोस्ट करें\n• सोशल मीडिया पर engaging कंटेंट बनाएं\n• अपने दर्शकों के साथ जुड़ें'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Location
-    if (message.includes('where') || message.includes('location')) {
-        return "📍 Bijaya is located in Pokhara, Birauta, Nepal. While based in Nepal, services are available online for clients worldwide!";
+    // TECHNICAL HELP / PROBLEMS
+    if (message.match(/problem|issue|not working|error|bug|help|मदद|समस्या/)) {
+        const responses = {
+            en: '⚠️ **Technical Support:**\n\nCan you provide more details about the issue?\n\n☑️ Try these steps:\n1. Refresh your browser (Ctrl+R or ⌘+R)\n2. Clear browser cache\n3. Try a different browser\n4. Check internet connection\n\nIf the issue persists:\n📧 Email: bijayabhandari515@gmail.com\n📱 WhatsApp: +977 9824168577\n\n🔧 Our team will assist quickly!',
+            ne: '⚠️ **तकनीकी सहायता:**\n\nअधिक विवरण साझा करें तो मैं बेहतर मदद कर सकता हूँ!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Social media
-    if (message.includes('facebook') || message.includes('instagram') || message.includes('linkedin') || message.includes('twitter')) {
-        return "📲 Follow Bijaya on social media:\n🔵 Facebook: facebook.com/bijaya.bhandari.9404\n📷 Instagram: @bijaya.bhandari.9404\n💼 LinkedIn: linkedin.com/in/bijaya-bhandari/\n\nStay updated with the latest work and announcements!";
+    // TIMELINE / DELIVERY
+    if (message.match(/how long|timeline|delivery|deadline|rush|fast|कितना समय|डिलीवरी/)) {
+        const responses = {
+            en: '⏱️ **TURNAROUND TIMES:**\n\n**Standard Timeline:**\n• Video Editing: 3-7 days\n• Photography: 5-10 days (including editing)\n• Graphic Design: 3-5 days\n• Social Media Boosting: 3-30 days\n• AI Video: 2-4 days\n\n⚡ **Express Options Available:**\n• 24-hour rush (+50% cost)\n• 12-hour express (+100% cost)\n\n💬 Contact directly to discuss your timeline!',
+            ne: '⏱️ **डिलीवरी समय साधारणतः:**\n\n• भिडियो संपादन: 3-7 दिन\n• फोटोग्राफी: 5-10 दिन\n\n🚀 तेजी से चाहिए? संपर्क करें!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // When can you start
-    if (message.includes('when') && (message.includes('start') || message.includes('available') || message.includes('book'))) {
-        return "📅 Availability depends on the current project load. Contact Bijaya at bijayabhandari515@gmail.com or use the contact form to discuss your project timeline and availability!";
+    // CLARIFICATION NEEDED
+    if (message.length > 0) {
+        const responses = {
+            en: '🤔 I\'m not entirely sure about your question. Could you clarify?\n\n**You can ask me about:**\n✅ Services offered\n✅ Pricing & packages\n✅ How to book\n✅ Portfolio/samples\n✅ Contact information\n✅ Business marketing tips\n✅ Technical issues\n✅ Timeline/delivery\n\n💬 Please rephrase your question or pick one of the above!',
+            ne: '🤔 मुझे आपके सवाल को समझने में थोड़ी कठिनाई हुई। क्या आप स्पष्ट कर सकते हैं?\n\n📋 आप मुझसे पूछ सकते हैं:\n✅ सेवाएं\n✅ मूल्य निर्धारण\n✅ बुकिंग\n✅ संपर्क\n✅ और अधिक!'
+        };
+        return responses[language] || responses.en;
     }
 
-    // Why choose
-    if (message.includes('why') || message.includes('unique') || message.includes('advantage')) {
-        return "⭐ Why choose Bijaya's services?\n✅ Professional expertise in multiple creative fields\n✅ Industry-standard tools and techniques\n✅ Quick turnaround times\n✅ High-quality, customized solutions\n✅ Client-focused approach\n✅ Competitive pricing\n\nReady to start a project?";
-    }
+    // DEFAULT FALLBACK
+    const responses = {
+        en: "Hi there! 👋 How can I help? Feel free to ask about services, pricing, or anything else!",
+        ne: 'नमस्ते! 👋 मैं कैसे मदद कर सकता हूँ?'
+    };
+    return responses[language] || responses.en;
+}
 
-    // Booking/Inquiry
-    if (message.includes('book') || message.includes('project') || message.includes('inquiry')) {
-        return "📋 To book a service or inquire about a project:\n1. Click 'Request a Booking' on the homepage, OR\n2. Email: bijayabhandari515@gmail.com\n3. Call: +977 9824168577\n\nBelow the services section, you'll find a detailed contact form!";
+// Language Detection Function
+function detectLanguage(text) {
+    // Common Nepali unicode characters
+    const nepaliPattern = /[\u0900-\u097F]/g;
+    const nepaliMatches = text.match(nepaliPattern) || [];
+    
+    // If more than 20% of characters are Nepali, detect as Nepali
+    if (nepaliMatches.length > text.length * 0.15) {
+        return 'ne';
     }
-
-    // Default response
-    return "😊 That's an interesting question! I might not have all the specific details, but feel free to ask me about:\n• Our services (video editing, photography, graphic design, social media, job center, AI video)\n• Pricing information\n• How to contact Bijaya\n• Portfolio and samples\n\nWhat else would you like to know?";
+    
+    return 'en'; // Default to English
+}
 }
 
 // Optional: When API key is available, upgrade to real AI

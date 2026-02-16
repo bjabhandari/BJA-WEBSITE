@@ -70,12 +70,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 8px rgba(255, 60, 0, 0.2);
 }
 
 .chatbot-header h3 {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chatbot-header h3::before {
+    content: '🤖';
+    font-size: 20px;
+}
+
+.chatbot-status {
+    font-size: 12px;
+    opacity: 0.9;
+    display: block;
 }
 
 .close-btn {
@@ -90,17 +105,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
 }
 
 .close-btn:hover {
     opacity: 0.8;
+    transform: scale(1.1);
 }
 
 .chatbot-messages {
     flex: 1;
     overflow-y: auto;
     padding: 16px;
-    background-color: #f9f9f9;
+    background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+    display: flex;
+    flex-direction: column;
 }
 
 .message {
@@ -122,12 +141,14 @@
 
 .message p {
     margin: 0;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border-radius: 12px;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
     max-width: 85%;
     word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 
 .user-message {
@@ -137,7 +158,8 @@
 .user-message p {
     background: linear-gradient(135deg, #ff3c00, #EA580C);
     color: white;
-    border-radius: 18px 18px 0 18px;
+    border-radius: 18px 18px 2px 18px;
+    box-shadow: 0 2px 8px rgba(255, 60, 0, 0.15);
 }
 
 .bot-message {
@@ -145,24 +167,26 @@
 }
 
 .bot-message p {
-    background: #e5e7eb;
-    color: #333;
-    border-radius: 18px 18px 18px 0;
+    background: #e8eef5;
+    color: #222;
+    border-radius: 18px 18px 18px 2px;
+    border-left: 3px solid #ff3c00;
 }
 
 .typing-indicator {
     display: flex;
     gap: 4px;
-    padding: 10px 12px;
-    background: #e5e7eb;
+    padding: 10px 14px;
+    background: #e8eef5;
     border-radius: 18px;
     width: fit-content;
+    border-left: 3px solid #ff3c00;
 }
 
 .typing-indicator span {
     width: 8px;
     height: 8px;
-    background: #999;
+    background: #ff3c00;
     border-radius: 50%;
     animation: typing 1.4s infinite;
 }
@@ -203,12 +227,18 @@
     font-size: 14px;
     font-family: 'Inter', sans-serif;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
+    resize: none;
+    max-height: 80px;
 }
 
 .chatbot-input:focus {
     border-color: #ff3c00;
     box-shadow: 0 0 0 3px rgba(255, 60, 0, 0.1);
+}
+
+.chatbot-input::placeholder {
+    color: #999;
 }
 
 .send-btn {
@@ -223,10 +253,13 @@
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
 .send-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(255, 60, 0, 0.3);
 }
 
 .send-btn:active {
@@ -236,9 +269,40 @@
 .send-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    transform: none;
+}
+
+/* Welcome Message */
+.welcome-message {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.welcome-message strong {
+    color: #ff3c00;
+    font-size: 14px;
 }
 
 /* Responsive Design */
+@media (max-width: 768px) {
+    .chatbot-window {
+        width: 100%;
+        max-width: 100%;
+        height: 70vh;
+        bottom: 70px;
+        right: 0;
+        border-radius: 16px;
+    }
+    
+    .message p {
+        max-width: 90%;
+        font-size: 13px;
+    }
+}
+
 @media (max-width: 480px) {
     .chatbot-window {
         width: 100%;
@@ -258,6 +322,11 @@
         width: 50px;
         height: 50px;
         font-size: 20px;
+    }
+    
+    .message p {
+        max-width: 85%;
+        font-size: 13px;
     }
 }
 
@@ -279,3 +348,33 @@
 .chatbot-messages::-webkit-scrollbar-thumb:hover {
     background: #EA580C;
 }
+
+/* Code/formatted text support */
+.message p strong {
+    color: #ff3c00;
+    font-weight: 600;
+}
+
+.message p em {
+    font-style: italic;
+    color: #555;
+}
+
+.message p code {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.message p a {
+    color: #ff3c00;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.message p a:hover {
+    text-decoration: underline;
+}
+

@@ -172,11 +172,6 @@ function openGenericBookingModal() {
     const modal = document.getElementById('booking-modal');
     const form = document.getElementById('booking-form');
     
-    if (!modal || !form) {
-        alert('Booking modal not found. Please try again on a service page.');
-        return;
-    }
-    
     currentStep = 1;
     uploadedFiles = [];
     bookingData = {};

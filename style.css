@@ -706,3 +706,87 @@ header {
   min-width: 120px;
   display: inline-block;
 }
+
+/* Workflow Section Styling */
+.workflow-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 92, 16, 0.1);
+}
+
+.workflow-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(255, 60, 0, 0.2) !important;
+  border-color: rgba(255, 60, 0, 0.3);
+}
+
+.workflow-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 60, 0, 0.1) 0%, rgba(255, 107, 26, 0.1) 100%);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+/* Workflow progress tracking */
+.workflow-progress {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.progress-step-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .progress-step-circle {
+  background: linear-gradient(to right, #ff3c00, #EA580C);
+  color: white;
+  border-color: #ff3c00;
+  box-shadow: 0 0 10px rgba(255, 60, 0, 0.3);
+}
+
+.progress-step.completed .progress-step-circle {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.progress-step-label {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.progress-connector {
+  width: 40px;
+  height: 3px;
+  background: #ddd;
+  margin: 0 0.5rem;
+}
+
+.progress-connector.active {
+  background: #ff3c00;
+}

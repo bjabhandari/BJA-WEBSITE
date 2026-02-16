@@ -454,6 +454,80 @@
         </div>
     </section>
 
+    <!-- Workflow Section: Upload, Edit, Review & Deliver -->
+    <section id="workflow" class="py-16 lg:py-24 bg-gradient-to-r from-orange-50 to-orange-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 text-center">
+                How Our Process Works
+            </h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                From upload to delivery, we guide you through every step of your project with professional quality and dedicated support.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Step 1: Upload -->
+                <div class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                    <div class="workflow-icon mb-4">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-orange-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Upload</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        How to send footage, preferred formats and checklist to get started quickly.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <ul class="text-left text-sm text-gray-600 space-y-2">
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Video file supported formats</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>File size guidelines</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Pre-upload checklist</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2: Edit -->
+                <div class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                    <div class="workflow-icon mb-4">
+                        <i class="fas fa-video text-4xl text-orange-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Edit</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        What happens during editing: rough cuts, color, audio, effects and iterations.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <ul class="text-left text-sm text-gray-600 space-y-2">
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Professional cutting & trimming</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Color grading & effects</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Audio enhancement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review & Deliver -->
+                <div class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                    <div class="workflow-icon mb-4">
+                        <i class="fas fa-check-circle text-4xl text-orange-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Review & Deliver</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Feedback rounds, export settings and delivery formats we provide.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <ul class="text-left text-sm text-gray-600 space-y-2">
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Feedback rounds included</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Multiple export formats</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Fast secure delivery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="openGenericBookingModal()" class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                    <i class="fas fa-shopping-cart mr-2"></i>Start Your Project Today
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Portfolio Section -->
     <section id="portfolio" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
         <div class="container mx-auto px-4 text-center">
@@ -850,16 +924,13 @@
     <div id="chatbot-container" class="chatbot-container">
         <div id="chatbot-window" class="chatbot-window hidden">
             <div class="chatbot-header">
-                <h3>BJA AI Assistant</h3>
+                <h3>AI Assistant</h3>
                 <button id="close-chatbot" class="close-btn">&times;</button>
             </div>
             <div id="chatbot-messages" class="chatbot-messages">
-                <div class="message bot-message">
-                    <p>Hello! 👋 I'm your AI assistant. Ask me anything about Bijaya's services, pricing, or how I can help you!</p>
-                </div>
             </div>
             <div class="chatbot-input-area">
-                <input type="text" id="chatbot-input" placeholder="Type your question..." class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Type your question (English or Nepali)..." class="chatbot-input">
                 <button id="send-btn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
@@ -877,6 +948,24 @@
             <button class="booking-close" onclick="closeBookingModal()">&times;</button>
             <h2>Book <span id="booking-package-title">Service</span></h2>
             
+            <!-- Workflow Progress Tracker -->
+            <div class="workflow-progress" id="workflow-progress">
+                <div class="progress-step" id="progress-step-1">
+                    <div class="progress-step-circle">1</div>
+                    <div class="progress-step-label">Service</div>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step" id="progress-step-2">
+                    <div class="progress-step-circle">2</div>
+                    <div class="progress-step-label">Upload</div>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step" id="progress-step-3">
+                    <div class="progress-step-circle">3</div>
+                    <div class="progress-step-label">Confirm</div>
+                </div>
+            </div>
+            
             <div class="booking-summary">
                 <div class="booking-summary-item">
                     <span>Service Package:</span>
@@ -889,33 +978,143 @@
             </div>
 
             <form id="booking-form" onsubmit="submitBooking(); return false;">
-                <div class="booking-form-group">
-                    <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" name="fullName" required>
-                </div>
-
-                <div class="booking-form-row">
+                <!-- Step 1: Service Selection -->
+                <div id="booking-step-1" class="booking-step active">
+                    <h3 class="booking-step-title">Select Your Service</h3>
+                    
                     <div class="booking-form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="serviceType">Service Type *</label>
+                        <select id="serviceType" name="serviceType" onchange="updateServiceOptions()" required>
+                            <option value="">-- Choose a Service --</option>
+                            <option value="Video Editing">Video Editing</option>
+                            <option value="Photography">Photography</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="Social Media Boosting">Social Media Boosting</option>
+                            <option value="Job Center">Job Center</option>
+                            <option value="AI Video Production">AI Video Production</option>
+                        </select>
                     </div>
+
                     <div class="booking-form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <label for="packageOption">Package Option *</label>
+                        <select id="packageOption" name="packageOption" onchange="updatePackagePrice()" required>
+                            <option value="">-- Choose a Package --</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn-step-next" onclick="nextBookingStep()">Next: Upload Files</button>
+                </div>
+
+                <!-- Step 2: Upload Files -->
+                <div id="booking-step-2" class="booking-step">
+                    <h3 class="booking-step-title">Upload Your Files</h3>
+                    
+                    <div class="booking-form-group">
+                        <label for="videoFile">Upload Video/Files *</label>
+                        <div class="file-upload-area" id="file-upload-area">
+                            <input type="file" id="videoFile" name="videoFile" accept="video/*,image/*,.pdf" multiple>
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag and drop your files here or click to browse</p>
+                            <small>Supported: MP4, MOV, AVI, PNG, JPG, PDF (Max 500MB)</small>
+                        </div>
+                        <div id="file-list" class="file-list"></div>
+                    </div>
+
+                    <div class="booking-form-row">
+                        <div class="booking-form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="booking-form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="booking-form-row">
+                        <div class="booking-form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="booking-form-group">
+                            <label for="whatsapp">WhatsApp Number *</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+977..." required>
+                        </div>
+                    </div>
+
+                    <div class="booking-form-group">
+                        <label for="projectDesc">Project Description</label>
+                        <textarea id="projectDesc" name="projectDesc" rows="4" placeholder="Tell us about your project..."></textarea>
+                    </div>
+
+                    <div class="booking-form-group">
+                        <label for="deadline">Project Deadline</label>
+                        <input type="date" id="deadline" name="deadline">
+                    </div>
+
+                    <div class="booking-form-actions">
+                        <button type="button" class="btn-step-back" onclick="prevBookingStep()">Previous</button>
+                        <button type="button" class="btn-step-next" onclick="nextBookingStep()">Next: Confirm</button>
                     </div>
                 </div>
 
-                <div class="booking-form-group">
-                    <label for="projectDesc">Project Description</label>
-                    <textarea id="projectDesc" name="projectDesc" rows="4" placeholder="Tell us about your project..."></textarea>
-                </div>
+                <!-- Step 3: Review & Confirm -->
+                <div id="booking-step-3" class="booking-step">
+                    <h3 class="booking-step-title">Review Your Order</h3>
+                    
+                    <div class="booking-review-section">
+                        <h4>Service Details</h4>
+                        <div class="review-item">
+                            <span>Service:</span>
+                            <span id="review-service">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Package:</span>
+                            <span id="review-package">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Price:</span>
+                            <span id="review-price">-</span>
+                        </div>
+                    </div>
 
-                <div class="booking-form-group">
-                    <label for="deadline">Project Deadline</label>
-                    <input type="date" id="deadline" name="deadline">
-                </div>
+                    <div class="booking-review-section">
+                        <h4>Contact Information</h4>
+                        <div class="review-item">
+                            <span>Name:</span>
+                            <span id="review-name">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Email:</span>
+                            <span id="review-email">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Phone:</span>
+                            <span id="review-phone">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>WhatsApp:</span>
+                            <span id="review-whatsapp">-</span>
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn-book-order">Proceed to Payment (Generate QR)</button>
+                    <div class="booking-review-section">
+                        <h4>Files Uploaded</h4>
+                        <div id="review-files">-</div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px; border-left: 4px solid #ff3c00;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required style="margin-right: 10px;">
+                            <span style="color: #333; font-size: 14px;">I agree to the terms and ready to proceed with payment via QR code</span>
+                        </label>
+                    </div>
+
+                    <div class="booking-form-actions">
+                        <button type="button" class="btn-step-back" onclick="prevBookingStep()">Previous</button>
+                        <button type="submit" class="btn-book-order">Proceed to Payment (Generate QR)</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -937,6 +1136,14 @@
                 <p><strong>Client Name:</strong> <span id="customer-name">-</span></p>
                 <p><strong>Package:</strong> <span id="package-name">-</span></p>
                 <p><strong>Amount:</strong> <span id="booking-price">-</span></p>
+            </div>
+
+            <div id="whatsapp-send-section" style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                <h4 style="color: #2e7d32; margin-bottom: 10px;">📱 Send to WhatsApp</h4>
+                <p style="color: #666; font-size: 14px; margin-bottom: 10px;">We'll send your booking details and QR code to your WhatsApp</p>
+                <button type="button" class="btn-whatsapp" onclick="sendToWhatsApp()" style="width: 100%; background: #25D366; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                    <i class="fab fa-whatsapp"></i> Send to WhatsApp
+                </button>
             </div>
 
             <div class="qr-actions">
