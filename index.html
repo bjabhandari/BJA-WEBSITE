@@ -139,19 +139,148 @@
         .portfolio-card:hover img {
             transform: scale(1.05);
         }
+
+        /* 3D Creamy Circle styles */
+        .creamy-circle-container {
+            width: 380px;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .creamy-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff9f0 0%, #f7e7ce 100%);
+            border-radius: 50%;
+            box-shadow:
+                20px 20px 60px #d1c3af,
+                -20px -20px 60px #ffffff,
+                inset 10px 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-image {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1.1);
+        }
+
+        .creamy-circle-container:hover .creamy-circle {
+            transform: scale(1.02) rotate(2deg);
+            box-shadow:
+                25px 25px 70px #c5b8a5,
+                -25px -25px 70px #ffffff;
+        }
+
+        .creamy-circle-container:hover .hero-image {
+            transform: scale(1.15) translateY(-15px);
+            filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.25));
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 1.2s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-zoom-in {
+            animation: zoomIn 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .creamy-circle-container {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-image {
+                width: 250px;
+                height: 250px;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Popup Ad (shows on page load; Skip hides it and prevents future automatic shows) -->
-    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" style="display:none;">
+    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
+        style="display:none;">
         <div class="relative max-w-3xl w-full mx-4">
             <!-- Use the provided share URL as the link. The src uses the same URL but many Facebook pages won't hotlink images — we add an onerror fallback to a local image. -->
-            <a id="popup-ad-link" href="https://www.facebook.com/share/p/1AEC6vJQme/" target="_blank" rel="noopener noreferrer">
-                <img id="popup-ad-img" src="https://www.facebook.com/share/p/1AEC6vJQme/" onerror="this.onerror=null;this.src='images/bja logo.png'" alt="Ad" class="w-full h-auto rounded-lg shadow-2xl block">
+            <a id="popup-ad-link" href="https://www.facebook.com/share/p/1AEC6vJQme/" target="_blank"
+                rel="noopener noreferrer">
+                <img id="popup-ad-img" src="https://www.facebook.com/share/p/1AEC6vJQme/"
+                    onerror="this.onerror=null;this.src='images/bja logo.png'" alt="Ad"
+                    class="w-full h-auto rounded-lg shadow-2xl block">
             </a>
-            <button id="ad-skip" aria-label="Skip ad" class="absolute -top-3 -right-3 bg-white text-gray-800 font-medium px-3 py-1 rounded-full shadow">Skip</button>
+            <button id="ad-skip" aria-label="Skip ad"
+                class="absolute -top-3 -right-3 bg-white text-gray-800 font-medium px-3 py-1 rounded-full shadow">Skip</button>
         </div>
     </div>
 
@@ -202,32 +331,44 @@
 
     <!-- Hero Section -->
     <section id="home"
-        class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen">
-        <div class="hero-overlay absolute inset-0"></div>
-        <div class="container mx-auto text-center relative z-10 px-4">
-            <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-down">
-                Bring Your Ideas to Life Beautifully Edited
-            </h1>
-            <p class="text-lg lg:text-xl mb-8 opacity-90 animate-fade-in-up">
-                Your premier destination for weddings, corporate events, and unforgettable celebrations.
-            </p>
-            <a href="#services"
-                class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block animate-zoom-in">
-                Explore Services Priceing
-            </a>
+        class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen overflow-hidden">
+        <div class="hero-overlay absolute inset-0"
+            style="background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);"></div>
+        <div class="container mx-auto relative z-10 px-4 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="lg:w-3/5 text-left">
+                <h1 class="text-4xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in-down">
+                    Bring Your Ideas to Life <span class="text-orange-500">Beautifully Edited</span>
+                </h1>
+                <p class="text-lg lg:text-2xl mb-10 opacity-90 animate-fade-in-up max-w-2xl leading-relaxed">
+                    Your premier destination for weddings, corporate events, and unforgettable celebrations. We turn
+                    moments into masterpieces.
+                </p>
+                <div class="animate-zoom-in">
+                    <a href="#services"
+                        class="btn-primary text-white font-bold py-4 px-10 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 inline-block text-lg transform hover:-translate-y-1">
+                        Explore Our Services
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-2/5 flex justify-center lg:justify-end animate-zoom-in" style="animation-delay: 0.8s;">
+                <div class="creamy-circle-container animate-float">
+                    <div class="creamy-circle"></div>
+                    <img src="images/bjay.png" alt="Bijaya Bhandari" class="hero-image relative z-10">
+                </div>
+            </div>
         </div>
     </section>
 
     <script>
         // Popup ad logic: show on load unless user has skipped before (stored in localStorage).
         // Auto-closes after 3s but only "Skip" will persist the dismissal so it won't show again.
-        (function(){
+        (function () {
             const popup = document.getElementById('popup-ad');
             const skip = document.getElementById('ad-skip');
             const link = document.getElementById('popup-ad-link');
             let timer = null;
 
-            if(!popup) return;
+            if (!popup) return;
 
             // If user previously skipped, don't show again
             try {
@@ -240,35 +381,35 @@
             }
 
             function closePopup(persist) {
-                if(!popup) return;
+                if (!popup) return;
                 popup.style.display = 'none';
-                if(timer) { clearTimeout(timer); timer = null; }
+                if (timer) { clearTimeout(timer); timer = null; }
                 if (persist) {
-                    try { localStorage.setItem('popupAdDismissed', '1'); } catch (err) {}
+                    try { localStorage.setItem('popupAdDismissed', '1'); } catch (err) { }
                 }
             }
 
             // Show popup
             popup.style.display = 'flex';
             // Auto close after 3 seconds (3000 ms)
-            timer = setTimeout(function(){ closePopup(false); }, 3000);
+            timer = setTimeout(function () { closePopup(false); }, 3000);
 
             // Skip button: close and persist dismissal so it won't auto-show again
-            if(skip){
-                skip.addEventListener('click', function(e){
+            if (skip) {
+                skip.addEventListener('click', function (e) {
                     e.preventDefault();
                     closePopup(true);
                 });
             }
 
             // Close when user clicks outside the image (does not persist)
-            popup.addEventListener('click', function(e){
-                if(e.target === popup) closePopup(false);
+            popup.addEventListener('click', function (e) {
+                if (e.target === popup) closePopup(false);
             });
 
             // If the user clicks the ad link, close the popup (do not persist — they saw/clicked)
-            if(link){
-                link.addEventListener('click', function(){ closePopup(false); });
+            if (link) {
+                link.addEventListener('click', function () { closePopup(false); });
             }
         })();
     </script>
@@ -461,12 +602,14 @@
                 How Our Process Works
             </h2>
             <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-                From upload to delivery, we guide you through every step of your project with professional quality and dedicated support.
+                From upload to delivery, we guide you through every step of your project with professional quality and
+                dedicated support.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <!-- Step 1: Upload -->
-                <div class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                <div
+                    class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
                     <div class="workflow-icon mb-4">
                         <i class="fas fa-cloud-upload-alt text-4xl text-orange-500"></i>
                     </div>
@@ -484,7 +627,8 @@
                 </div>
 
                 <!-- Step 2: Edit -->
-                <div class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                <div
+                    class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
                     <div class="workflow-icon mb-4">
                         <i class="fas fa-video text-4xl text-orange-500"></i>
                     </div>
@@ -502,7 +646,8 @@
                 </div>
 
                 <!-- Step 3: Review & Deliver -->
-                <div class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                <div
+                    class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
                     <div class="workflow-icon mb-4">
                         <i class="fas fa-check-circle text-4xl text-orange-500"></i>
                     </div>
@@ -521,7 +666,8 @@
             </div>
 
             <div class="text-center">
-                <button onclick="openGenericBookingModal()" class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                <button onclick="openGenericBookingModal()"
+                    class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                     <i class="fas fa-shopping-cart mr-2"></i>Start Your Project Today
                 </button>
             </div>
@@ -772,7 +918,8 @@
                 <textarea id="booking-notes" class="w-full border rounded-md p-2" rows="3"></textarea>
 
                 <div class="flex gap-3">
-                    <button id="booking-confirm" class="flex-1 py-2 bg-orange-500 text-white rounded-md">Confirm Booking</button>
+                    <button id="booking-confirm" class="flex-1 py-2 bg-orange-500 text-white rounded-md">Confirm
+                        Booking</button>
                     <button id="booking-cancel" class="flex-1 py-2 bg-gray-100 rounded-md">Cancel</button>
                 </div>
             </div>
@@ -783,7 +930,8 @@
     <div id="booking-confirmation" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4 text-center shadow-lg">
             <h4 class="text-lg font-semibold mb-2">Confirm booking?</h4>
-            <p class="text-sm text-gray-600 mb-4">Do you want to confirm and proceed? We will accept seva and generate a QR for payment.</p>
+            <p class="text-sm text-gray-600 mb-4">Do you want to confirm and proceed? We will accept seva and generate a
+                QR for payment.</p>
             <div class="flex gap-3">
                 <button id="confirm-yes" class="flex-1 py-2 bg-green-600 text-white rounded-md">Yes</button>
                 <button id="confirm-no" class="flex-1 py-2 bg-gray-100 rounded-md">No</button>
@@ -793,16 +941,19 @@
 
     <!-- Acceptance + QR screen -->
     <div id="booking-accepted" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4 text-center shadow-2xl transform scale-0" id="booking-accepted-card">
+        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4 text-center shadow-2xl transform scale-0"
+            id="booking-accepted-card">
             <h3 class="text-xl font-semibold mb-2">We accept seva</h3>
             <p class="text-sm text-gray-600 mb-4">Show this QR to complete payment or share it with the courier.</p>
 
             <div class="mx-auto mb-4 w-48 h-48 flex items-center justify-center">
-                <img id="booking-qr" src="" alt="QR code" class="w-44 h-44 rounded-md shadow-lg transform transition-transform duration-500" />
+                <img id="booking-qr" src="" alt="QR code"
+                    class="w-44 h-44 rounded-md shadow-lg transform transition-transform duration-500" />
             </div>
 
             <div class="flex gap-3">
-                <a id="download-qr" href="#" download="booking-qr.png" class="flex-1 py-2 bg-green-600 text-white rounded-md">Download QR</a>
+                <a id="download-qr" href="#" download="booking-qr.png"
+                    class="flex-1 py-2 bg-green-600 text-white rounded-md">Download QR</a>
                 <button id="close-accepted" class="flex-1 py-2 bg-gray-100 rounded-md">Close</button>
             </div>
         </div>
@@ -930,7 +1081,8 @@
             <div id="chatbot-messages" class="chatbot-messages">
             </div>
             <div class="chatbot-input-area">
-                <input type="text" id="chatbot-input" placeholder="Type your question (English or Nepali)..." class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Type your question (English or Nepali)..."
+                    class="chatbot-input">
                 <button id="send-btn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
@@ -947,7 +1099,7 @@
         <div class="booking-modal-content">
             <button class="booking-close" onclick="closeBookingModal()">&times;</button>
             <h2>Book <span id="booking-package-title">Service</span></h2>
-            
+
             <!-- Workflow Progress Tracker -->
             <div class="workflow-progress" id="workflow-progress">
                 <div class="progress-step" id="progress-step-1">
@@ -965,7 +1117,7 @@
                     <div class="progress-step-label">Confirm</div>
                 </div>
             </div>
-            
+
             <div class="booking-summary">
                 <div class="booking-summary-item">
                     <span>Service Package:</span>
@@ -981,7 +1133,7 @@
                 <!-- Step 1: Service Selection -->
                 <div id="booking-step-1" class="booking-step active">
                     <h3 class="booking-step-title">Select Your Service</h3>
-                    
+
                     <div class="booking-form-group">
                         <label for="serviceType">Service Type *</label>
                         <select id="serviceType" name="serviceType" onchange="updateServiceOptions()" required>
@@ -1008,7 +1160,7 @@
                 <!-- Step 2: Upload Files -->
                 <div id="booking-step-2" class="booking-step">
                     <h3 class="booking-step-title">Upload Your Files</h3>
-                    
+
                     <div class="booking-form-group">
                         <label for="videoFile">Upload Video/Files *</label>
                         <div class="file-upload-area" id="file-upload-area">
@@ -1044,7 +1196,8 @@
 
                     <div class="booking-form-group">
                         <label for="projectDesc">Project Description</label>
-                        <textarea id="projectDesc" name="projectDesc" rows="4" placeholder="Tell us about your project..."></textarea>
+                        <textarea id="projectDesc" name="projectDesc" rows="4"
+                            placeholder="Tell us about your project..."></textarea>
                     </div>
 
                     <div class="booking-form-group">
@@ -1061,7 +1214,7 @@
                 <!-- Step 3: Review & Confirm -->
                 <div id="booking-step-3" class="booking-step">
                     <h3 class="booking-step-title">Review Your Order</h3>
-                    
+
                     <div class="booking-review-section">
                         <h4>Service Details</h4>
                         <div class="review-item">
@@ -1103,10 +1256,13 @@
                         <div id="review-files">-</div>
                     </div>
 
-                    <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px; border-left: 4px solid #ff3c00;">
+                    <div
+                        style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px; border-left: 4px solid #ff3c00;">
                         <label style="display: flex; align-items: center; cursor: pointer;">
-                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required style="margin-right: 10px;">
-                            <span style="color: #333; font-size: 14px;">I agree to the terms and ready to proceed with payment via QR code</span>
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required
+                                style="margin-right: 10px;">
+                            <span style="color: #333; font-size: 14px;">I agree to the terms and ready to proceed with
+                                payment via QR code</span>
                         </label>
                     </div>
 
@@ -1138,10 +1294,13 @@
                 <p><strong>Amount:</strong> <span id="booking-price">-</span></p>
             </div>
 
-            <div id="whatsapp-send-section" style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+            <div id="whatsapp-send-section"
+                style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
                 <h4 style="color: #2e7d32; margin-bottom: 10px;">📱 Send to WhatsApp</h4>
-                <p style="color: #666; font-size: 14px; margin-bottom: 10px;">We'll send your booking details and QR code to your WhatsApp</p>
-                <button type="button" class="btn-whatsapp" onclick="sendToWhatsApp()" style="width: 100%; background: #25D366; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                <p style="color: #666; font-size: 14px; margin-bottom: 10px;">We'll send your booking details and QR
+                    code to your WhatsApp</p>
+                <button type="button" class="btn-whatsapp" onclick="sendToWhatsApp()"
+                    style="width: 100%; background: #25D366; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
                     <i class="fab fa-whatsapp"></i> Send to WhatsApp
                 </button>
             </div>
