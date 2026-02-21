@@ -52,7 +52,14 @@
                 <!-- Added logo image and adjusted text size -->
                 <img src="images/bja logo.png" alt="bijaya-bhandari" class="h-16 mr-2" style="cursor:pointer"
                     onclick="location.reload();">
+            </div>
 
+            <!-- Mobile Menu Button -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle"
+                    class="flex items-center px-3 py-2 border rounded text-orange-600 border-orange-400 hover:text-orange-900 hover:border-orange-900 transition-colors">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
 
 
@@ -96,8 +103,8 @@
             style="background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);"></div>
         <div
             class="container mx-auto relative z-10 px-4 flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-            <div class="lg:w-3/5 text-left hero-text-glass">
-                <h1 class="text-3xl lg:text-5xl font-bold leading-tight mb-6 animate-fade-in-down">
+            <div class="lg:w-3/5 text-left">
+                <h1 class="text-3xl lg:text-5xl font-bold leading-relaxed mb-6 animate-fade-in-down">
                     Bring Your Ideas to Life <span class="text-orange-500">Beautifully Edited</span>
                 </h1>
                 <p class="text-base lg:text-xl mb-10 opacity-90 animate-fade-in-up max-w-2xl leading-relaxed">
@@ -121,6 +128,11 @@
     </section>
 
     <script>
+        // Mobile Menu Toggle
+        document.getElementById('nav-toggle').onclick = function () {
+            document.getElementById('nav-content').classList.toggle('hidden');
+        };
+
         // Popup ad logic: show on load unless user has skipped before (stored in localStorage).
         // Auto-closes after 3s but only "Skip" will persist the dismissal so it won't show again.
         (function () {
