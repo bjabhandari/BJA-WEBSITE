@@ -14,256 +14,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Chatbot CSS -->
     <link rel="stylesheet" href="chatbot.css">
+    <link rel="stylesheet" href="style.css">
     <!-- Booking CSS -->
     <link rel="stylesheet" href="booking.css">
     <!-- QRCode library (for booking) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            /* Prevent horizontal scroll on small screens */
-        }
-
-        /* Custom styles for hero section background */
-        .hero-background {
-            background-image: url('https://t4.ftcdn.net/jpg/04/65/59/17/360_F_465591784_hHuNuZbaxDmE9yiAxvalifOnxXAz2GXO.jpg');
-            /* Placeholder image of a palace/event venue */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-
-
-
-        /* Gradient for buttons - Orange branding */
-        .btn-primary {
-            background: linear-gradient(to right, #ff3c00, #EA580C);
-            /* Orange-600 to Orange-700 */
-            transition: transform 0.2s ease-in-out;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-            /* Slightly brighter on hover */
-        }
-
-        /* Card hover effect */
-        .service-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
-        }
-
-        /* Pricing card - featured state */
-        .price-card {
-            transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), box-shadow 0.35s ease, background-color 0.35s ease;
-            border-radius: 0.75rem;
-            border: 1px solid rgba(16, 24, 40, 0.04);
-            background-color: white;
-        }
-
-        .price-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 40px rgba(234, 88, 12, 0.12), 0 6px 12px rgba(0, 0, 0, 0.04);
-            border-top: 4px solid #ff3c00;
-        }
-
-        .price-card.featured {
-            background: linear-gradient(180deg, #ff6a1a 0%, #ff3c00 100%);
-            color: white;
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(255, 92, 16, 0.18);
-            border: none;
-        }
-
-        .price-card.featured .text-gray-900 {
-            color: white;
-        }
-
-        .price-card.featured .text-gray-600 {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .price-card.featured .text-orange-500 {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        /* Portfolio card specific styles */
-        .portfolio-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            /* rounded-xl */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .portfolio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.25);
-        }
-
-        .portfolio-card .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            /* Changed to column for better vertical alignment */
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            text-align: center;
-            /* Center text within overlay */
-            padding: 1rem;
-            /* Added padding */
-        }
-
-        .portfolio-card:hover .overlay {
-            opacity: 1;
-        }
-
-        .portfolio-card img {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .portfolio-card:hover img {
-            transform: scale(1.05);
-        }
-
-        /* 3D Creamy Circle styles */
-        .creamy-circle-container {
-            width: 380px;
-            height: 380px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 20;
-        }
-
-        .creamy-circle {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #fff9f0 0%, #f7e7ce 100%);
-            border-radius: 50%;
-            box-shadow:
-                20px 20px 60px #d1c3af,
-                -20px -20px 60px #ffffff,
-                inset 10px 10px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero-image {
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            object-fit: contain;
-            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(1.1);
-        }
-
-        .creamy-circle-container:hover .creamy-circle {
-            transform: scale(1.02) rotate(2deg);
-            box-shadow:
-                25px 25px 70px #c5b8a5,
-                -25px -25px 70px #ffffff;
-        }
-
-        .creamy-circle-container:hover .hero-image {
-            transform: scale(1.15) translateY(-15px);
-            filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.25));
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-30px);
-            }
-        }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-down {
-            animation: fadeInDown 1.2s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 1.2s ease-out 0.3s forwards;
-            opacity: 0;
-        }
-
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .animate-zoom-in {
-            animation: zoomIn 1s ease-out 0.6s forwards;
-            opacity: 0;
-        }
-
-        @media (max-width: 1024px) {
-            .creamy-circle-container {
-                width: 300px;
-                height: 300px;
-            }
-
-            .hero-image {
-                width: 250px;
-                height: 250px;
-            }
-        }
-    </style>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -334,18 +89,19 @@
         class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen overflow-hidden">
         <div class="hero-overlay absolute inset-0"
             style="background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);"></div>
-        <div class="container mx-auto relative z-10 px-4 flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div class="lg:w-3/5 text-left">
-                <h1 class="text-4xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in-down">
+        <div
+            class="container mx-auto relative z-10 px-4 flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+            <div class="lg:w-3/5 text-left hero-text-glass">
+                <h1 class="text-3xl lg:text-5xl font-bold leading-tight mb-6 animate-fade-in-down">
                     Bring Your Ideas to Life <span class="text-orange-500">Beautifully Edited</span>
                 </h1>
-                <p class="text-lg lg:text-2xl mb-10 opacity-90 animate-fade-in-up max-w-2xl leading-relaxed">
+                <p class="text-base lg:text-xl mb-10 opacity-90 animate-fade-in-up max-w-2xl leading-relaxed">
                     Your premier destination for weddings, corporate events, and unforgettable celebrations. We turn
                     moments into masterpieces.
                 </p>
                 <div class="animate-zoom-in">
                     <a href="#services"
-                        class="btn-primary text-white font-bold py-4 px-10 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 inline-block text-lg transform hover:-translate-y-1">
+                        class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 inline-block text-lg transform hover:-translate-y-1">
                         Explore Our Services
                     </a>
                 </div>
