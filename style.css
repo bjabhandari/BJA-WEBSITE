@@ -119,8 +119,8 @@ body {
 
 /* 3D Creamy Circle styles */
 .creamy-circle-container {
-  width: 380px;
-  height: 380px;
+  width: 390px;
+  height: 390px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,7 +132,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #fff9f0 0%, #f7e7ce 100%);
+  background: linear-gradient(135deg, #e4e6e9 0%, #b1b7d3 100%);
   border-radius: 50%;
   box-shadow:
     20px 20px 60px #d1c3af,
@@ -161,8 +161,8 @@ body {
 }
 
 .hero-image {
-  width: 320px;
-  height: 320px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   object-fit: contain;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
