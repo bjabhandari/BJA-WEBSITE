@@ -128,73 +128,18 @@
         </div>
     </section>
 
-    <script>
-        // Mobile Menu Toggle
-        document.getElementById('nav-toggle').onclick = function () {
-            document.getElementById('nav-content').classList.toggle('hidden');
-        };
 
-        // Popup ad logic: show on load unless user has skipped before (stored in localStorage).
-        // Auto-closes after 3s but only "Skip" will persist the dismissal so it won't show again.
-        (function () {
-            const popup = document.getElementById('popup-ad');
-            const skip = document.getElementById('ad-skip');
-            const link = document.getElementById('popup-ad-link');
-            let timer = null;
-
-            if (!popup) return;
-
-            // If user previously skipped, don't show again
-            try {
-                if (localStorage.getItem('popupAdDismissed') === '1') {
-                    return;
-                }
-            } catch (err) {
-                // localStorage may be unavailable in some privacy modes; ignore and continue showing
-                console.warn('localStorage unavailable for popup ad persistence', err);
-            }
-
-            function closePopup(persist) {
-                if (!popup) return;
-                popup.style.display = 'none';
-                if (timer) { clearTimeout(timer); timer = null; }
-                if (persist) {
-                    try { localStorage.setItem('popupAdDismissed', '1'); } catch (err) { }
-                }
-            }
-
-            // Show popup
-            popup.style.display = 'flex';
-            // Auto close after 3 seconds (3000 ms)
-            timer = setTimeout(function () { closePopup(false); }, 3000);
-
-            // Skip button: close and persist dismissal so it won't auto-show again
-            if (skip) {
-                skip.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    closePopup(true);
-                });
-            }
-
-            // Close when user clicks outside the image (does not persist)
-            popup.addEventListener('click', function (e) {
-                if (e.target === popup) closePopup(false);
-            });
-
-            // If the user clicks the ad link, close the popup (do not persist — they saw/clicked)
-            if (link) {
-                link.addEventListener('click', function () { closePopup(false); });
-            }
-        })();
-    </script>
 
     <!-- About Me Section -->
     <section id="about" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
-        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="lg:order-2">
-                <img src="images/bja.jpg" alt="Grand Ballroom" class="rounded-lg shadow-xl w-full h-auto">
+        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 flex justify-center lg:justify-end">
+                <div class="w-full max-w-md lg:max-w-sm">
+                    <img src="images/bja.jpg" alt="Bijaya Bhandari"
+                        class="rounded-lg shadow-xl w-full h-[500px] object-cover object-top hover:scale-[1.02] transition-transform duration-300">
+                </div>
             </div>
-            <div class="lg:order-1">
+            <div class="lg:col-span-7">
                 <h2
                     class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
                     About Me
@@ -221,10 +166,9 @@
                     <li class="flex items-center">
                         <i class="fas fa-check-circle text-orange-500 mr-3"></i> Photographer
                     </li>
-
-                    </li>
                     <li class="flex items-center">
                         <i class="fas fa-check-circle text-orange-500 mr-3"></i>Social Media Booster
+                    </li>
                 </ul>
 
                 <!-- Video CV & Resume Actions -->
@@ -234,7 +178,7 @@
                         <i class="fas fa-video mr-3"></i> Watch Video CV
                     </a>
 
-                    <a href="Bijaya%20Resume.pdf" download="Bijaya Resume.pdf"
+                    <a href="BijayaResume.pdf" download="Bijaya Resume.pdf"
                         class="inline-flex items-center justify-center border-2 border-orange-500 text-orange-600 font-semibold py-3 px-6 rounded-full shadow hover:bg-orange-50 transition-colors">
                         <i class="fas fa-file-download mr-3"></i> Download Resume
                     </a>
@@ -747,102 +691,9 @@
         </div>
     </div>
 
-    <!-- JavaScript for Smooth Scrolling Navigation Links -->
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
 
-                // Close mobile menu after clicking a link
-                if (window.innerWidth < 1024) { // Only for smaller screens
-                    document.getElementById('nav-content').classList.add('hidden');
-                }
-            });
-        });
-    </script>
-    <script>
-        // Scrollspy: set active nav link based on the section in view
-        (function () {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
 
-            function setActive(link) {
-                navLinks.forEach(a => {
-                    a.classList.remove('text-orange-600', 'bg-orange-50');
-                    a.classList.add('text-gray-600');
-                });
-                if (link) {
-                    link.classList.remove('text-gray-600');
-                    link.classList.add('text-orange-600', 'bg-orange-50');
-                }
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        const activeLink = navLinks.find(a => a.getAttribute('href') === `#${id}`);
-                        setActive(activeLink);
-                    }
-                });
-            }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
-
-            sections.forEach(s => observer.observe(s));
-
-            // set initial active based on scroll position
-            window.addEventListener('load', () => {
-                // trigger observer by checking current viewport
-                sections.forEach(s => {
-                    const rect = s.getBoundingClientRect();
-                    if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.25) {
-                        const activeLink = navLinks.find(a => a.getAttribute('href') === `#${s.id}`);
-                        setActive(activeLink);
-                    }
-                });
-            });
-        })();
-    </script>
-    <script>
-        // Make pricing cards selectable (one featured at a time)
-        (function () {
-            const cards = document.querySelectorAll('#services .relative');
-            cards.forEach(card => {
-                card.classList.add('price-card');
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function (e) {
-                    // prevent clicks on internal links/buttons from toggling
-                    if (e.target.closest('a') || e.target.closest('button')) return;
-                    // remove featured from others
-                    document.querySelectorAll('#services .price-card.featured').forEach(c => c.classList.remove('featured'));
-                    // toggle this one
-                    card.classList.toggle('featured');
-                });
-            });
-        })();
-    </script>
-    <script>
-        function openVideoCV() {
-            const modal = document.getElementById('video-cv-modal');
-            const iframe = document.getElementById('video-cv-iframe');
-            // Set your video URL here (YouTube embed or hosted video)
-            iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeVideoCV() {
-            const modal = document.getElementById('video-cv-modal');
-            const iframe = document.getElementById('video-cv-iframe');
-            iframe.src = '';
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-    </script>
 
     <!-- Chatbot Widget -->
     <div id="chatbot-container" class="chatbot-container">
