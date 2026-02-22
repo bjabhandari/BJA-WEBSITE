@@ -4,6 +4,16 @@
   --brand-accent: #EA580C;
 }
 
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* Global Styles and Typography */
 body {
   font-family: 'Inter', sans-serif;

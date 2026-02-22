@@ -1,4 +1,19 @@
 // Contact form submission using EmailJS
+window.addEventListener('load', function () {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // Ensure the preloader stays for at least 2 seconds
+        const minDisplayTime = 2000;
+        const loadTime = Date.now() - performance.timing.navigationStart;
+        const remainingTime = Math.max(0, minDisplayTime - loadTime);
+
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.remove(), 700);
+        }, remainingTime);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('contact-submit');
@@ -191,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.getAttribute('id');
-                    const activeLink = navLinks.find(a => a.getAttribute('href') === `#${id}`);
+                    const activeLink = navLinks.find(a => a.getAttribute('href') === `#${id} `);
                     setActive(activeLink);
                 }
             });
@@ -204,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
             sections.forEach(s => {
                 const rect = s.getBoundingClientRect();
                 if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.25) {
-                    const activeLink = navLinks.find(a => a.getAttribute('href') === `#${s.id}`);
+                    const activeLink = navLinks.find(a => a.getAttribute('href') === `#${s.id} `);
                     setActive(activeLink);
                 }
             });
@@ -286,7 +301,7 @@ function openVideoCV() {
                 if (absDiff > 2) opacity = 0;
             }
 
-            item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${translateX}vw) translateZ(${translateZ}px)`;
+            item.style.transform = `translate(-50 %, -50 %) rotateY(${rotation}deg) translateX(${translateX}vw) translateZ(${translateZ}px)`;
             item.style.opacity = Math.max(0, opacity);
             item.style.zIndex = Math.round(zIndex);
         });
