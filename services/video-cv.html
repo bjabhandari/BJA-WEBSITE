@@ -9,38 +9,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Branding variables */
+        /* Branding variables - 60-30-10: White-Orange-Black */
         :root {
             --brand-primary: #ff3c00;
             --brand-accent: #EA580C;
-            --bg-dark: #0b0b0c;
-            --card-bg: #0f1720;
-            --muted: #94a3b8;
-            --radius: 14px;
+            --bg-light: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --radius: 16px;
             --max-width: 1200px;
         }
 
         /* Base */
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-            background: linear-gradient(180deg, #050507 0%, #0a0a0b 40%);
-            color: #e6eef8;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
         }
 
-        a {
-            color: var(--brand-primary);
+        .section-heading {
+            display: inline-block;
+            border-b-4 border-orange-500;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: #000;
         }
 
-
-        /* Video slider styles */
+        /* Video slider styles - Optimized height */
         .video-slider-container {
             position: relative;
             width: 100%;
             max-width: var(--max-width);
-            height: 78vh;
-            margin: 2rem auto 3rem;
+            height: 65vh;
+            /* Reduced height */
+            margin: 1rem auto 3rem;
             perspective: 1200px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.06));
             overflow: visible;
             display: flex;
             align-items: center;
@@ -52,114 +57,35 @@
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.25s ease-in-out;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: grab;
-            user-select: none;
-            touch-action: pan-y pinch-zoom;
         }
 
-        /* Default (side) cards are narrow vertical panels. Active card becomes large 9:16 */
         .slider-item {
             position: absolute;
-            height: 40vh;
-            /* small by default */
+            height: 35vh;
             aspect-ratio: 9 / 16;
-            /* width will be height * 9/16 */
             left: 50%;
             top: 50%;
             transform-origin: 50% 50% -260px;
-            transition: all 0.25s ease-in-out;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border-radius: var(--radius);
-            opacity: 0.5;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.15));
-        }
-
-        /* Large centered active card: 9:16 tall and prominent */
-        .slider-item.active {
-            height: 82vh;
-            /* main vertical video size - 9:16 */
-            aspect-ratio: 9 / 16;
-            transform: translate(-50%, -50%) translateZ(420px) rotateY(0deg);
-            opacity: 1;
-            z-index: 5;
-            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6), 0 4px 18px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(0, 0, 0, 0.2));
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .video-slider-container {
-                height: 78vh;
-            }
-
-            .slider-item {
-                height: 36vh;
-            }
-
-            .slider-item.active {
-                height: 72vh;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            /* Phones/tablets: simplify layout and show only the active vertical player */
-            .video-slider-container {
-                height: 85vh;
-            }
-
-            .video-slider {
-                transform: none;
-            }
-
-            .slider-item {
-                position: relative;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%) !important;
-                height: 40vh;
-                opacity: 0.95;
-            }
-
-            .slider-item.active {
-                height: 80vh;
-                transform: translate(-50%, -50%) !important;
-                z-index: 10;
-            }
-
-            .slider-item:not(.active) {
-                display: none;
-            }
-
-            .slider-controls {
-                bottom: 12px;
-            }
-
-            .video-wrap iframe,
-            .youtube-short {
-                border-radius: 12px;
-            }
-        }
-
-        @media (max-width: 420px) {
-            .video-slider-container {
-                height: 92vh;
-            }
-
-            .slider-item.active {
-                height: 88vh;
-            }
-        }
-
-        .youtube-short {
-            width: 100%;
-            height: 100%;
+            opacity: 0.4;
             background: #000;
-            border: none;
-            display: block;
+            filter: grayscale(40%);
+        }
+
+        .slider-item.active {
+            height: 60vh;
+            aspect-ratio: 9 / 16;
+            transform: translate(-50%, -50%) translateZ(400px) rotateY(0deg);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 20px 50px rgba(255, 60, 0, 0.2);
+            filter: none;
+            border: 2px solid var(--brand-primary);
         }
 
         .slider-item iframe {
@@ -167,66 +93,52 @@
             height: 100%;
             background: #000;
             display: block;
+            pointer-events: none;
+            /* Disable interaction unless active or specific handling */
         }
 
-        .slider-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.6));
-            color: #e6eef8;
-            text-align: center;
-        }
-
-        .slider-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-
-        .slider-content p {
-            font-size: 1rem;
-            opacity: 0.8;
+        .slider-item.active iframe {
+            pointer-events: auto;
         }
 
         .slider-controls {
             position: absolute;
-            bottom: 20px;
+            bottom: -40px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 10;
             display: flex;
-            gap: 20px;
+            gap: 1.5rem;
+            z-index: 20;
         }
 
         .slider-controls button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
+            background: var(--brand-primary);
             color: white;
-            transition: background-color 0.3s;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 60, 0, 0.3);
         }
 
         .slider-controls button:hover {
-            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+            background: var(--brand-accent);
         }
 
-        /* Original video wrapper styles */
+        /* Video wrapper for main player */
         .video-wrap {
             position: relative;
-            padding-bottom: calc(16 / 9 * 100%);
+            padding-bottom: 56.25%;
+            /* 16:9 */
             height: 0;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: var(--radius);
             background: #000;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .video-wrap iframe {
@@ -238,393 +150,338 @@
             border: none;
         }
 
-        /* Hero styles */
-        .hero {
-            max-width: var(--max-width);
-            margin: 1.25rem auto;
-            padding: 2rem 1rem;
-            text-align: center;
+        /* Navigation & Branding */
+        .nav-logo {
+            height: 48px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
         }
 
         .hero h1 {
-            font-size: 2.25rem;
-            color: #fff;
-            margin-bottom: .5rem;
+            color: #000;
+            font-weight: 800;
         }
 
-        .hero p {
-            color: var(--muted);
-            margin-bottom: 1rem;
+        .btn-orange {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(255, 60, 0, 0.2);
         }
 
-        .btn-cta {
-            background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
-            color: #fff;
-            padding: .75rem 1.25rem;
-            border-radius: 10px;
-            display: inline-flex;
-            gap: .5rem;
-            align-items: center;
-            box-shadow: 0 8px 24px rgba(234, 88, 12, 0.16);
+        .btn-orange:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(255, 60, 0, 0.3);
         }
 
-        .brand-logo {
-            height: 44px;
-            border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        /* Sidebar cleanup */
+        aside {
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        @media (max-width: 1024px) {
+            .video-slider-container {
+                height: 60vh;
+            }
+
+            .slider-item.active {
+                height: 55vh;
+            }
+
+            aside {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-slider-container {
+                height: 75vh;
+            }
+
+            .slider-item {
+                display: none;
+            }
+
+            .slider-item.active {
+                display: block;
+                height: 70vh;
+                width: 85vw;
+            }
         }
     </style>
-    <script>
-        // Load YouTube IFrame API
-        let YT_API_READY = false;
-        const tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        document.head.appendChild(tag);
-
-        // Slider state
-        let players = [];
-        let currentIndex = 0;
-        const items = [];
-
-        function onYouTubeIframeAPIReady() {
-            YT_API_READY = true;
-            initPlayersAndSlider();
-        }
-
-        function initPlayersAndSlider() {
-            const slider = document.querySelector('.video-slider');
-            const sliderItems = document.querySelectorAll('.slider-item');
-            sliderItems.forEach((el, i) => items.push(el));
-
-            // Create YT players and attach event listeners to pause others when one plays
-            sliderItems.forEach((el, i) => {
-                const iframe = el.querySelector('iframe');
-                const id = iframe.id;
-                players[i] = new YT.Player(id, {
-                    events: {
-                        onStateChange: function (event) {
-                            // When a player starts playing, pause all others
-                            if (event.data === YT.PlayerState.PLAYING) {
-                                players.forEach((p, idx) => {
-                                    if (p && idx !== i) {
-                                        try { p.pauseVideo(); } catch (e) { }
-                                    }
-                                });
-
-                                // Make this slide active
-                                setActiveIndex(i);
-                            }
-                        }
-                    }
-                });
-            });
-
-            // Make first visible
-            setActiveIndex(0, false);
-
-            // Cursor move control (slide on substantial horizontal move)
-            let isDown = false, startX = 0;
-            slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.clientX; slider.style.cursor = 'grabbing'; });
-            document.addEventListener('mouseup', (e) => { isDown = false; slider.style.cursor = 'grab'; });
-            document.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                const diff = e.clientX - startX;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0) setActiveIndex((currentIndex - 1 + items.length) % items.length);
-                    else setActiveIndex((currentIndex + 1) % items.length);
-                    startX = e.clientX;
-                }
-            });
-
-            // Touch support
-            slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; });
-            slider.addEventListener('touchmove', (e) => {
-                const diff = e.touches[0].clientX - startX;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0) setActiveIndex((currentIndex - 1 + items.length) % items.length);
-                    else setActiveIndex((currentIndex + 1) % items.length);
-                    startX = e.touches[0].clientX;
-                }
-            });
-
-            // Prev/next buttons
-            const prevBtn = document.querySelector('.prev-btn');
-            const nextBtn = document.querySelector('.next-btn');
-            if (prevBtn) prevBtn.addEventListener('click', () => setActiveIndex((currentIndex - 1 + items.length) % items.length));
-            if (nextBtn) nextBtn.addEventListener('click', () => setActiveIndex((currentIndex + 1) % items.length));
-        }
-
-        function setActiveIndex(i, animate = true) {
-            currentIndex = i;
-            items.forEach((el, idx) => {
-                const rotation = (idx - currentIndex) * 18; // small angular spread
-                const z = idx === currentIndex ? 420 : 100;
-                el.style.transition = animate ? 'all 0.25s ease-in-out' : 'none';
-                if (idx === currentIndex) {
-                    el.classList.add('active');
-                    el.style.transform = `translate(-50%, -50%) rotateY(0deg) translateZ(${z}px)`;
-                } else {
-                    el.classList.remove('active');
-                    // position items left/right around center
-                    el.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${(idx - currentIndex) * 8}vw) translateZ(${z}px)`;
-                }
-            });
-        }
-
-        // Expose ready callback for YouTube
-        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-    </script>
-    <script>
-        // After players initialized, wire clicks to load into main player
-        function safeGetVideoIdFromSrc(src) {
-            // src like https://www.youtube.com/embed/VIDEOID?params
-            try {
-                const parts = src.split('/embed/');
-                if (parts.length < 2) return null;
-                const idPart = parts[1].split('?')[0].split('/')[0];
-                return idPart;
-            } catch (e) { return null; }
-        }
-
-        // Wait until YT API ready and players created
-        function attachSlideClickHandlers() {
-            const sliderItems = document.querySelectorAll('.slider-item');
-            const mainIframe = document.getElementById('main-player');
-            let mainPlayer = null;
-            if (typeof YT !== 'undefined' && YT && YT.Player) {
-                try { mainPlayer = new YT.Player('main-player'); } catch (e) { mainPlayer = null; }
-            }
-
-            sliderItems.forEach((el, idx) => {
-                el.style.cursor = 'pointer';
-                el.addEventListener('click', () => {
-                    const iframe = el.querySelector('iframe');
-                    const vid = safeGetVideoIdFromSrc(iframe.src || iframe.getAttribute('src'));
-                    if (!vid) return;
-
-                    // Load video into main player (replace src if player not ready)
-                    if (mainPlayer && mainPlayer.loadVideoById) {
-                        mainPlayer.loadVideoById(vid);
-                        mainPlayer.playVideo();
-                    } else if (mainIframe) {
-                        mainIframe.src = `https://www.youtube.com/embed/${vid}?enablejsapi=1&rel=0&autoplay=1`;
-                    }
-
-                    // pause all small players
-                    if (window.players && Array.isArray(window.players)) {
-                        window.players.forEach((p, i) => { if (p && i !== idx) { try { p.pauseVideo(); } catch (e) { } } });
-                    }
-
-                    // make clicked slide active visually
-                    setActiveIndex(idx);
-                });
-            });
-        }
-
-        // Poll until YT ready then attach
-        (function waitThenAttach(attempts = 0) {
-            if (window.YT && window.YT.Player && document.querySelectorAll('.slider-item').length) {
-                attachSlideClickHandlers();
-            } else if (attempts < 50) {
-                setTimeout(() => waitThenAttach(attempts + 1), 150);
-            }
-        })();
-    </script>
 </head>
 
-<body class="bg-gray-50 text-gray-800">
-    <!-- Navigation -->
-    <nav class="bg-transparent">
+<body class="bg-white">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center h-16">
+            <div class="flex items-center justify-between h-20">
                 <a href="../index.html" class="flex items-center">
-                    <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/566192831_122134563092953303_3248015248058248586_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2Efr0RK0jccQ7kNvwHtbv-r&_nc_oc=AdkZcGs7FHHliraYcT-dpvkqUy4sfm70jDKG_98TPgXXchoSBiFJwaFKfddLJNY8EbE&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=KCUHQLpdvYirHbrcfrkAQQ&oh=00_AfcRIUZTP6gsvzXNXUe5CUHKhm_ebBp23Qws9HdRFTyXxg&oe=68F5B78A"
-                        alt="Logo" class="h-12 w-auto">
+                    <img src="../images/bja logo.png" alt="Logo" class="nav-logo">
                 </a>
+                <a href="../index.html#contact" class="btn-orange text-sm">Hire Me</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
-    <header class="hero">
-        <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/566192831_122134563092953303_3248015248058248586_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=2Efr0RK0jccQ7kNvwHtbv-r&_nc_oc=AdkZcGs7FHHliraYcT-dpvkqUy4sfm70jDKG_98TPgXXchoSBiFJwaFKfddLJNY8EbE&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=KCUHQLpdvYirHbrcfrkAQQ&oh=00_AfcRIUZTP6gsvzXNXUe5CUHKhm_ebBp23Qws9HdRFTyXxg&oe=68F5B78A"
-            alt="brand" class="brand-logo">
-        <h1>Watch My Video CV</h1>
-        <p class="muted">Professional highlights, project samples and a short introduction — all in short vertical
-            videos.</p>
-        <div>
-            <a href="#" class="btn-cta"><i class="fas fa-play mr-2"></i>Watch Highlights</a>
-        </div>
+    <header class="pt-32 pb-12 text-center bg-gray-50 px-4">
+        <img src="../images/bja logo.png" alt="brand" class="h-16 mx-auto mb-6 drop-shadow-lg">
+        <h1 class="text-4xl md:text-5xl mb-4 section-heading">Watch My Video CV</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+            Discover my professional journey, creative highlights, and project samples in a curated short-video format.
+        </p>
     </header>
 
-    <!-- Main Content: Sidebar + Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="text-center mb-8">
-            <a href="video-cv-details.html"
-                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold rounded-lg shadow hover:scale-[1.02] transition-transform">
-                <i class="fas fa-play-circle mr-2"></i>
-                Watch Full Video CV
-            </a>
+    <!-- Featured Vertical Carousel -->
+    <section class="py-12 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 text-center mb-8">
+            <h2 class="text-2xl font-bold section-heading">Short Highlights</h2>
         </div>
+
         <div class="video-slider-container">
             <div class="video-slider">
-                <div class="slider-item" data-index="0">
-                    <iframe id="yt-player-0" src="https://youtu.be/fWivtWNhC0g?si=py_0nJHoU7aVR3tr"
-                        title="YouTube Shorts Video 1" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="youtube-short">
-                    </iframe>
+                <!-- Items will be indexed by JS -->
+                <div class="slider-item">
+                    <iframe id="yt-item-0"
+                        src="https://www.youtube.com/embed/fWivtWNhC0g?enablejsapi=1&rel=0&controls=0&modestbranding=1"
+                        frameborder="0"></iframe>
                 </div>
-                <div class="slider-item" data-index="1">
-                    <iframe id="yt-player-1" src="https://youtu.be/3WtnuarzVVY?si=Zf39fS2QtZXpDM6b"
-                        title="YouTube Shorts Video 2" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="youtube-short">
-                    </iframe>
+                <div class="slider-item">
+                    <iframe id="yt-item-1"
+                        src="https://www.youtube.com/embed/3WtnuarzVVY?enablejsapi=1&rel=0&controls=0&modestbranding=1"
+                        frameborder="0"></iframe>
                 </div>
-                <div class="slider-item" data-index="2">
-                    <iframe id="yt-player-2" src="https://www.youtube.com/embed/NejAICHuivk?enablejsapi=1&rel=0"
-                        title="YouTube Shorts Video 3" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="youtube-short">
-                    </iframe>
+                <div class="slider-item">
+                    <iframe id="yt-item-2"
+                        src="https://www.youtube.com/embed/NejAICHuivk?enablejsapi=1&rel=0&controls=0&modestbranding=1"
+                        frameborder="0"></iframe>
                 </div>
-                <div class="slider-item" data-index="3">
-                    <iframe id="yt-player-3" src="https://youtu.be/1SSyvnh0uPg?si=29FipVmObAR1EJBR"
-                        title="YouTube Shorts Video 4" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="youtube-short">
-                    </iframe>
+                <div class="slider-item">
+                    <iframe id="yt-item-3"
+                        src="https://www.youtube.com/embed/1SSyvnh0uPg?enablejsapi=1&rel=0&controls=0&modestbranding=1"
+                        frameborder="0"></iframe>
                 </div>
-                <div class="slider-item" data-index="4">
-                    <iframe id="yt-player-4" src="https://www.youtube.com/embed/0yNwH9-_NBk?enablejsapi=1&rel=0"
-                        title="YouTube Shorts Video 5" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="youtube-short">
-                    </iframe>
+                <div class="slider-item">
+                    <iframe id="yt-item-4"
+                        src="https://www.youtube.com/embed/0yNwH9-_NBk?enablejsapi=1&rel=0&controls=0&modestbranding=1"
+                        frameborder="0"></iframe>
                 </div>
             </div>
+
             <div class="slider-controls">
-                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+                <button class="prev-btn" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+                <button class="next-btn" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <!-- Sidebar -->
-            <aside class="lg:col-span-1 bg-white rounded-lg shadow p-6">
-                <div class="flex flex-col items-center text-center">
-                    <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/510234479_2837585796424748_5963792719615171358_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=94e2a3&_nc_ohc=8XRLqWl5rEcQ7kNvwGw83V7&_nc_oc=AdkPPv2aPjsBcqMZE1J5ErjHQizWC2oUC-neTAc5_1-W3UmP4GfEDRHRBjMLtfl-xTQ&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=FMs7cbr6e4kPp98Uys32Nw&oh=00_Affrw-YjG8sZ1eyA8RhLraad60IPY-sKBaLKtJUFHBgSCg&oe=68F5871A"
-                        alt="Profile photo" class="w-36 h-36 rounded-full object-cover mb-4 shadow">
-                    <h3 class="text-xl font-semibold">Bijaya Bhandari</h3>
-                    <p class="text-sm text-gray-500 mb-4">Professional Video Editor</p>
-                    <div class="flex gap-2 items-center mb-4">
-                        <div class="text-sm text-gray-600">Rate</div>
-                        <div class="bg-orange-50 text-orange-600 px-3 py-1 rounded-full font-semibold">On Request</div>
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+            <!-- Sidebar: About & Stats -->
+            <aside class="lg:col-span-4">
+                <div class="bg-gray-50 border border-gray-100 rounded-2xl p-8 text-center shadow-sm">
+                    <div class="relative inline-block mb-6">
+                        <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/510234479_2837585796424748_5963792719615171358_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=94e2a3&_nc_ohc=8XRLqWl5rEcQ7kNvwGw83V7&_nc_oc=AdkPPv2aPjsBcqMZE1J5ErjHQizWC2oUC-neTAc5_1-W3UmP4GfEDRHRBjMLtfl-xTQ&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=FMs7cbr6e4kPp98Uys32Nw&oh=00_Affrw-YjG8sZ1eyA8RhLraad60IPY-sKBaLKtJUFHBgSCg&oe=68F5871A"
+                            alt="Bijaya Bhandari"
+                            class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg mx-auto">
+                        <div class="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-white rounded-full">
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-600 mb-4">I create storytelling-focused edits, event films, promos and
-                        commercial videos.</p>
-                    <a href="../index.html#contact"
-                        class="w-full inline-flex items-center justify-center bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-3 px-4 rounded-lg shadow hover:scale-[1.01] transition-transform">
-                        <i class="fas fa-paper-plane mr-2"></i> Hire / Contact
-                    </a>
+
+                    <h3 class="text-2xl font-bold text-black mb-1">Bijaya Bhandari</h3>
+                    <p class="text-orange-600 font-semibold mb-6">Professional Video Editor</p>
+
+                    <div class="flex justify-center gap-4 mb-8">
+                        <div class="px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-100">
+                            <span class="block text-xs text-gray-400">Experience</span>
+                            <span class="font-bold">2+ Years</span>
+                        </div>
+                        <div class="px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-100">
+                            <span class="block text-xs text-gray-400">Projects</span>
+                            <span class="font-bold">150+</span>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        I specialize in storytelling-focused edits, commercial promos, and high-impact social media
+                        content. My mission is to turn every frame into a meaningful narrative.
+                    </p>
+
+                    <a href="../index.html#contact" class="btn-orange w-full block">Get in Touch</a>
                 </div>
 
-                <hr class="my-6">
-
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-700 mb-3">Categories</h4>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li>Event highlights</li>
-                        <li>Promotional videos</li>
-                        <li>Documentary edits</li>
-                        <li>Social shorts</li>
-                    </ul>
+                <div class="mt-8 p-6 bg-white border border-gray-100 rounded-2xl">
+                    <h4 class="font-bold mb-4 text-black border-b-2 border-orange-500 pb-1 inline-block">Expertise</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Davinci Resolve</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Premiere Pro</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Color Grading</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Motion Graphics</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-sm">Figma</span>
+                    </div>
                 </div>
             </aside>
 
-            <!-- Main video + related grid -->
-            <section class="lg:col-span-3">
-                <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
-                    <div class="p-6">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-3">Watch My Video CV</h2>
-                        <p class="text-sm text-gray-600 mb-4">A short introduction to my work, approach and experience.
-                        </p>
+            <!-- Main Analysis/Portfolio -->
+            <section class="lg:col-span-8">
+                <div class="mb-12">
+                    <h2 class="text-3xl font-extrabold section-heading">Full Video Portfolio</h2>
+                    <p class="text-gray-600 mb-8">Take a deeper look at my full reel and specialized project breakdowns.
+                    </p>
 
-                        <div class="video-wrap rounded-md overflow-hidden shadow main-player-wrap">
-                            <iframe id="main-player" src="https://www.youtube.com/embed/R7cqDh6TRbQ?enablejsapi=1&rel=0"
-                                title="Video CV" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
+                    <div class="video-wrap shadow-xl">
+                        <iframe id="main-player" src="https://www.youtube.com/embed/R7cqDh6TRbQ?enablejsapi=1&rel=0"
+                            title="Main Portfolio Reel" allowfullscreen></iframe>
                     </div>
                 </div>
 
-                <!-- Related videos grid (matches the screenshot style) -->
-                <div class="bg-white rounded-lg shadow p-6">
-                    <h3 class="text-lg font-semibold mb-4">More videos</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        <!-- (first card removed as requested) -->
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold section-heading">More Work Samples</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 
-                        <!-- Repeat cards (placeholder, replace with real IDs as needed) -->
-                        <a href="https://www.youtube.com/watch?v=h5XTNI_tR7I" target="_blank" class="block group">
-                            <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md">
-                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/hqdefault.jpg" alt="Related"
-                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
-                            </div>
-                            <div class="mt-2">
-                                <div class="text-sm font-semibold text-gray-900">Event Edit — Highlights</div>
-                                <div class="mt-2 flex items-center justify-between">
-                                    <div class="text-xs text-gray-500">1:42</div>
-                                    <button
-                                        class="text-xs bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white px-3 py-1 rounded-full font-semibold hover:opacity-90">Watch</button>
+                        <!-- Sample 1 -->
+                        <div class="group cursor-pointer">
+                            <div class="relative aspect-video rounded-xl overflow-hidden shadow-md">
+                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/maxresdefault.jpg" alt="Highlight"
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div
+                                    class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="fas fa-play text-white text-4xl"></i>
                                 </div>
+                                <span
+                                    class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">1:45</span>
                             </div>
-                        </a>
+                            <h4 class="mt-4 font-bold text-lg group-hover:text-orange-500 transition-colors">Wedding
+                                Highlights Edit</h4>
+                            <p class="text-gray-500 text-sm">Cinematic event coverage and color grading.</p>
+                        </div>
 
-                        <a href="https://www.youtube.com/watch?v=h5XTNI_tR7I" target="_blank" class="block group">
-                            <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md">
-                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/hqdefault.jpg" alt="Related"
-                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
-                            </div>
-                            <div class="mt-2">
-                                <div class="text-sm font-semibold text-gray-900">Promo — Short</div>
-                                <div class="mt-2 flex items-center justify-between">
-                                    <div class="text-xs text-gray-500">0:48</div>
-                                    <button
-                                        class="text-xs bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white px-3 py-1 rounded-full font-semibold hover:opacity-90">Watch</button>
+                        <!-- Sample 2 -->
+                        <div class="group cursor-pointer">
+                            <div class="relative aspect-video rounded-xl overflow-hidden shadow-md">
+                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/maxresdefault.jpg" alt="Highlight"
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div
+                                    class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="fas fa-play text-white text-4xl"></i>
                                 </div>
+                                <span
+                                    class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">0:30</span>
                             </div>
-                        </a>
+                            <h4 class="mt-4 font-bold text-lg group-hover:text-orange-500 transition-colors">Commercial
+                                Ad Reel</h4>
+                            <p class="text-gray-500 text-sm">Fast-paced social media advertisement.</p>
+                        </div>
 
-                        <a href="https://www.youtube.com/watch?v=h5XTNI_tR7I" target="_blank" class="block group">
-                            <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md">
-                                <img src="https://img.youtube.com/vi/h5XTNI_tR7I/hqdefault.jpg" alt="Related"
-                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
-                            </div>
-                            <div class="mt-2">
-                                <div class="text-sm font-semibold text-gray-900">Social Short</div>
-                                <div class="mt-2 flex items-center justify-between">
-                                    <div class="text-xs text-gray-500">0:30</div>
-                                    <button
-                                        class="text-xs bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white px-3 py-1 rounded-full font-semibold hover:opacity-90">Watch</button>
-                                </div>
-                            </div>
-                        </a>
                     </div>
                 </div>
             </section>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="mt-12" style="background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.2));">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center muted">
-                <p>&copy; 2025 Bijaya Bhandari. All rights reserved.</p>
+    <!-- CTA Footer -->
+    <section class="bg-black text-white py-20 px-4 mt-20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">Let's create something <span
+                    class="text-orange-500">Extraordinary</span></h2>
+            <p class="text-gray-400 mb-10 text-lg">Currently accepting new projects for 2026. Available for worldwide
+                remote work.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="../index.html#contact" class="btn-orange text-lg px-12">Start a Project</a>
+                <a href="mailto:bijayabhandari515@gmail.com"
+                    class="border border-white/20 hover:bg-white/10 px-12 py-3 rounded-full font-semibold transition-all">Email
+                    Me</a>
+            </div>
+            <div class="mt-20 pt-10 border-t border-white/10 text-gray-500 text-sm">
+                &copy; 2026 Bijaya Bhandari. All rights reserved.
             </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- Carousel Script -->
+    <script>
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.slider-item');
+        const slider = document.querySelector('.video-slider');
+        const total = items.length;
+
+        function updateSlider() {
+            items.forEach((item, index) => {
+                const diff = index - currentIndex;
+                const absDiff = Math.abs(diff);
+
+                // Looping logic for 3D effect
+                let rotation = diff * 25;
+                let translateZ = 0;
+                let translateX = diff * 12;
+                let opacity = 0.4;
+                let zIndex = 1;
+
+                if (index === currentIndex) {
+                    rotation = 0;
+                    translateZ = 400;
+                    translateX = 0;
+                    opacity = 1;
+                    zIndex = 10;
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                    // Hide items far away
+                    if (absDiff > 2) opacity = 0;
+                }
+
+                item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${translateX}vw) translateZ(${translateZ}px)`;
+                item.style.opacity = opacity;
+                item.style.zIndex = zIndex;
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % total;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + total) % total;
+            updateSlider();
+        }
+
+        document.querySelector('.next-btn').addEventListener('click', nextSlide);
+        document.querySelector('.prev-btn').addEventListener('click', prevSlide);
+
+        // Touch/Swipe Support
+        let startX = 0;
+        slider.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+        slider.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50) nextSlide();
+            if (endX - startX > 50) prevSlide();
+        });
+
+        // Initialize
+        updateSlider();
+
+        // YouTube API Integration for Sidebar/Main player parity
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            // Can be used for advanced player controls if needed
+        }
+    </script>
 </body>
 
 </html>
