@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video CV - Bijaya Bhandari</title>
+    <meta name="description" content="Bijaya Bhandari - Your Premier Editor">
+    <meta name="keywords" content="Bijaya Bhandari, Editor, Video Editor, Photo Editor, Graphic Designer">
+    <meta name="author" content="Bijaya Bhandari">
+    <link rel="icon" href="../images/bja-logo.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -30,7 +35,7 @@
 
         .section-heading {
             display: inline-block;
-            border-b-4 border-orange-500;
+            border-bottom: 4px solid var(--brand-primary);
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             font-weight: 700;
@@ -225,7 +230,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <a href="../index.html" class="flex items-center">
-                    <img src="../images/bja logo.png" alt="Logo" class="nav-logo">
+                    <img src="../images/bja-logo.png" alt="Logo" class="nav-logo">
                 </a>
                 <a href="../index.html#contact" class="btn-orange text-sm">Hire Me</a>
             </div>
@@ -242,9 +247,9 @@
     </header>
 
     <!-- Featured Vertical Carousel -->
-    <section class="py-12 bg-white overflow-hidden">
-        <div class="container mx-auto px-4 text-center mb-8">
-            <h2 class="text-2xl font-bold section-heading">Short Highlights</h2>
+    <section class="py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 text-center mb-16">
+            <h2 class="text-3xl font-bold section-heading">Short Highlights</h2>
         </div>
 
         <div class="video-slider-container">
@@ -413,22 +418,28 @@
     <script>
         let currentIndex = 0;
         const items = document.querySelectorAll('.slider-item');
-        const slider = document.querySelector('.video-slider');
+        const sliderContainer = document.querySelector('.video-slider-container');
         const total = items.length;
+        let autoPlayInterval;
 
         function updateSlider() {
             items.forEach((item, index) => {
-                const diff = index - currentIndex;
+                // Circular distance logic for seamless loop
+                let diff = index - currentIndex;
+
+                // Adjust diff for shortest path in circular loop
+                if (diff > total / 2) diff -= total;
+                if (diff < -total / 2) diff += total;
+
                 const absDiff = Math.abs(diff);
 
-                // Looping logic for 3D effect
                 let rotation = diff * 25;
                 let translateZ = 0;
                 let translateX = diff * 12;
-                let opacity = 0.4;
-                let zIndex = 1;
+                let opacity = 1 - (absDiff * 0.4);
+                let zIndex = 10 - absDiff;
 
-                if (index === currentIndex) {
+                if (absDiff === 0) {
                     rotation = 0;
                     translateZ = 400;
                     translateX = 0;
@@ -437,13 +448,12 @@
                     item.classList.add('active');
                 } else {
                     item.classList.remove('active');
-                    // Hide items far away
                     if (absDiff > 2) opacity = 0;
                 }
 
                 item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${translateX}vw) translateZ(${translateZ}px)`;
-                item.style.opacity = opacity;
-                item.style.zIndex = zIndex;
+                item.style.opacity = Math.max(0, opacity);
+                item.style.zIndex = Math.round(zIndex);
             });
         }
 
@@ -457,30 +467,50 @@
             updateSlider();
         }
 
-        document.querySelector('.next-btn').addEventListener('click', nextSlide);
-        document.querySelector('.prev-btn').addEventListener('click', prevSlide);
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlayInterval = setInterval(nextSlide, 3500);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        document.querySelector('.next-btn').addEventListener('click', () => {
+            nextSlide();
+            startAutoPlay(); // Reset timer on manual click
+        });
+        document.querySelector('.prev-btn').addEventListener('click', () => {
+            prevSlide();
+            startAutoPlay(); // Reset timer on manual click
+        });
+
+        // Hover to Pause
+        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+        sliderContainer.addEventListener('mouseleave', startAutoPlay);
 
         // Touch/Swipe Support
         let startX = 0;
-        slider.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
-        slider.addEventListener('touchend', (e) => {
+        sliderContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            stopAutoPlay();
+        });
+        sliderContainer.addEventListener('touchend', (e) => {
             const endX = e.changedTouches[0].clientX;
             if (startX - endX > 50) nextSlide();
-            if (endX - startX > 50) prevSlide();
+            else if (endX - startX > 50) prevSlide();
+            startAutoPlay();
         });
 
         // Initialize
         updateSlider();
+        startAutoPlay();
 
-        // YouTube API Integration for Sidebar/Main player parity
+        // YouTube API Integration
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        function onYouTubeIframeAPIReady() {
-            // Can be used for advanced player controls if needed
-        }
     </script>
 </body>
 
