@@ -1,3 +1,9 @@
+/* Global Variables */
+:root {
+  --brand-primary: #ff3c00;
+  --brand-accent: #EA580C;
+}
+
 /* Global Styles and Typography */
 body {
   font-family: 'Inter', sans-serif;
@@ -16,8 +22,7 @@ body {
 
 /* Gradient for buttons - Orange branding */
 .btn-primary {
-  background: linear-gradient(to right, #ff3c00, #EA580C);
-  /* Orange-600 to Orange-700 */
+  background: linear-gradient(to right, var(--brand-primary), var(--brand-accent));
   transition: transform 0.2s ease-in-out;
 }
 
@@ -52,7 +57,7 @@ body {
 }
 
 .price-card.featured {
-  background: linear-gradient(180deg, #ff6a1a 0%, #ff3c00 100%);
+  background: linear-gradient(180deg, var(--brand-accent) 0%, var(--brand-primary) 100%);
   color: white;
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 30px 60px rgba(255, 92, 16, 0.18);
@@ -257,5 +262,206 @@ body {
   .hero-image {
     width: 250px;
     height: 250px;
+  }
+}
+
+/* Video CV Page Specific Styles */
+:root {
+  --video-bg-light: #ffffff;
+  --video-text-main: #1a1a1a;
+  --video-text-muted: #666666;
+  --video-radius: 16px;
+  --video-max-width: 1200px;
+}
+
+.section-heading {
+  display: inline-block;
+  border-bottom: 4px solid var(--brand-primary);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #000;
+}
+
+/* Video slider styles - Optimized height and 3D spacing */
+.video-slider-container {
+  position: relative;
+  width: 100%;
+  max-width: var(--video-max-width);
+  height: 65vh;
+  margin: 1rem auto 3rem;
+  perspective: 1200px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: grab;
+}
+
+.slider-item {
+  position: absolute;
+  height: 35vh;
+  aspect-ratio: 9 / 16;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 50% -260px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: var(--video-radius);
+  opacity: 0;
+  background: #000;
+}
+
+.slider-item.active {
+  height: 60vh;
+  transform: translate(-50%, -50%) translateZ(400px) rotateY(0deg);
+  opacity: 1;
+  z-index: 10;
+  box-shadow: 0 20px 50px rgba(255, 60, 0, 0.2);
+  border: 2px solid var(--brand-primary);
+}
+
+.slider-item iframe {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: block;
+  pointer-events: none;
+}
+
+.slider-item.active iframe {
+  pointer-events: auto;
+}
+
+.slider-controls {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 20;
+}
+
+.slider-controls button {
+  background: var(--brand-primary);
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 60, 0, 0.3);
+}
+
+.slider-controls button:hover {
+  transform: scale(1.1);
+  background: var(--brand-accent);
+}
+
+/* Page Components */
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--video-radius);
+  background: #000;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.video-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.nav-logo {
+  height: 48px;
+  transition: transform 0.3s ease;
+}
+
+.btn-orange {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(255, 60, 0, 0.2);
+}
+
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(255, 60, 0, 0.3);
+}
+
+/* Responsiveness enhancements for 3D Slider */
+@media (max-width: 1200px) {
+  .video-slider-container {
+    height: 60vh;
+  }
+
+  .slider-item.active {
+    height: 55vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .video-slider-container {
+    height: 55vh;
+  }
+
+  .slider-item.active {
+    height: 50vh;
+  }
+
+  aside.sticky {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-slider-container {
+    height: 50vh;
+    /* Significantly shorter to prevent overlap */
+    margin: 1rem auto 4rem;
+  }
+
+  .slider-item.active {
+    height: 45vh;
+    /* Proportional height */
+    width: 80vw;
+  }
+
+  /* In JS we handle hiding non-active ones or reducing spread */
+  .slider-controls {
+    bottom: -60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-slider-container {
+    height: 45vh;
+    margin-top: 0;
+  }
+
+  .slider-item.active {
+    height: 40vh;
+    width: 85vw;
   }
 }

@@ -10,218 +10,14 @@
     <meta name="author" content="Bijaya Bhandari">
     <link rel="icon" href="../images/bja-logo.png">
 
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Branding variables - 60-30-10: White-Orange-Black */
-        :root {
-            --brand-primary: #ff3c00;
-            --brand-accent: #EA580C;
-            --bg-light: #ffffff;
-            --text-main: #1a1a1a;
-            --text-muted: #666666;
-            --radius: 16px;
-            --max-width: 1200px;
-        }
-
-        /* Base */
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
-
-        .section-heading {
-            display: inline-block;
-            border-bottom: 4px solid var(--brand-primary);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            color: #000;
-        }
-
-        /* Video slider styles - Optimized height */
-        .video-slider-container {
-            position: relative;
-            width: 100%;
-            max-width: var(--max-width);
-            height: 65vh;
-            /* Reduced height */
-            margin: 1rem auto 3rem;
-            perspective: 1200px;
-            overflow: visible;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-slider {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: grab;
-        }
-
-        .slider-item {
-            position: absolute;
-            height: 35vh;
-            aspect-ratio: 9 / 16;
-            left: 50%;
-            top: 50%;
-            transform-origin: 50% 50% -260px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: var(--radius);
-            opacity: 0.4;
-            background: #000;
-            filter: grayscale(40%);
-        }
-
-        .slider-item.active {
-            height: 60vh;
-            aspect-ratio: 9 / 16;
-            transform: translate(-50%, -50%) translateZ(400px) rotateY(0deg);
-            opacity: 1;
-            z-index: 10;
-            box-shadow: 0 20px 50px rgba(255, 60, 0, 0.2);
-            filter: none;
-            border: 2px solid var(--brand-primary);
-        }
-
-        .slider-item iframe {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: block;
-            pointer-events: none;
-            /* Disable interaction unless active or specific handling */
-        }
-
-        .slider-item.active iframe {
-            pointer-events: auto;
-        }
-
-        .slider-controls {
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1.5rem;
-            z-index: 20;
-        }
-
-        .slider-controls button {
-            background: var(--brand-primary);
-            color: white;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 60, 0, 0.3);
-        }
-
-        .slider-controls button:hover {
-            transform: scale(1.1);
-            background: var(--brand-accent);
-        }
-
-        /* Video wrapper for main player */
-        .video-wrap {
-            position: relative;
-            padding-bottom: 56.25%;
-            /* 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: var(--radius);
-            background: #000;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .video-wrap iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Navigation & Branding */
-        .nav-logo {
-            height: 48px;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-logo:hover {
-            transform: scale(1.05);
-        }
-
-        .hero h1 {
-            color: #000;
-            font-weight: 800;
-        }
-
-        .btn-orange {
-            background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
-            color: white;
-            padding: 0.8rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(255, 60, 0, 0.2);
-        }
-
-        .btn-orange:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(255, 60, 0, 0.3);
-        }
-
-        /* Sidebar cleanup */
-        aside {
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        @media (max-width: 1024px) {
-            .video-slider-container {
-                height: 60vh;
-            }
-
-            .slider-item.active {
-                height: 55vh;
-            }
-
-            aside {
-                position: static;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .video-slider-container {
-                height: 75vh;
-            }
-
-            .slider-item {
-                display: none;
-            }
-
-            .slider-item.active {
-                display: block;
-                height: 70vh;
-                width: 85vw;
-            }
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body class="bg-white">
@@ -239,7 +35,7 @@
 
     <!-- Hero -->
     <header class="pt-32 pb-12 text-center bg-gray-50 px-4">
-        <img src="../images/bja logo.png" alt="brand" class="h-16 mx-auto mb-6 drop-shadow-lg">
+        <img src="../images/bja-logo.png" alt="brand" class="h-16 mx-auto mb-6 drop-shadow-lg">
         <h1 class="text-4xl md:text-5xl mb-4 section-heading">Watch My Video CV</h1>
         <p class="text-gray-600 max-w-2xl mx-auto text-lg">
             Discover my professional journey, creative highlights, and project samples in a curated short-video format.
@@ -294,11 +90,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
             <!-- Sidebar: About & Stats -->
-            <aside class="lg:col-span-4">
+            <aside class="lg:col-span-4 h-fit lg:sticky lg:top-24">
                 <div class="bg-gray-50 border border-gray-100 rounded-2xl p-8 text-center shadow-sm">
                     <div class="relative inline-block mb-6">
-                        <img src="https://scontent.fktm9-2.fna.fbcdn.net/v/t39.30808-6/510234479_2837585796424748_5963792719615171358_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=94e2a3&_nc_ohc=8XRLqWl5rEcQ7kNvwGw83V7&_nc_oc=AdkPPv2aPjsBcqMZE1J5ErjHQizWC2oUC-neTAc5_1-W3UmP4GfEDRHRBjMLtfl-xTQ&_nc_zt=23&_nc_ht=scontent.fktm9-2.fna&_nc_gid=FMs7cbr6e4kPp98Uys32Nw&oh=00_Affrw-YjG8sZ1eyA8RhLraad60IPY-sKBaLKtJUFHBgSCg&oe=68F5871A"
-                            alt="Bijaya Bhandari"
+                        <img src="../images/bjay.png" alt="Bijaya Bhandari"
                             class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-lg mx-auto">
                         <div class="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-white rounded-full">
                         </div>
@@ -414,104 +209,8 @@
         </div>
     </section>
 
-    <!-- Carousel Script -->
-    <script>
-        let currentIndex = 0;
-        const items = document.querySelectorAll('.slider-item');
-        const sliderContainer = document.querySelector('.video-slider-container');
-        const total = items.length;
-        let autoPlayInterval;
-
-        function updateSlider() {
-            items.forEach((item, index) => {
-                // Circular distance logic for seamless loop
-                let diff = index - currentIndex;
-
-                // Adjust diff for shortest path in circular loop
-                if (diff > total / 2) diff -= total;
-                if (diff < -total / 2) diff += total;
-
-                const absDiff = Math.abs(diff);
-
-                let rotation = diff * 25;
-                let translateZ = 0;
-                let translateX = diff * 12;
-                let opacity = 1 - (absDiff * 0.4);
-                let zIndex = 10 - absDiff;
-
-                if (absDiff === 0) {
-                    rotation = 0;
-                    translateZ = 400;
-                    translateX = 0;
-                    opacity = 1;
-                    zIndex = 10;
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                    if (absDiff > 2) opacity = 0;
-                }
-
-                item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${translateX}vw) translateZ(${translateZ}px)`;
-                item.style.opacity = Math.max(0, opacity);
-                item.style.zIndex = Math.round(zIndex);
-            });
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % total;
-            updateSlider();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + total) % total;
-            updateSlider();
-        }
-
-        function startAutoPlay() {
-            stopAutoPlay();
-            autoPlayInterval = setInterval(nextSlide, 3500);
-        }
-
-        function stopAutoPlay() {
-            clearInterval(autoPlayInterval);
-        }
-
-        document.querySelector('.next-btn').addEventListener('click', () => {
-            nextSlide();
-            startAutoPlay(); // Reset timer on manual click
-        });
-        document.querySelector('.prev-btn').addEventListener('click', () => {
-            prevSlide();
-            startAutoPlay(); // Reset timer on manual click
-        });
-
-        // Hover to Pause
-        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
-        sliderContainer.addEventListener('mouseleave', startAutoPlay);
-
-        // Touch/Swipe Support
-        let startX = 0;
-        sliderContainer.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            stopAutoPlay();
-        });
-        sliderContainer.addEventListener('touchend', (e) => {
-            const endX = e.changedTouches[0].clientX;
-            if (startX - endX > 50) nextSlide();
-            else if (endX - startX > 50) prevSlide();
-            startAutoPlay();
-        });
-
-        // Initialize
-        updateSlider();
-        startAutoPlay();
-
-        // YouTube API Integration
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    </script>
+    <!-- Custom Script -->
+    <script src="../script.js"></script>
 </body>
 
 </html>

@@ -239,12 +239,110 @@ function openVideoCV() {
     }
 }
 
-function closeVideoCV() {
-    const modal = document.getElementById('video-cv-modal');
-    const iframe = document.getElementById('video-cv-iframe');
-    if (modal && iframe) {
-        iframe.src = '';
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
+
+// Video CV Carousel Initialization
+(function () {
+    const sliderContainer = document.querySelector('.video-slider-container');
+    if (!sliderContainer) return;
+
+    let currentIndex = 0;
+    const items = document.querySelectorAll('.slider-item');
+    const total = items.length;
+    let autoPlayInterval;
+
+    function updateSlider() {
+        const isMobile = window.innerWidth < 768;
+
+        items.forEach((item, index) => {
+            let diff = index - currentIndex;
+            if (diff > total / 2) diff -= total;
+            if (diff < -total / 2) diff += total;
+
+            const absDiff = Math.abs(diff);
+            let rotation = diff * 25;
+            let translateZ = 0;
+            let translateX = diff * 12;
+
+            // Adjust spread for mobile
+            if (isMobile) {
+                translateX = diff * 15; // Tighter spread
+                rotation = diff * 15; // Less rotation
+            }
+
+            let opacity = 1 - (absDiff * 0.4);
+            let zIndex = 10 - absDiff;
+
+            if (absDiff === 0) {
+                rotation = 0;
+                translateZ = 400;
+                translateX = 0;
+                opacity = 1;
+                zIndex = 10;
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+                // On mobile, fade out side videos much faster to avoid overlap
+                if (isMobile && absDiff >= 1) opacity = 0.2;
+                if (absDiff > 2) opacity = 0;
+            }
+
+            item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${translateX}vw) translateZ(${translateZ}px)`;
+            item.style.opacity = Math.max(0, opacity);
+            item.style.zIndex = Math.round(zIndex);
+        });
     }
-}
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % total;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + total) % total;
+        updateSlider();
+    }
+
+    function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayInterval = setInterval(nextSlide, 3500);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+
+    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+
+    if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
+
+    sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+    sliderContainer.addEventListener('mouseleave', startAutoPlay);
+
+    let startX = 0;
+    sliderContainer.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        stopAutoPlay();
+    });
+    sliderContainer.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        if (startX - endX > 50) nextSlide();
+        else if (endX - startX > 50) prevSlide();
+        startAutoPlay();
+    });
+
+    window.addEventListener('resize', updateSlider);
+    updateSlider();
+    startAutoPlay();
+
+    // Load YouTube API if not already present
+    if (!document.getElementById('youtube-api-script')) {
+        var tag = document.createElement('script');
+        tag.id = 'youtube-api-script';
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+})();
+
