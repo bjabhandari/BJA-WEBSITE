@@ -1,19 +1,4 @@
 // Contact form submission using EmailJS
-window.addEventListener('load', function () {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        // Ensure the preloader stays for at least 2 seconds
-        const minDisplayTime = 2000;
-        const loadTime = Date.now() - performance.timing.navigationStart;
-        const remainingTime = Math.max(0, minDisplayTime - loadTime);
-
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => preloader.remove(), 700);
-        }, remainingTime);
-    }
-});
-
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('contact-submit');
@@ -103,261 +88,95 @@ document.addEventListener('DOMContentLoaded', function () {
         // auto-hide after 6s
         setTimeout(() => feedback.classList.add('hidden'), 6000);
     }
-
-    // Mobile Menu Toggle
-    const navToggle = document.getElementById('nav-toggle');
-    const navContent = document.getElementById('nav-content');
-    if (navToggle && navContent) {
-        navToggle.onclick = function () {
-            navContent.classList.toggle('hidden');
-        };
-    }
-
-    // Popup ad logic: show on load unless user has skipped before (stored in localStorage).
-    (function () {
-        const popup = document.getElementById('popup-ad');
-        const skip = document.getElementById('ad-skip');
-        const link = document.getElementById('popup-ad-link');
-        let timer = null;
-
-        if (!popup) return;
-
-        // If user previously skipped, don't show again
-        try {
-            if (localStorage.getItem('popupAdDismissed') === '1') {
-                return;
-            }
-        } catch (err) {
-            console.warn('localStorage unavailable for popup ad persistence', err);
-        }
-
-        function closePopup(persist) {
-            if (!popup) return;
-            popup.style.display = 'none';
-            if (timer) { clearTimeout(timer); timer = null; }
-            if (persist) {
-                try { localStorage.setItem('popupAdDismissed', '1'); } catch (err) { }
-            }
-        }
-
-        // Show popup
-        popup.style.display = 'flex';
-        // Auto close after 3 seconds
-        timer = setTimeout(function () { closePopup(false); }, 3000);
-
-        // Skip button: close and persist dismissal
-        if (skip) {
-            skip.addEventListener('click', function (e) {
-                e.preventDefault();
-                closePopup(true);
-            });
-        }
-
-        // Close when user clicks outside the image
-        popup.addEventListener('click', function (e) {
-            if (e.target === popup) closePopup(false);
-        });
-
-        // Close when user clicks the ad link
-        if (link) {
-            link.addEventListener('click', function () { closePopup(false); });
-        }
-    })();
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-
-                // Close mobile menu after clicking a link
-                if (window.innerWidth < 1024 && navContent) {
-                    navContent.classList.add('hidden');
-                }
-            }
-        });
-    });
-
-    // Scrollspy: set active nav link based on the section in view
-    (function () {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
-
-        if (sections.length === 0 || navLinks.length === 0) return;
-
-        function setActive(link) {
-            navLinks.forEach(a => {
-                a.classList.remove('text-orange-600', 'bg-orange-50');
-                a.classList.add('text-gray-600');
-            });
-            if (link) {
-                link.classList.remove('text-gray-600');
-                link.classList.add('text-orange-600', 'bg-orange-50');
-            }
-        }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    const activeLink = navLinks.find(a => a.getAttribute('href') === `#${id}`);
-                    setActive(activeLink);
-                }
-            });
-        }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
-
-        sections.forEach(s => observer.observe(s));
-
-        // Initial check on load
-        window.addEventListener('load', () => {
-            sections.forEach(s => {
-                const rect = s.getBoundingClientRect();
-                if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.25) {
-                    const activeLink = navLinks.find(a => a.getAttribute('href') === `#${s.id}`);
-                    setActive(activeLink);
-                }
-            });
-        });
-    })();
-
-    // Make pricing cards selectable
-    (function () {
-        const cards = document.querySelectorAll('#services .relative');
-        cards.forEach(card => {
-            if (card.classList.contains('bg-white') || card.classList.contains('bg-orange-500')) {
-                card.classList.add('price-card');
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function (e) {
-                    if (e.target.closest('a') || e.target.closest('button')) return;
-                    document.querySelectorAll('#services .price-card.featured').forEach(c => c.classList.remove('featured'));
-                    card.classList.toggle('featured');
-                });
-            }
-        });
-    })();
 });
 
-// Video CV Functions (Outside DOMContentLoaded as they are called via onclick)
-function openVideoCV() {
-    const modal = document.getElementById('video-cv-modal');
-    const iframe = document.getElementById('video-cv-iframe');
-    if (modal && iframe) {
-        iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Replace with actual URL if different
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-}
+// Booking -> confirmation -> QR flow for Book Services button
+document.addEventListener('DOMContentLoaded', function () {
+    const bookingModal = document.getElementById('booking-modal');
+    const bookingClose = document.getElementById('booking-close');
+    const bookingCancel = document.getElementById('booking-cancel');
+    const bookingConfirm = document.getElementById('booking-confirm');
+    const bookingConfirmation = document.getElementById('booking-confirmation');
+    const confirmYes = document.getElementById('confirm-yes');
+    const confirmNo = document.getElementById('confirm-no');
+    const bookingAccepted = document.getElementById('booking-accepted');
+    const bookingAcceptedCard = document.getElementById('booking-accepted-card');
+    const bookingQR = document.getElementById('booking-qr');
+    const downloadQR = document.getElementById('download-qr');
+    const closeAccepted = document.getElementById('close-accepted');
 
+    function openModal(el) { if (!el) return; el.classList.remove('hidden'); el.classList.add('flex'); }
+    function closeModal(el) { if (!el) return; el.classList.add('hidden'); el.classList.remove('flex'); }
+    
+    // Book services button listener (navbar)
+    const bookServicesBtn = document.getElementById('book-services-btn');
+    if (bookServicesBtn) bookServicesBtn.addEventListener('click', function () { openModal(bookingModal); });
+    
+    if (bookingClose) bookingClose.addEventListener('click', function () { closeModal(bookingModal); });
+    if (bookingCancel) bookingCancel.addEventListener('click', function () { closeModal(bookingModal); });
 
-// Video CV Carousel Initialization
-(function () {
-    const sliderContainer = document.querySelector('.video-slider-container');
-    if (!sliderContainer) return;
-
-    let currentIndex = 0;
-    const items = document.querySelectorAll('.slider-item');
-    const total = items.length;
-    let autoPlayInterval;
-
-    function updateSlider() {
-        const isMobile = window.innerWidth < 768;
-
-        items.forEach((item, index) => {
-            let diff = index - currentIndex;
-            if (diff > total / 2) diff -= total;
-            if (diff < -total / 2) diff += total;
-
-            const absDiff = Math.abs(diff);
-            let rotation = diff * 25;
-            let translateZ = 0;
-            let translateX = diff * 12;
-
-            // Adjust spread for mobile
-            if (isMobile) {
-                translateX = diff * 15; // Tighter spread
-                rotation = diff * 15; // Less rotation
-            }
-
-            let opacity = 1 - (absDiff * 0.4);
-            let zIndex = 10 - absDiff;
-
-            if (absDiff === 0) {
-                rotation = 0;
-                translateZ = 400;
-                translateX = 0;
-                opacity = 1;
-                zIndex = 10;
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-                // On mobile, fade out side videos much faster to avoid overlap
-                if (isMobile && absDiff >= 1) opacity = 0.2;
-                if (absDiff > 2) opacity = 0;
-            }
-
-            item.style.transform = `translate(-50%, -50%) rotateY(${rotation}deg) translateX(${translateX}vw) translateZ(${translateZ}px)`;
-            item.style.opacity = Math.max(0, opacity);
-            item.style.zIndex = Math.round(zIndex);
-        });
-    }
-
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % total;
-        updateSlider();
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + total) % total;
-        updateSlider();
-    }
-
-    function startAutoPlay() {
-        stopAutoPlay();
-        autoPlayInterval = setInterval(nextSlide, 3500);
-    }
-
-    function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
-    }
-
-    const nextBtn = document.querySelector('.next-btn');
-    const prevBtn = document.querySelector('.prev-btn');
-
-    if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); startAutoPlay(); });
-    if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); startAutoPlay(); });
-
-    sliderContainer.addEventListener('mouseenter', stopAutoPlay);
-    sliderContainer.addEventListener('mouseleave', startAutoPlay);
-
-    let startX = 0;
-    sliderContainer.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        stopAutoPlay();
-    });
-    sliderContainer.addEventListener('touchend', (e) => {
-        const endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50) nextSlide();
-        else if (endX - startX > 50) prevSlide();
-        startAutoPlay();
+    if (bookingConfirm) bookingConfirm.addEventListener('click', function () {
+        // basic validation
+        const name = (document.getElementById('booking-name') || {}).value || '';
+        const contact = (document.getElementById('booking-contact') || {}).value || '';
+        if (!name || !contact) {
+            alert('Please enter your name and contact');
+            return;
+        }
+        // show confirm yes/no
+        closeModal(bookingModal);
+        openModal(bookingConfirmation);
     });
 
-    window.addEventListener('resize', updateSlider);
-    updateSlider();
-    startAutoPlay();
+    if (confirmNo) confirmNo.addEventListener('click', function () { closeModal(bookingConfirmation); });
 
-    // Load YouTube API if not already present
-    if (!document.getElementById('youtube-api-script')) {
-        var tag = document.createElement('script');
-        tag.id = 'youtube-api-script';
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-})();
+    if (confirmYes) confirmYes.addEventListener('click', function () {
+        // build booking payload
+        const name = (document.getElementById('booking-name') || {}).value || '';
+        const contact = (document.getElementById('booking-contact') || {}).value || '';
+        const service = (document.getElementById('booking-service') || {}).value || '';
+        const notes = (document.getElementById('booking-notes') || {}).value || '';
+
+        const bookingId = 'BK' + Date.now();
+        const payload = JSON.stringify({ id: bookingId, name, contact, service, notes });
+
+        // generate QR via Google Chart API (simple, no extra dependency)
+        const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
+        if (bookingQR) bookingQR.src = qrUrl;
+        if (downloadQR) downloadQR.href = qrUrl;
+
+        closeModal(bookingConfirmation);
+
+        // show acceptance modal with animation
+        if (bookingAccepted) {
+            bookingAccepted.classList.remove('hidden');
+            bookingAccepted.classList.add('flex');
+        }
+        if (bookingAcceptedCard) {
+            // start scaled down then pop in
+            bookingAcceptedCard.style.transform = 'scale(0.6)';
+            bookingAcceptedCard.style.opacity = '0';
+            setTimeout(() => {
+                bookingAcceptedCard.style.transition = 'transform 420ms cubic-bezier(.2,.8,.2,1), opacity 300ms ease';
+                bookingAcceptedCard.style.transform = 'scale(1)';
+                bookingAcceptedCard.style.opacity = '1';
+            }, 40);
+        }
+
+        // store booking locally for demo
+        try { localStorage.setItem('lastBooking', payload); } catch (e) { }
+    });
+
+    if (closeAccepted) closeAccepted.addEventListener('click', function () {
+        if (bookingAcceptedCard) {
+            bookingAcceptedCard.style.transform = 'scale(0.8)';
+            bookingAcceptedCard.style.opacity = '0';
+            setTimeout(() => {
+                if (bookingAccepted) closeModal(bookingAccepted);
+            }, 280);
+        } else {
+            if (bookingAccepted) closeModal(bookingAccepted);
+        }
+    });
+});
 
