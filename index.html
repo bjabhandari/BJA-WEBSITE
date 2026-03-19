@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bijaya Bhandari - Your Premier Editor">
+    <meta name="keywords" content="Bijaya Bhandari, Editor, Video Editor, Photo Editor, Graphic Designer">
+    <meta name="author" content="Bijaya Bhandari">
+    <link rel="icon" href="images/bja-logo.png">
+
     <title>Bijaya Bhandari - Your Premier Editor</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,140 +17,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            /* Prevent horizontal scroll on small screens */
-        }
-
-        /* Custom styles for hero section background */
-        .hero-background {
-            background-image: url('https://t4.ftcdn.net/jpg/04/65/59/17/360_F_465591784_hHuNuZbaxDmE9yiAxvalifOnxXAz2GXO.jpg');
-            /* Placeholder image of a palace/event venue */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-
-
-
-        /* Gradient for buttons - Orange branding */
-        .btn-primary {
-            background: linear-gradient(to right, #ff3c00, #EA580C);
-            /* Orange-600 to Orange-700 */
-            transition: transform 0.2s ease-in-out;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-            /* Slightly brighter on hover */
-        }
-
-        /* Card hover effect */
-        .service-card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
-        }
-
-        /* Pricing card - featured state */
-        .price-card {
-            transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), box-shadow 0.35s ease, background-color 0.35s ease;
-            border-radius: 0.75rem;
-            border: 1px solid rgba(16, 24, 40, 0.04);
-            background-color: white;
-        }
-
-        .price-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 40px rgba(234, 88, 12, 0.12), 0 6px 12px rgba(0, 0, 0, 0.04);
-            border-top: 4px solid #ff3c00;
-        }
-
-        .price-card.featured {
-            background: linear-gradient(180deg, #ff6a1a 0%, #ff3c00 100%);
-            color: white;
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(255, 92, 16, 0.18);
-            border: none;
-        }
-
-        .price-card.featured .text-gray-900 {
-            color: white;
-        }
-
-        .price-card.featured .text-gray-600 {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .price-card.featured .text-orange-500 {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        /* Portfolio card specific styles */
-        .portfolio-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            /* rounded-xl */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .portfolio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.25);
-        }
-
-        .portfolio-card .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            /* Changed to column for better vertical alignment */
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            text-align: center;
-            /* Center text within overlay */
-            padding: 1rem;
-            /* Added padding */
-        }
-
-        .portfolio-card:hover .overlay {
-            opacity: 1;
-        }
-
-        .portfolio-card img {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .portfolio-card:hover img {
-            transform: scale(1.05);
-        }
-    </style>
+    <!-- Chatbot CSS -->
+    <link rel="stylesheet" href="chatbot.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Booking CSS -->
+    <link rel="stylesheet" href="booking.css">
+    <!-- QRCode library (for booking) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
 
+    <!-- Preloader -->
+    <div id="preloader"
+        class="fixed inset-0 bg-white z-[9999] flex items-center justify-center transition-opacity duration-700">
+        <div class="text-center">
+            <img src="images/bja-logo.png" alt="Loading..." class="h-32 md:h-48 mb-8 animate-pulse">
+            <div class="w-24 h-1.5 bg-gray-100 mx-auto rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-600 animate-[loading_2s_infinite]"></div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Popup Ad (shows on page load; Skip hides it and prevents future automatic shows) -->
-    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" style="display:none;">
+    <div id="popup-ad" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
+        style="display:none;">
         <div class="relative max-w-3xl w-full mx-4">
             <!-- Use the provided share URL as the link. The src uses the same URL but many Facebook pages won't hotlink images — we add an onerror fallback to a local image. -->
-            <a id="popup-ad-link" href="https://www.facebook.com/share/p/1AEC6vJQme/" target="_blank" rel="noopener noreferrer">
-                <img id="popup-ad-img" src="https://www.facebook.com/share/p/1AEC6vJQme/" onerror="this.onerror=null;this.src='images/bja logo.png'" alt="Ad" class="w-full h-auto rounded-lg shadow-2xl block">
+            <a id="popup-ad-link" href="https://www.facebook.com/share/p/1AEC6vJQme/" target="_blank"
+                rel="noopener noreferrer">
+                <img id="popup-ad-img" src="https://www.facebook.com/share/p/1AEC6vJQme/"
+                    onerror="this.onerror=null;this.src='images/bja-logo.png'" alt="Ad"
+                    class="w-full h-auto rounded-lg shadow-2xl block">
             </a>
-            <button id="ad-skip" aria-label="Skip ad" class="absolute -top-3 -right-3 bg-white text-gray-800 font-medium px-3 py-1 rounded-full shadow">Skip</button>
+            <button id="ad-skip" aria-label="Skip ad"
+                class="absolute -top-3 -right-3 bg-white text-gray-800 font-medium px-3 py-1 rounded-full shadow">Skip</button>
         </div>
     </div>
 
@@ -155,9 +62,16 @@
             <!-- Logo -->
             <div class="flex items-center flex-shrink-0 text-gray-800 mr-6">
                 <!-- Added logo image and adjusted text size -->
-                <img src="images/bja logo.png" alt="bijaya-bhandari" class="h-16 mr-2" style="cursor:pointer"
+                <img src="images/bja-logo.png" alt="bijaya-bhandari" class="h-16 mr-2" style="cursor:pointer"
                     onclick="location.reload();">
+            </div>
 
+            <!-- Mobile Menu Button -->
+            <div class="block lg:hidden">
+                <button id="nav-toggle"
+                    class="flex items-center px-3 py-2 border rounded text-orange-600 border-orange-400 hover:text-orange-900 hover:border-orange-900 transition-colors">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
 
 
@@ -186,7 +100,7 @@
                         Contact
                     </a>
                     <button id="book-services-btn"
-                        class="block mt-4 lg:inline-block lg:mt-0 bg-gradient-to-r from-[#ff3c00] to-[#EA580C] text-white font-semibold py-2 px-4 rounded-full hover:scale-[1.02] transition-transform">
+                        class="block mt-4 lg:inline-block lg:mt-0 btn-primary text-white font-semibold py-2 px-6 rounded-full">
                         <i class="fas fa-shopping-cart mr-1"></i>Book Services
                     </button>
                 </div>
@@ -196,85 +110,48 @@
 
     <!-- Hero Section -->
     <section id="home"
-        class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen">
-        <div class="hero-overlay absolute inset-0"></div>
-        <div class="container mx-auto text-center relative z-10 px-4">
-            <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-down">
-                Bring Your Ideas to Life Beautifully Edited
-            </h1>
-            <p class="text-lg lg:text-xl mb-8 opacity-90 animate-fade-in-up">
-                Your premier destination for weddings, corporate events, and unforgettable celebrations.
-            </p>
-            <a href="#services"
-                class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 inline-block animate-zoom-in">
-                Explore Services Priceing
-            </a>
+        class="hero-background relative text-white py-20 lg:py-48 flex items-center justify-center min-h-screen overflow-hidden">
+        <div class="hero-overlay absolute inset-0"
+            style="background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);"></div>
+        <div
+            class="container mx-auto relative z-10 px-4 flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+            <div class="lg:w-3/5 text-left">
+                <h1 class="text-3xl lg:text-5xl font-bold leading-loose mb-6 animate-fade-in-down"
+                    style="line-height: 65px;">
+                    Bring Your Ideas to Life <span class="text-orange-500">Beautifully Edited</span>
+                </h1>
+                <p class="text-base lg:text-xl mb-10 opacity-90 animate-fade-in-up max-w-2xl leading-relaxed">
+                    Your premier destination for weddings, corporate events, and unforgettable celebrations. We turn
+                    moments into masterpieces.
+                </p>
+                <div class="animate-zoom-in">
+                    <a href="#services"
+                        class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 inline-block text-lg transform hover:-translate-y-1">
+                        Explore Our Services
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-2/5 flex justify-center lg:justify-center animate-zoom-in" style="animation-delay: 0.8s;">
+                <div class="creamy-circle-container animate-float">
+                    <div class="creamy-circle"></div>
+                    <img src="images/bjay.png" alt="Bijaya Bhandari" class="hero-image relative z-10">
+                </div>
+            </div>
         </div>
     </section>
 
-    <script>
-        // Popup ad logic: show on load unless user has skipped before (stored in localStorage).
-        // Auto-closes after 3s but only "Skip" will persist the dismissal so it won't show again.
-        (function(){
-            const popup = document.getElementById('popup-ad');
-            const skip = document.getElementById('ad-skip');
-            const link = document.getElementById('popup-ad-link');
-            let timer = null;
 
-            if(!popup) return;
-
-            // If user previously skipped, don't show again
-            try {
-                if (localStorage.getItem('popupAdDismissed') === '1') {
-                    return;
-                }
-            } catch (err) {
-                // localStorage may be unavailable in some privacy modes; ignore and continue showing
-                console.warn('localStorage unavailable for popup ad persistence', err);
-            }
-
-            function closePopup(persist) {
-                if(!popup) return;
-                popup.style.display = 'none';
-                if(timer) { clearTimeout(timer); timer = null; }
-                if (persist) {
-                    try { localStorage.setItem('popupAdDismissed', '1'); } catch (err) {}
-                }
-            }
-
-            // Show popup
-            popup.style.display = 'flex';
-            // Auto close after 3 seconds (3000 ms)
-            timer = setTimeout(function(){ closePopup(false); }, 3000);
-
-            // Skip button: close and persist dismissal so it won't auto-show again
-            if(skip){
-                skip.addEventListener('click', function(e){
-                    e.preventDefault();
-                    closePopup(true);
-                });
-            }
-
-            // Close when user clicks outside the image (does not persist)
-            popup.addEventListener('click', function(e){
-                if(e.target === popup) closePopup(false);
-            });
-
-            // If the user clicks the ad link, close the popup (do not persist — they saw/clicked)
-            if(link){
-                link.addEventListener('click', function(){ closePopup(false); });
-            }
-        })();
-    </script>
 
     <!-- About Me Section -->
     <section id="about" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
-        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="lg:order-2">
-                <img src="https://www.facebook.com/photo/?fbid=2724268144423181&set=p.2724268144423181"
-                    alt="Grand Ballroom" class="rounded-lg shadow-xl w-full h-auto">
+        <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 flex justify-center lg:justify-start">
+                <div class="w-full max-w-md">
+                    <img src="images/bja.jpg" alt="Bijaya Bhandari"
+                        class="rounded-lg shadow-xl w-full h-[500px] object-cover object-top hover:scale-[1.02] transition-transform duration-300">
+                </div>
             </div>
-            <div class="lg:order-1">
+            <div class="lg:col-span-7">
                 <h2
                     class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 border-b-4 border-orange-500 pb-2 inline-block">
                     About Me
@@ -301,10 +178,9 @@
                     <li class="flex items-center">
                         <i class="fas fa-check-circle text-orange-500 mr-3"></i> Photographer
                     </li>
-
-                    </li>
                     <li class="flex items-center">
                         <i class="fas fa-check-circle text-orange-500 mr-3"></i>Social Media Booster
+                    </li>
                 </ul>
 
                 <!-- Video CV & Resume Actions -->
@@ -314,7 +190,7 @@
                         <i class="fas fa-video mr-3"></i> Watch Video CV
                     </a>
 
-                    <a href="Bijaya%20Resume.pdf" download="Bijaya Resume.pdf"
+                    <a href="BijayaResume.pdf" download="Bijaya Resume.pdf"
                         class="inline-flex items-center justify-center border-2 border-orange-500 text-orange-600 font-semibold py-3 px-6 rounded-full shadow hover:bg-orange-50 transition-colors">
                         <i class="fas fa-file-download mr-3"></i> Download Resume
                     </a>
@@ -325,8 +201,9 @@
 
     <!-- Services / Pricing Section -->
     <section id="services" class="py-16 lg:py-24 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-8 text-center">
+        <div class="container mx-auto px-4 text-center">
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-8 border-b-4 border-orange-500 pb-2 inline-block">
                 My Services & Pricing
             </h2>
 
@@ -448,6 +325,86 @@
         </div>
     </section>
 
+    <!-- Workflow Section: Upload, Edit, Review & Deliver -->
+    <section id="workflow" class="py-16 lg:py-24 bg-gradient-to-r from-orange-50 to-orange-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 border-b-4 border-orange-500 pb-2 inline-block">
+                How Our Process Works
+            </h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                From upload to delivery, we guide you through every step of your project with professional quality and
+                dedicated support.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Step 1: Upload -->
+                <div
+                    class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                    <div class="workflow-icon mb-4">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-orange-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Upload</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        How to send footage, preferred formats and checklist to get started quickly.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <ul class="text-left text-sm text-gray-600 space-y-2">
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Video file supported formats</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>File size guidelines</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Pre-upload checklist</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2: Edit -->
+                <div
+                    class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                    <div class="workflow-icon mb-4">
+                        <i class="fas fa-video text-4xl text-orange-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Edit</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        What happens during editing: rough cuts, color, audio, effects and iterations.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <ul class="text-left text-sm text-gray-600 space-y-2">
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Professional cutting & trimming</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Color grading & effects</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Audio enhancement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review & Deliver -->
+                <div
+                    class="workflow-card bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+                    <div class="workflow-icon mb-4">
+                        <i class="fas fa-check-circle text-4xl text-orange-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Review & Deliver</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Feedback rounds, export settings and delivery formats we provide.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <ul class="text-left text-sm text-gray-600 space-y-2">
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Feedback rounds included</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Multiple export formats</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i>Fast secure delivery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="openGenericBookingModal()"
+                    class="btn-primary text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                    <i class="fas fa-shopping-cart mr-2"></i>Start Your Project Today
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Portfolio Section -->
     <section id="portfolio" class="py-16 lg:py-24 bg-white rounded-t-lg shadow-inner">
         <div class="container mx-auto px-4 text-center">
@@ -485,10 +442,10 @@
                 </div>
                 <!-- Portfolio Item 3 -->
                 <div class="portfolio-card bg-white shadow-lg">
-                    <img src="https://media.smallbiztrends.com/2022/02/how-much-do-graphic-designers-make.png"
-                        alt="Corporate Gala" class="w-full h-48 object-cover">
+                    <img src="https://img.freepik.com/free-photo/marketing-strategy-planning-strategy-concept_53876-42950.jpg?semt=ais_user_personalization&w=740&q=80"
+                        alt="Graphic Design" class="w-full h-48 object-cover">
                     <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Graphics Design</h3>
+                        <h3 class="text-2xl font-bold mb-2">Graphic Design</h3>
                         <p class="text-sm">Create visual elements such as logos, original images, and illustrations to
                             help deliver a message. Design layouts, including selection of colors, images, and
                             typefaces.</p>
@@ -514,29 +471,29 @@
                 <!-- Portfolio Item 5 -->
                 <div class="portfolio-card bg-white shadow-lg">
                     <img src="https://blog.slido.com/wp-content/uploads/2021/05/slido-hybrid-meetings-blog-header.jpg"
-                        alt="Cultural Event" class="w-full h-48 object-cover">
+                        alt="Job Center" class="w-full h-48 object-cover">
                     <div class="overlay flex flex-col justify-center items-center p-4 text-white">
                         <h3 class="text-2xl font-bold mb-2">Job Center</h3>
                         <p class="text-sm">A job centre is a place where people who are looking for work can go to get
                             advice on finding a job, and to look at advertisements placed by people who are looking for
                             new employees.</p>
-                        <a href="#"
+                        <a href="services/details/job-center.html"
                             class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
-                            Event</a>
+                            Details & Pricing</a>
                     </div>
                 </div>
                 <!-- Portfolio Item 6 -->
                 <div class="portfolio-card bg-white shadow-lg">
                     <img src="https://smartcuts.ch/wp-content/uploads/robot-and-woman-working-on-laptop-ai-smartcuts-video-blogpost.jpg"
-                        alt="Product Launch" class="w-full h-48 object-cover">
+                        alt="AI Video Production" class="w-full h-48 object-cover">
                     <div class="overlay flex flex-col justify-center items-center p-4 text-white">
-                        <h3 class="text-2xl font-bold mb-2">Ai Video Production</h3>
+                        <h3 class="text-2xl font-bold mb-2">AI Video Production</h3>
                         <p class="text-sm">AI in Video Production. From
                             automating editing to generating dynamic visuals, AI is making video production faster and
                             more accessible.</p>
-                        <a href="#"
+                        <a href="services/details/ai-video.html"
                             class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-full transition-colors duration-300">View
-                            Event</a>
+                            Details & Pricing</a>
                     </div>
                 </div>
             </div>
@@ -692,7 +649,8 @@
                 <textarea id="booking-notes" class="w-full border rounded-md p-2" rows="3"></textarea>
 
                 <div class="flex gap-3">
-                    <button id="booking-confirm" class="flex-1 py-2 bg-orange-500 text-white rounded-md">Confirm Booking</button>
+                    <button id="booking-confirm" class="flex-1 py-2 bg-orange-500 text-white rounded-md">Confirm
+                        Booking</button>
                     <button id="booking-cancel" class="flex-1 py-2 bg-gray-100 rounded-md">Cancel</button>
                 </div>
             </div>
@@ -703,7 +661,8 @@
     <div id="booking-confirmation" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4 text-center shadow-lg">
             <h4 class="text-lg font-semibold mb-2">Confirm booking?</h4>
-            <p class="text-sm text-gray-600 mb-4">Do you want to confirm and proceed? We will accept seva and generate a QR for payment.</p>
+            <p class="text-sm text-gray-600 mb-4">Do you want to confirm and proceed? We will accept seva and generate a
+                QR for payment.</p>
             <div class="flex gap-3">
                 <button id="confirm-yes" class="flex-1 py-2 bg-green-600 text-white rounded-md">Yes</button>
                 <button id="confirm-no" class="flex-1 py-2 bg-gray-100 rounded-md">No</button>
@@ -713,16 +672,19 @@
 
     <!-- Acceptance + QR screen -->
     <div id="booking-accepted" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4 text-center shadow-2xl transform scale-0" id="booking-accepted-card">
+        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4 text-center shadow-2xl transform scale-0"
+            id="booking-accepted-card">
             <h3 class="text-xl font-semibold mb-2">We accept seva</h3>
             <p class="text-sm text-gray-600 mb-4">Show this QR to complete payment or share it with the courier.</p>
 
             <div class="mx-auto mb-4 w-48 h-48 flex items-center justify-center">
-                <img id="booking-qr" src="" alt="QR code" class="w-44 h-44 rounded-md shadow-lg transform transition-transform duration-500" />
+                <img id="booking-qr" src="" alt="QR code"
+                    class="w-44 h-44 rounded-md shadow-lg transform transition-transform duration-500" />
             </div>
 
             <div class="flex gap-3">
-                <a id="download-qr" href="#" download="booking-qr.png" class="flex-1 py-2 bg-green-600 text-white rounded-md">Download QR</a>
+                <a id="download-qr" href="#" download="booking-qr.png"
+                    class="flex-1 py-2 bg-green-600 text-white rounded-md">Download QR</a>
                 <button id="close-accepted" class="flex-1 py-2 bg-gray-100 rounded-md">Close</button>
             </div>
         </div>
@@ -743,102 +705,256 @@
         </div>
     </div>
 
-    <!-- JavaScript for Smooth Scrolling Navigation Links -->
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
 
-                // Close mobile menu after clicking a link
-                if (window.innerWidth < 1024) { // Only for smaller screens
-                    document.getElementById('nav-content').classList.add('hidden');
-                }
-            });
-        });
-    </script>
-    <script>
-        // Scrollspy: set active nav link based on the section in view
-        (function () {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
 
-            function setActive(link) {
-                navLinks.forEach(a => {
-                    a.classList.remove('text-orange-600', 'bg-orange-50');
-                    a.classList.add('text-gray-600');
-                });
-                if (link) {
-                    link.classList.remove('text-gray-600');
-                    link.classList.add('text-orange-600', 'bg-orange-50');
-                }
-            }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        const activeLink = navLinks.find(a => a.getAttribute('href') === `#${id}`);
-                        setActive(activeLink);
-                    }
-                });
-            }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+    <!-- Chatbot Widget -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div id="chatbot-window" class="chatbot-window hidden">
+            <div class="chatbot-header">
+                <h3>AI Assistant</h3>
+                <button id="close-chatbot" class="close-btn">&times;</button>
+            </div>
+            <div id="chatbot-messages" class="chatbot-messages">
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Type your question (English or Nepali)..."
+                    class="chatbot-input">
+                <button id="send-btn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="chatbot-btn" class="chatbot-btn">
+            <i class="fas fa-message"></i>
+        </button>
+    </div>
 
-            sections.forEach(s => observer.observe(s));
+    <!-- Chatbot Script -->
+    <script src="chatbot.js"></script>
 
-            // set initial active based on scroll position
-            window.addEventListener('load', () => {
-                // trigger observer by checking current viewport
-                sections.forEach(s => {
-                    const rect = s.getBoundingClientRect();
-                    if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.25) {
-                        const activeLink = navLinks.find(a => a.getAttribute('href') === `#${s.id}`);
-                        setActive(activeLink);
-                    }
-                });
-            });
-        })();
-    </script>
-    <script>
-        // Make pricing cards selectable (one featured at a time)
-        (function () {
-            const cards = document.querySelectorAll('#services .relative');
-            cards.forEach(card => {
-                card.classList.add('price-card');
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function (e) {
-                    // prevent clicks on internal links/buttons from toggling
-                    if (e.target.closest('a') || e.target.closest('button')) return;
-                    // remove featured from others
-                    document.querySelectorAll('#services .price-card.featured').forEach(c => c.classList.remove('featured'));
-                    // toggle this one
-                    card.classList.toggle('featured');
-                });
-            });
-        })();
-    </script>
-    <script>
-        function openVideoCV() {
-            const modal = document.getElementById('video-cv-modal');
-            const iframe = document.getElementById('video-cv-iframe');
-            // Set your video URL here (YouTube embed or hosted video)
-            iframe.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+    <!-- Booking Modal (global) -->
+    <div id="booking-modal" class="booking-modal">
+        <div class="booking-modal-content">
+            <button class="booking-close" onclick="closeBookingModal()">&times;</button>
+            <h2>Book <span id="booking-package-title">Service</span></h2>
 
-        function closeVideoCV() {
-            const modal = document.getElementById('video-cv-modal');
-            const iframe = document.getElementById('video-cv-iframe');
-            iframe.src = '';
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-    </script>
+            <!-- Workflow Progress Tracker -->
+            <div class="workflow-progress" id="workflow-progress">
+                <div class="progress-step" id="progress-step-1">
+                    <div class="progress-step-circle">1</div>
+                    <div class="progress-step-label">Service</div>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step" id="progress-step-2">
+                    <div class="progress-step-circle">2</div>
+                    <div class="progress-step-label">Upload</div>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="progress-step" id="progress-step-3">
+                    <div class="progress-step-circle">3</div>
+                    <div class="progress-step-label">Confirm</div>
+                </div>
+            </div>
+
+            <div class="booking-summary">
+                <div class="booking-summary-item">
+                    <span>Service Package:</span>
+                    <span id="booking-package-name">-</span>
+                </div>
+                <div class="booking-summary-item">
+                    <span>Total Price:</span>
+                    <span id="booking-total-price">-</span>
+                </div>
+            </div>
+
+            <form id="booking-form" onsubmit="submitBooking(); return false;">
+                <!-- Step 1: Service Selection -->
+                <div id="booking-step-1" class="booking-step active">
+                    <h3 class="booking-step-title">Select Your Service</h3>
+
+                    <div class="booking-form-group">
+                        <label for="serviceType">Service Type *</label>
+                        <select id="serviceType" name="serviceType" onchange="updateServiceOptions()" required>
+                            <option value="">-- Choose a Service --</option>
+                            <option value="Video Editing">Video Editing</option>
+                            <option value="Photography">Photography</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="Social Media Boosting">Social Media Boosting</option>
+                            <option value="Job Center">Job Center</option>
+                            <option value="AI Video Production">AI Video Production</option>
+                        </select>
+                    </div>
+
+                    <div class="booking-form-group">
+                        <label for="packageOption">Package Option *</label>
+                        <select id="packageOption" name="packageOption" onchange="updatePackagePrice()" required>
+                            <option value="">-- Choose a Package --</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn-step-next" onclick="nextBookingStep()">Next: Upload Files</button>
+                </div>
+
+                <!-- Step 2: Upload Files -->
+                <div id="booking-step-2" class="booking-step">
+                    <h3 class="booking-step-title">Upload Your Files</h3>
+
+                    <div class="booking-form-group">
+                        <label for="videoFile">Upload Video/Files *</label>
+                        <div class="file-upload-area" id="file-upload-area">
+                            <input type="file" id="videoFile" name="videoFile" accept="video/*,image/*,.pdf" multiple>
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag and drop your files here or click to browse</p>
+                            <small>Supported: MP4, MOV, AVI, PNG, JPG, PDF (Max 500MB)</small>
+                        </div>
+                        <div id="file-list" class="file-list"></div>
+                    </div>
+
+                    <div class="booking-form-row">
+                        <div class="booking-form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="booking-form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="booking-form-row">
+                        <div class="booking-form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="booking-form-group">
+                            <label for="whatsapp">WhatsApp Number *</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+977..." required>
+                        </div>
+                    </div>
+
+                    <div class="booking-form-group">
+                        <label for="projectDesc">Project Description</label>
+                        <textarea id="projectDesc" name="projectDesc" rows="4"
+                            placeholder="Tell us about your project..."></textarea>
+                    </div>
+
+                    <div class="booking-form-group">
+                        <label for="deadline">Project Deadline</label>
+                        <input type="date" id="deadline" name="deadline">
+                    </div>
+
+                    <div class="booking-form-actions">
+                        <button type="button" class="btn-step-back" onclick="prevBookingStep()">Previous</button>
+                        <button type="button" class="btn-step-next" onclick="nextBookingStep()">Next: Confirm</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review & Confirm -->
+                <div id="booking-step-3" class="booking-step">
+                    <h3 class="booking-step-title">Review Your Order</h3>
+
+                    <div class="booking-review-section">
+                        <h4>Service Details</h4>
+                        <div class="review-item">
+                            <span>Service:</span>
+                            <span id="review-service">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Package:</span>
+                            <span id="review-package">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Price:</span>
+                            <span id="review-price">-</span>
+                        </div>
+                    </div>
+
+                    <div class="booking-review-section">
+                        <h4>Contact Information</h4>
+                        <div class="review-item">
+                            <span>Name:</span>
+                            <span id="review-name">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Email:</span>
+                            <span id="review-email">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Phone:</span>
+                            <span id="review-phone">-</span>
+                        </div>
+                        <div class="review-item">
+                            <span>WhatsApp:</span>
+                            <span id="review-whatsapp">-</span>
+                        </div>
+                    </div>
+
+                    <div class="booking-review-section">
+                        <h4>Files Uploaded</h4>
+                        <div id="review-files">-</div>
+                    </div>
+
+                    <div
+                        style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px; border-left: 4px solid #ff3c00;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required
+                                style="margin-right: 10px;">
+                            <span style="color: #333; font-size: 14px;">I agree to the terms and ready to proceed with
+                                payment via QR code</span>
+                        </label>
+                    </div>
+
+                    <div class="booking-form-actions">
+                        <button type="button" class="btn-step-back" onclick="prevBookingStep()">Previous</button>
+                        <button type="submit" class="btn-book-order">Proceed to Payment (Generate QR)</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qr-modal" class="qr-modal">
+        <div class="qr-modal-content">
+            <button class="booking-close" onclick="closeQRModal()">&times;</button>
+            <h2>Your Booking QR Code</h2>
+            <p>Scan this QR code to complete your payment</p>
+
+            <div class="qr-container">
+                <div id="qrcode"></div>
+            </div>
+
+            <div class="qr-info">
+                <h4>Booking Details</h4>
+                <p><strong>Booking Reference:</strong> <span id="booking-ref">-</span></p>
+                <p><strong>Client Name:</strong> <span id="customer-name">-</span></p>
+                <p><strong>Package:</strong> <span id="package-name">-</span></p>
+                <p><strong>Amount:</strong> <span id="booking-price">-</span></p>
+            </div>
+
+            <div id="whatsapp-send-section"
+                style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                <h4 style="color: #2e7d32; margin-bottom: 10px;">📱 Send to WhatsApp</h4>
+                <p style="color: #666; font-size: 14px; margin-bottom: 10px;">We'll send your booking details and QR
+                    code to your WhatsApp</p>
+                <button type="button" class="btn-whatsapp" onclick="sendToWhatsApp()"
+                    style="width: 100%; background: #25D366; color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                    <i class="fab fa-whatsapp"></i> Send to WhatsApp
+                </button>
+            </div>
+
+            <div class="qr-actions">
+                <button class="btn-download-qr" onclick="downloadQR()">
+                    <i class="fas fa-download"></i> Download QR Code
+                </button>
+                <button class="btn-close-qr" onclick="closeQRModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="booking.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
