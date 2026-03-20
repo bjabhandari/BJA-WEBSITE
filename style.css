@@ -14,6 +14,45 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+  position: relative;
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+}
+
+.fade-bottom {
+  transform: translateY(50px);
+}
+
+.fade-bottom.active {
+  transform: translateY(0);
+}
+
+.fade-left {
+  transform: translateX(-100px);
+}
+
+.fade-left.active {
+  transform: translateX(0);
+}
+
+.fade-right {
+  transform: translateX(100px);
+}
+
+.fade-right.active {
+  transform: translateX(0);
+}
+
 /* Global Styles and Typography */
 body {
   font-family: 'Inter', sans-serif;
