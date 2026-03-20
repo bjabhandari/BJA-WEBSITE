@@ -90,93 +90,73 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// Booking -> confirmation -> QR flow for Book Services button
+// Preloader Hiding Logic
+window.addEventListener('load', function () {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+            preloader.style.display = 'none';
+        }, 700);
+    }
+});
+
+// 3D Video Slider Logic for Video CV
 document.addEventListener('DOMContentLoaded', function () {
-    const bookingModal = document.getElementById('booking-modal');
-    const bookingClose = document.getElementById('booking-close');
-    const bookingCancel = document.getElementById('booking-cancel');
-    const bookingConfirm = document.getElementById('booking-confirm');
-    const bookingConfirmation = document.getElementById('booking-confirmation');
-    const confirmYes = document.getElementById('confirm-yes');
-    const confirmNo = document.getElementById('confirm-no');
-    const bookingAccepted = document.getElementById('booking-accepted');
-    const bookingAcceptedCard = document.getElementById('booking-accepted-card');
-    const bookingQR = document.getElementById('booking-qr');
-    const downloadQR = document.getElementById('download-qr');
-    const closeAccepted = document.getElementById('close-accepted');
+    const slider = document.querySelector('.video-slider');
+    const items = document.querySelectorAll('.slider-item');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
 
-    function openModal(el) { if (!el) return; el.classList.remove('hidden'); el.classList.add('flex'); }
-    function closeModal(el) { if (!el) return; el.classList.add('hidden'); el.classList.remove('flex'); }
-    
-    // Book services button listener (navbar)
-    const bookServicesBtn = document.getElementById('book-services-btn');
-    if (bookServicesBtn) bookServicesBtn.addEventListener('click', function () { openModal(bookingModal); });
-    
-    if (bookingClose) bookingClose.addEventListener('click', function () { closeModal(bookingModal); });
-    if (bookingCancel) bookingCancel.addEventListener('click', function () { closeModal(bookingModal); });
+    if (!slider || items.length === 0) return;
 
-    if (bookingConfirm) bookingConfirm.addEventListener('click', function () {
-        // basic validation
-        const name = (document.getElementById('booking-name') || {}).value || '';
-        const contact = (document.getElementById('booking-contact') || {}).value || '';
-        if (!name || !contact) {
-            alert('Please enter your name and contact');
-            return;
-        }
-        // show confirm yes/no
-        closeModal(bookingModal);
-        openModal(bookingConfirmation);
-    });
+    let currentIndex = 0;
+    const totalItems = items.length;
 
-    if (confirmNo) confirmNo.addEventListener('click', function () { closeModal(bookingConfirmation); });
+    function updateSlider() {
+        items.forEach((item, index) => {
+            item.classList.remove('active');
+            
+            // Calculate relative index for 3D placement
+            let relativeIndex = index - currentIndex;
+            
+            // Handle wrapping
+            if (relativeIndex > Math.floor(totalItems / 2)) relativeIndex -= totalItems;
+            if (relativeIndex < -Math.floor(totalItems / 2)) relativeIndex += totalItems;
 
-    if (confirmYes) confirmYes.addEventListener('click', function () {
-        // build booking payload
-        const name = (document.getElementById('booking-name') || {}).value || '';
-        const contact = (document.getElementById('booking-contact') || {}).value || '';
-        const service = (document.getElementById('booking-service') || {}).value || '';
-        const notes = (document.getElementById('booking-notes') || {}).value || '';
+            // Apply transformations
+            const rotateY = relativeIndex * 45; // Spread items
+            const translateZ = Math.abs(relativeIndex) * -150; // Push back non-active items
+            const translateX = relativeIndex * 120; // Spread horizontally
 
-        const bookingId = 'BK' + Date.now();
-        const payload = JSON.stringify({ id: bookingId, name, contact, service, notes });
+            if (relativeIndex === 0) {
+                item.classList.add('active');
+                item.style.transform = `translate(-50%, -50%) translateZ(400px) rotateY(0deg)`;
+                item.style.opacity = '1';
+                item.style.zIndex = '10';
+            } else {
+                item.style.transform = `translate(-50%, -50%) translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg)`;
+                item.style.opacity = Math.abs(relativeIndex) > 2 ? '0' : '0.6';
+                item.style.zIndex = (10 - Math.abs(relativeIndex)).toString();
+            }
+        });
+    }
 
-        // generate QR via Google Chart API (simple, no extra dependency)
-        const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(payload) + '&choe=UTF-8';
-        if (bookingQR) bookingQR.src = qrUrl;
-        if (downloadQR) downloadQR.href = qrUrl;
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalItems;
+            updateSlider();
+        });
+    }
 
-        closeModal(bookingConfirmation);
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            updateSlider();
+        });
+    }
 
-        // show acceptance modal with animation
-        if (bookingAccepted) {
-            bookingAccepted.classList.remove('hidden');
-            bookingAccepted.classList.add('flex');
-        }
-        if (bookingAcceptedCard) {
-            // start scaled down then pop in
-            bookingAcceptedCard.style.transform = 'scale(0.6)';
-            bookingAcceptedCard.style.opacity = '0';
-            setTimeout(() => {
-                bookingAcceptedCard.style.transition = 'transform 420ms cubic-bezier(.2,.8,.2,1), opacity 300ms ease';
-                bookingAcceptedCard.style.transform = 'scale(1)';
-                bookingAcceptedCard.style.opacity = '1';
-            }, 40);
-        }
-
-        // store booking locally for demo
-        try { localStorage.setItem('lastBooking', payload); } catch (e) { }
-    });
-
-    if (closeAccepted) closeAccepted.addEventListener('click', function () {
-        if (bookingAcceptedCard) {
-            bookingAcceptedCard.style.transform = 'scale(0.8)';
-            bookingAcceptedCard.style.opacity = '0';
-            setTimeout(() => {
-                if (bookingAccepted) closeModal(bookingAccepted);
-            }, 280);
-        } else {
-            if (bookingAccepted) closeModal(bookingAccepted);
-        }
-    });
+    // Initialize
+    updateSlider();
 });
 
